@@ -2,14 +2,15 @@ import jwt from 'jsonwebtoken';
 import asyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
 
-const protect = asyncHandler(async (req, res, next) => {
+const protect = asyncHandler(async (req: any, res: any, next: any) => {
   let token;
 
   token = req.cookies.jwt;
 
   if (token) {
     try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const jwtSecret: any = process.env.JWT_SECRET;
+      const decoded: any = jwt.verify(token, jwtSecret);
 
       req.user = await User.findById(decoded.userId).select('-password');
 
