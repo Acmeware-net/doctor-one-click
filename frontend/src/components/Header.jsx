@@ -36,7 +36,7 @@ const Header = () => {
             <nav className='ms-auto flex flex-row px-4 space-x-4'>
               {userInfo ? (
                 <>
-                  <div title={userInfo.name} id='username'>
+                  <div title={userInfo.name} id='username'>:
                     <Link to='/profile'>
                       <div>Profile</div>
                     </Link>
@@ -48,12 +48,12 @@ const Header = () => {
               ) : (
                 <>
                   <Link to='/login'>
-                    <div>
+                    <div >
                       <FaSignInAlt /> Sign In
                     </div>
                   </Link>
                   <Link to='/register'>
-                    <div>
+                    <div >
                       <FaSignOutAlt /> Sign Up
                     </div>
                   </Link>

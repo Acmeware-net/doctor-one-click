@@ -34,7 +34,6 @@ const LoginScreen = () => {
       toast.error(err?.data?.message || err.error);
     }
   };
-
   return (
     <FormContainer>
       <h1>Sign In</h1>
