@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRegisterMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
+import "./RegisterScreen.css"
+
 
 const RegisterScreen = () => {
   const [name, setName] = useState('');
@@ -45,6 +47,7 @@ const RegisterScreen = () => {
   };
 
   return (
+    <div className='registerform'>
     <FormContainer>
       <h1>Register</h1>
       <form onSubmit={submitHandler}>
@@ -100,6 +103,7 @@ const RegisterScreen = () => {
         </div>
       </div>
     </FormContainer>
+    </div>
   );
 };
 
