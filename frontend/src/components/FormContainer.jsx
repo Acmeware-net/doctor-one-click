@@ -1,11 +1,8 @@
-
 const FormContainer = ({ children }) => {
   return (
-    <div>
-      <div className='justify-content-md-center mt-5'>
-        <div xs={12} md={6} className='card p-5'>
-          {children}
-        </div>
+    <div className="flex justify-center mt-5">
+      <div className="w-full max-w-md bg-lime-50 p-6 rounded-1g shadow-md">
+        {children}
       </div>
     </div>
   );
