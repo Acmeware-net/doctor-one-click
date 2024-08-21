@@ -43,6 +43,7 @@ const RegisterScreen = () => {
       }
     }
   };
+
   return (
     <FormContainer>
       <h1>Register</h1>
