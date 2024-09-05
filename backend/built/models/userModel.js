@@ -14,20 +14,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
+// Create a Schema corresponding to the document interface.
 const userSchema = new mongoose_1.Schema({
-    name: {
-        type: String,
-        required: true,
-    },
-    email: {
-        type: String,
-        required: true,
-        unique: true,
-    },
-    password: {
-        type: String,
-        required: true,
-    },
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+    password: { type: String, required: true },
+    phone: { type: String, required: true },
+    address: { type: String, required: true },
+    gender: { type: String, required: true },
+    age: { type: String, required: true },
 }, {
     timestamps: true,
 });
@@ -40,7 +35,6 @@ userSchema.methods.matchPassword = function (enteredPassword) {
 // Encrypt password using bcrypt
 userSchema.pre('save', function (next) {
     return __awaiter(this, void 0, void 0, function* () {
-        // @ts-ignore
         if (!this.isModified('password')) {
             next();
         }
@@ -49,5 +43,6 @@ userSchema.pre('save', function (next) {
         this.password = yield bcryptjs_1.default.hash(this.password, salt);
     });
 });
-const User = new mongoose_1.Model('User', userSchema);
+// Create a Model.
+const User = (0, mongoose_1.model)('User', userSchema);
 exports.default = User;

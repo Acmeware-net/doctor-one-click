@@ -22,6 +22,7 @@ const generateToken_js_1 = __importDefault(require("../utils/generateToken.js"))
 const authUser = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
     const user = yield userModel_js_1.default.findOne({ email });
+    // @ts-ignore
     if (user && (yield user.matchPassword(password))) {
         (0, generateToken_js_1.default)(res, user._id);
         res.json({

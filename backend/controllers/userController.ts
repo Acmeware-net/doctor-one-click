@@ -9,7 +9,7 @@ const authUser = asyncHandler(async (req: any, res: any) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
-
+  // @ts-ignore
   if (user && (await user.matchPassword(password))) {
     generateToken(res, user._id);
 
