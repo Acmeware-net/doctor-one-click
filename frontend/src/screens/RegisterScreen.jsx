@@ -8,12 +8,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRegisterMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
+import "./RegisterScreen.css"
+
 
 const RegisterScreen = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [age, setAge] = useState(''); 
+  const [gender, setGender] = useState(''); 
+  const [phone, setPhone] = useState(''); 
+  const [address, setAddress] = useState(''); 
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -35,7 +41,7 @@ const RegisterScreen = () => {
       toast.error('Passwords do not match');
     } else {
       try {
-        const res = await register({ name, email, password }).unwrap();
+        const res = await register({ name, email, password, age, gender, phone, address }).unwrap();
         dispatch(setCredentials({ ...res }));
         navigate('/');
       } catch (err) {
@@ -45,6 +51,7 @@ const RegisterScreen = () => {
   };
 
   return (
+    <div className='registerform'>
     <FormContainer>
       <h1>Register</h1>
       <form onSubmit={submitHandler}>
@@ -65,6 +72,46 @@ const RegisterScreen = () => {
             placeholder='Enter email'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+          ></input>
+        </div>
+
+        <div className='my-2' id='age'>
+          <label>Email Your Age</label>
+          <input
+            type='age'
+            placeholder='Enter your age'
+            value={age}
+            onChange={(e) => setAge(e.target.value)}
+          ></input>
+        </div>
+
+        <div className='my-2' id='gender'>
+          <label>Email Your Gender</label>
+          <input
+            type='gender'
+            placeholder='Enter your gender'
+            value={gender}
+            onChange={(e) => setGender(e.target.value)}
+          ></input>
+        </div>
+
+        <div className='my-2' id='phone'>
+          <label>Email Phone Number</label>
+          <input
+            type='phone'
+            placeholder='Enter your phone number'
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+          ></input>
+        </div>
+
+        <div className='my-2' id='address'>
+          <label>Email Your Home Address</label>
+          <input
+            type='address'
+            placeholder='Enter your home address'
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
           ></input>
         </div>
 
@@ -100,6 +147,7 @@ const RegisterScreen = () => {
         </div>
       </div>
     </FormContainer>
+    </div>
   );
 };
 
