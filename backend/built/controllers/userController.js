@@ -41,16 +41,21 @@ exports.authUser = authUser;
 // @route   POST /api/users
 // @access  Public
 const registerUser = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, email, password } = req.body;
+    const { name, email, password, age, gender, phone, address } = req.body;
     const userExists = yield userModel_js_1.default.findOne({ email });
     if (userExists) {
         res.status(400);
+        console.log('User already exists');
         throw new Error('User already exists');
     }
     const user = yield userModel_js_1.default.create({
         name,
         email,
         password,
+        age,
+        gender,
+        phone,
+        address
     });
     if (user) {
         (0, generateToken_js_1.default)(res, user._id);
@@ -58,6 +63,10 @@ const registerUser = (0, express_async_handler_1.default)((req, res) => __awaite
             _id: user._id,
             name: user.name,
             email: user.email,
+            age: user.age,
+            gender: user.gender,
+            phone: user.phone,
+            address: user.address,
         });
     }
     else {
@@ -87,6 +96,10 @@ const getUserProfile = (0, express_async_handler_1.default)((req, res) => __awai
             _id: user._id,
             name: user.name,
             email: user.email,
+            age: user.age,
+            gender: user.gender,
+            phone: user.phone,
+            address: user.address,
         });
     }
     else {
@@ -103,6 +116,10 @@ const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __a
     if (user) {
         user.name = req.body.name || user.name;
         user.email = req.body.email || user.email;
+        user.age = req.body.age || user.age;
+        user.gender = req.body.gender || user.gender;
+        user.phone = req.body.phone || user.phone;
+        user.address = req.body.address || user.address;
         if (req.body.password) {
             user.password = req.body.password;
         }
@@ -111,6 +128,10 @@ const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __a
             _id: updatedUser._id,
             name: updatedUser.name,
             email: updatedUser.email,
+            age: updatedUser.age,
+            gender: updatedUser.gender,
+            phone: updatedUser.phone,
+            address: updatedUser.address,
         });
     }
     else {

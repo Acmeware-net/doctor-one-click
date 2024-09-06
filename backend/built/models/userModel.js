@@ -19,10 +19,10 @@ const userSchema = new mongoose_1.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
-    phone: { type: String, required: true },
-    address: { type: String, required: true },
-    gender: { type: String, required: true },
-    age: { type: String, required: true },
+    phone: { type: String, required: false },
+    address: { type: String, required: false },
+    gender: { type: String, required: false },
+    age: { type: String, required: false },
 }, {
     timestamps: true,
 });

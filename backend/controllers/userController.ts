@@ -28,7 +28,7 @@ const authUser = asyncHandler(async (req: any, res: any) => {
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req: any, res: any) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, age, gender, phone, address } = req.body;
 
   const userExists = await User.findOne({ email });
 
@@ -41,6 +41,10 @@ const registerUser = asyncHandler(async (req: any, res: any) => {
     name,
     email,
     password,
+    age,
+    gender,
+    phone,
+    address
   });
 
   if (user) {
@@ -50,6 +54,10 @@ const registerUser = asyncHandler(async (req: any, res: any) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      age: user.age,
+      gender: user.gender,
+      phone: user.phone,
+      address: user.address,
     });
   } else {
     res.status(400);
@@ -79,6 +87,10 @@ const getUserProfile = asyncHandler(async (req: any, res: any) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      age: user.age,
+      gender: user.gender,
+      phone: user.phone,
+      address: user.address,
     });
   } else {
     res.status(404);
@@ -95,7 +107,11 @@ const updateUserProfile = asyncHandler(async (req: any, res: any) => {
   if (user) {
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
-
+    user.age = req.body.age || user.age;
+    user.gender = req.body.gender || user.gender;
+    user.phone = req.body.phone || user.phone;
+    user.address = req.body.address || user.address;
+    
     if (req.body.password) {
       user.password = req.body.password;
     }
@@ -106,6 +122,10 @@ const updateUserProfile = asyncHandler(async (req: any, res: any) => {
       _id: updatedUser._id,
       name: updatedUser.name,
       email: updatedUser.email,
+      age: updatedUser.age,
+      gender: updatedUser.gender,
+      phone: updatedUser.phone,
+      address: updatedUser.address,
     });
   } else {
     res.status(404);
