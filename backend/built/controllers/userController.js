@@ -45,7 +45,6 @@ const registerUser = (0, express_async_handler_1.default)((req, res) => __awaite
     const userExists = yield userModel_js_1.default.findOne({ email });
     if (userExists) {
         res.status(400);
-        console.log('User already exists');
         throw new Error('User already exists');
     }
     const user = yield userModel_js_1.default.create({

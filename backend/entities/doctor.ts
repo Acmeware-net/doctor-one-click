@@ -1,6 +1,6 @@
 import User from "./user";
 
-export class Doctor implements User{
+export default class Doctor implements User{
     phone: string;
     address: string;
     gender: string;
@@ -9,4 +9,6 @@ export class Doctor implements User{
     email: string;
     password: string;
     specialization: string;
+    description: string;
+    headline: string;
 }
