@@ -5,11 +5,11 @@ import generateToken from '../utils/generateToken.js';
 // @desc    Auth user & get token
 // @route   POST /api/users/auth
 // @access  Public
-const authUser = asyncHandler(async (req, res) => {
+const authUser = asyncHandler(async (req: any, res: any) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
-
+  // @ts-ignore
   if (user && (await user.matchPassword(password))) {
     generateToken(res, user._id);
 
@@ -27,8 +27,8 @@ const authUser = asyncHandler(async (req, res) => {
 // @desc    Register a new user
 // @route   POST /api/users
 // @access  Public
-const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
+const registerUser = asyncHandler(async (req: any, res: any) => {
+  const { name, email, password, age, gender, phone, address } = req.body;
 
   const userExists = await User.findOne({ email });
 
@@ -41,6 +41,10 @@ const registerUser = asyncHandler(async (req, res) => {
     name,
     email,
     password,
+    age,
+    gender,
+    phone,
+    address
   });
 
   if (user) {
@@ -50,6 +54,10 @@ const registerUser = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      age: user.age,
+      gender: user.gender,
+      phone: user.phone,
+      address: user.address,
     });
   } else {
     res.status(400);
@@ -60,7 +68,7 @@ const registerUser = asyncHandler(async (req, res) => {
 // @desc    Logout user / clear cookie
 // @route   POST /api/users/logout
 // @access  Public
-const logoutUser = (req, res) => {
+const logoutUser = (req: any, res: any) => {
   res.cookie('jwt', '', {
     httpOnly: true,
     expires: new Date(0),
@@ -71,7 +79,7 @@ const logoutUser = (req, res) => {
 // @desc    Get user profile
 // @route   GET /api/users/profile
 // @access  Private
-const getUserProfile = asyncHandler(async (req, res) => {
+const getUserProfile = asyncHandler(async (req: any, res: any) => {
   const user = await User.findById(req.user._id);
 
   if (user) {
@@ -79,6 +87,10 @@ const getUserProfile = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      age: user.age,
+      gender: user.gender,
+      phone: user.phone,
+      address: user.address,
     });
   } else {
     res.status(404);
@@ -89,13 +101,17 @@ const getUserProfile = asyncHandler(async (req, res) => {
 // @desc    Update user profile
 // @route   PUT /api/users/profile
 // @access  Private
-const updateUserProfile = asyncHandler(async (req, res) => {
+const updateUserProfile = asyncHandler(async (req: any, res: any) => {
   const user = await User.findById(req.user._id);
 
   if (user) {
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
-
+    user.age = req.body.age || user.age;
+    user.gender = req.body.gender || user.gender;
+    user.phone = req.body.phone || user.phone;
+    user.address = req.body.address || user.address;
+    
     if (req.body.password) {
       user.password = req.body.password;
     }
@@ -106,6 +122,10 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       _id: updatedUser._id,
       name: updatedUser.name,
       email: updatedUser.email,
+      age: updatedUser.age,
+      gender: updatedUser.gender,
+      phone: updatedUser.phone,
+      address: updatedUser.address,
     });
   } else {
     res.status(404);

@@ -1,6 +1,4 @@
-
 import { FaSignInAlt, FaSignOutAlt } from 'react-icons/fa';
-
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { useLogoutMutation } from '../slices/usersApiSlice';
@@ -25,42 +23,39 @@ const Header = () => {
   };
 
   return (
-    <header className="container bg-slate-300">
-      <nav  variant='dark' expand='lg' collapseOnSelect>
-        <div className='flex flex-row space-x-400'>
-          <Link to='/'>
-            <div className='float-left'>Welcome back!</div>
-          </Link>
-          {/* <div aria-controls='basic-navbar-nav' /> */}
-          <div id='basic-navbar-nav' className="float-right">
-            <nav className='ms-auto flex flex-row px-4 space-x-4'>
-              {userInfo ? (
-                <>
-                  <div title={userInfo.name} id='username'>
-                    <Link to='/profile'>
-                      <div>Profile</div>
-                    </Link>
-                    <div onClick={logoutHandler}>
-                      Logout
-                    </div>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <Link to='/login'>
-                    <div>
-                      <FaSignInAlt /> Sign In
-                    </div>
-                  </Link>
-                  <Link to='/register'>
-                    <div>
-                      <FaSignOutAlt /> Sign Up
-                    </div>
-                  </Link>
-                </>
-              )}
-            </nav>
-          </div>
+    <header className="bg-gray-800 text-white">
+      <nav className="container mx-auto px-4 py-2 flex justify-between items-center">
+        <Link to="/" className="text-lg font-bold">
+          Welcome back!
+        </Link>
+        <div className="flex space-x-4">
+          {userInfo ? (
+            <>
+              <div className="flex items-center space-x-2">
+                <span className="text-sm font-medium">{userInfo.name}</span>
+                <Link to="/profile" className="hover:text-gray-300">
+                  <span>Profile</span>
+                </Link>
+                <button
+                  onClick={logoutHandler}
+                  className="hover:text-gray-300 focus:outline-none"
+                >
+                  Logout
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <Link to="/login" className="flex items-center space-x-2 hover:text-gray-300">
+                <FaSignInAlt />
+                <span>Sign In</span>
+              </Link>
+              <Link to="/register" className="flex items-center space-x-2 hover:text-gray-300">
+                <FaSignOutAlt />
+                <span>Sign Up</span>
+              </Link>
+            </>
+          )}
         </div>
       </nav>
     </header>

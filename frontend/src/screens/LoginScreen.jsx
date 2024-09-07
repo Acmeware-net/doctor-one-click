@@ -6,8 +6,10 @@ import { useLoginMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
 import Loader from '../components/Loader';
+import "./LoginScreen.css"
 
-const LoginScreen = () => {
+
+ const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -34,8 +36,8 @@ const LoginScreen = () => {
       toast.error(err?.data?.message || err.error);
     }
   };
-
   return (
+    <div className='loginform'>
     <FormContainer>
       <h1>Sign In</h1>
 
@@ -78,6 +80,7 @@ const LoginScreen = () => {
         </div>
       </div>
     </FormContainer>
+    </div>
   );
 };
 
