@@ -59,7 +59,7 @@ const RegisterScreen = () => {
     <form onSubmit={submitHandler}
      className='bg-white p-10 rounded-lg  shadow-md   animate-fadeIn'>
      <div className="grid grid-cols-2 gap-8">
-      <div className='my-2' id='name'>
+      <div className='my-1' id='name'>
         <label className='block mb-2 text-gray-600 font-medium'> Name</label>
         <input
           type='text'
@@ -70,7 +70,7 @@ const RegisterScreen = () => {
         />
       </div>
 
-      <div className='my-2' id='email'>
+      <div className='my-1' id='email'>
         <label className='block mb-2 text-gray-600 font-medium'>Email Address</label>
         <input
           type='email'
@@ -81,7 +81,7 @@ const RegisterScreen = () => {
         />
       </div>
 
-      <div className='my-2' id='password'>
+      <div className='my-1' id='password'>
         <label className='block mb-2 text-gray-600 font-medium'>Password</label>
         <input
           type='password'
@@ -92,7 +92,7 @@ const RegisterScreen = () => {
         />
       </div>
 
-      <div className='my-2' id='confirmPassword'>
+      <div className='my-1' id='confirmPassword'>
         <label className='block mb-2 text-gray-600 font-medium'>Confirm Password</label>
         <input
           type='password'
@@ -104,7 +104,7 @@ const RegisterScreen = () => {
       </div>
       
 
- <div className='my-2' id='age'>
+ <div className='my-1' id='age'>
         <label className='block mb-2 text-gray-600 font-medium'>Age</label>
         <input
           type='text'
@@ -115,7 +115,7 @@ const RegisterScreen = () => {
         />
       </div>
 
-      <div className='my-2' id='gender'>
+      <div className='my-1' id='gender'>
         <label className='block mb-2 text-gray-600 font-medium'>Gender</label>
         <input
           type='text'
@@ -126,7 +126,7 @@ const RegisterScreen = () => {
         />
       </div>
 
-      <div className='my-2' id='phone'>
+      <div className='my-1' id='phone'>
         <label className='block mb-2 text-gray-600 font-medium'>Phone Number</label>
         <input
           type='text'
@@ -137,7 +137,7 @@ const RegisterScreen = () => {
         />
       </div>      
 
-      <div className='my-2' id='address'>
+      <div className='my-1' id='address'>
         <label className='block mb-2 text-gray-600 font-medium'>Address</label>
         <input
           type='text'
@@ -148,7 +148,7 @@ const RegisterScreen = () => {
         />
       </div>
 
-      <div className='my-2' id='city'>
+      <div className='my-1' id='city'>
         <label className='block mb-2 text-gray-600 font-medium'>City</label>
         <input
           type='text'
@@ -159,7 +159,7 @@ const RegisterScreen = () => {
         />
       </div>
 
-      <div className='my-2' id='country'>
+      <div className='my-1' id='country'>
         <label className='block mb-2 text-gray-600 font-medium'>Country</label>
         <input
           type='text'
