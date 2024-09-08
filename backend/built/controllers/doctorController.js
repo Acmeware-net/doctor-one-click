@@ -21,6 +21,7 @@ const generateToken_js_1 = __importDefault(require("../utils/generateToken.js"))
 // @access  Public
 const authDoctor = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
+    console.log(`email : ${email}`);
     const doctor = yield doctorModel_js_1.default.findOne({ email });
     // @ts-ignore
     if (doctor && (yield doctor.matchPassword(password))) {
@@ -36,6 +37,9 @@ const authDoctor = (0, express_async_handler_1.default)((req, res) => __awaiter(
             headline: doctor.headline,
             description: doctor.description,
             specialization: doctor.specialization,
+            experience: doctor.experience,
+            city: doctor.city,
+            country: doctor.country,
         });
     }
     else {
@@ -48,7 +52,7 @@ exports.authDoctor = authDoctor;
 // @route   POST /api/doctors
 // @access  Public
 const registerDoctor = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, email, password, age, gender, phone, address, headline, description, specialization } = req.body;
+    const { name, email, password, age, gender, phone, address, headline, description, specialization, experience, city, country } = req.body;
     const doctorExists = yield doctorModel_js_1.default.findOne({ email });
     if (doctorExists) {
         res.status(400);
@@ -65,6 +69,9 @@ const registerDoctor = (0, express_async_handler_1.default)((req, res) => __awai
         headline,
         description,
         specialization,
+        experience,
+        city,
+        country,
     });
     if (doctor) {
         (0, generateToken_js_1.default)(res, doctor._id);
@@ -79,6 +86,9 @@ const registerDoctor = (0, express_async_handler_1.default)((req, res) => __awai
             headline: doctor.headline,
             description: doctor.description,
             specialization: doctor.specialization,
+            experience: doctor.experience,
+            city: doctor.city,
+            country: doctor.country,
         });
     }
     else {
@@ -103,6 +113,7 @@ exports.logoutDoctor = logoutDoctor;
 // @access  Private
 const getDoctorProfile = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const doctor = yield doctorModel_js_1.default.findById(req.doctor._id);
+    console.log(`Doctor id: ${req.doctor._id}`);
     if (doctor) {
         res.json({
             _id: doctor._id,
@@ -115,6 +126,9 @@ const getDoctorProfile = (0, express_async_handler_1.default)((req, res) => __aw
             headline: doctor.headline,
             description: doctor.description,
             specialization: doctor.specialization,
+            experience: doctor.experience,
+            city: doctor.city,
+            country: doctor.country,
         });
     }
     else {
@@ -135,6 +149,12 @@ const updateDoctorProfile = (0, express_async_handler_1.default)((req, res) => _
         doctor.gender = req.body.gender || doctor.gender;
         doctor.phone = req.body.phone || doctor.phone;
         doctor.address = req.body.address || doctor.address;
+        doctor.headline = req.body.headline || doctor.headline;
+        doctor.description = req.body.description || doctor.description;
+        doctor.specialization = req.body.specialization || doctor.specialization;
+        doctor.experience = req.body.experience || doctor.experience;
+        doctor.city = req.body.city || doctor.city;
+        doctor.country = req.body.country || doctor.country;
         if (req.body.password) {
             doctor.password = req.body.password;
         }
@@ -150,6 +170,9 @@ const updateDoctorProfile = (0, express_async_handler_1.default)((req, res) => _
             headline: updateddoctor.headline,
             description: updateddoctor.description,
             specialization: updateddoctor.specialization,
+            experience: updateddoctor.experience,
+            city: updateddoctor.city,
+            country: updateddoctor.country,
         });
     }
     else {

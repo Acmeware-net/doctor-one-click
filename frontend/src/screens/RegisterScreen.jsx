@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRegisterMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
-import "./RegisterScreen.css"
 
 
 const RegisterScreen = () => {

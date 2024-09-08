@@ -6,7 +6,6 @@ import { useLoginMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
 import Loader from '../components/Loader';
-import "./LoginScreen.css"
 
 
  const LoginScreen = () => {

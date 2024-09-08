@@ -11,4 +11,7 @@ export default class Doctor implements User{
     specialization: string;
     description: string;
     headline: string;
+    experience: string;
+    city: string;
+    country: string;
 }

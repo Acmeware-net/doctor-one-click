@@ -14,7 +14,7 @@ import {
   getDoctorProfile,
   updateDoctorProfile
 } from '../controllers/doctorController.js';
-import { protect } from '../middleware/authMiddleware.js';
+import { protect, protectDoctor } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 // user routes
@@ -32,6 +32,6 @@ router.post('/authdoctor', authDoctor);
 router.post('/logoutdoctor', logoutDoctor);
 router
   .route('/profiledoctor')
-  .get(protect, getDoctorProfile)
-  .put(protect, updateDoctorProfile);
+  .get(protectDoctor, getDoctorProfile)
+  .put(protectDoctor, updateDoctorProfile);
 export default router;

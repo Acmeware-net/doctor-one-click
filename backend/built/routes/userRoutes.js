@@ -22,6 +22,6 @@ router.post('/authdoctor', doctorController_js_1.authDoctor);
 router.post('/logoutdoctor', doctorController_js_1.logoutDoctor);
 router
     .route('/profiledoctor')
-    .get(authMiddleware_js_1.protect, doctorController_js_1.getDoctorProfile)
-    .put(authMiddleware_js_1.protect, doctorController_js_1.updateDoctorProfile);
+    .get(authMiddleware_js_1.protectDoctor, doctorController_js_1.getDoctorProfile)
+    .put(authMiddleware_js_1.protectDoctor, doctorController_js_1.updateDoctorProfile);
 exports.default = router;
