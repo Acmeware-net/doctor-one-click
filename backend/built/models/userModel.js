@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 // Create a Schema corresponding to the document interface.
-const userSchema = new mongoose_1.Schema({
+const doctorSchema = new mongoose_1.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
@@ -26,14 +26,14 @@ const userSchema = new mongoose_1.Schema({
 }, {
     timestamps: true,
 });
-// Match user entered password to hashed password in database
-userSchema.methods.matchPassword = function (enteredPassword) {
+// Match doctor entered password to hashed password in database
+doctorSchema.methods.matchPassword = function (enteredPassword) {
     return __awaiter(this, void 0, void 0, function* () {
         return yield bcryptjs_1.default.compare(enteredPassword, this.password);
     });
 };
 // Encrypt password using bcrypt
-userSchema.pre('save', function (next) {
+doctorSchema.pre('save', function (next) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!this.isModified('password')) {
             next();
@@ -44,5 +44,5 @@ userSchema.pre('save', function (next) {
     });
 });
 // Create a Model.
-const User = (0, mongoose_1.model)('User', userSchema);
-exports.default = User;
+const Doctor = (0, mongoose_1.model)('Doctor', doctorSchema);
+exports.default = Doctor;

@@ -1,5 +1,5 @@
 
-interface User{
+interface Doctor{
     name: string;
     email: string;
     password: string;
@@ -9,4 +9,4 @@ interface User{
     age: string;
   }
 
-export default User;
+export default Doctor;

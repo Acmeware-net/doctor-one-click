@@ -12,24 +12,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateUserProfile = exports.getUserProfile = exports.logoutUser = exports.registerUser = exports.authUser = void 0;
+exports.updateDoctorProfile = exports.getDoctorProfile = exports.logoutDoctor = exports.registerDoctor = exports.authDoctor = void 0;
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
-const userModel_js_1 = __importDefault(require("../models/userModel.js"));
+const doctorModel_js_1 = __importDefault(require("../models/doctorModel.js"));
 const generateToken_js_1 = __importDefault(require("../utils/generateToken.js"));
-// @desc    Auth user & get token
-// @route   POST /api/users/auth
+// @desc    Auth doctor & get token
+// @route   POST /api/doctors/auth
 // @access  Public
-const authUser = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const authDoctor = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
     console.log(email);
-    const user = yield userModel_js_1.default.findOne({ email });
+    const doctor = yield doctorModel_js_1.default.findOne({ email });
     // @ts-ignore
-    if (user && (yield user.matchPassword(password))) {
-        (0, generateToken_js_1.default)(res, user._id);
+    if (doctor && (yield doctor.matchPassword(password))) {
+        (0, generateToken_js_1.default)(res, doctor._id);
         res.json({
-            _id: user._id,
-            name: user.name,
-            email: user.email,
+            _id: doctor._id,
+            name: doctor.name,
+            email: doctor.email,
         });
     }
     else {
@@ -37,18 +37,18 @@ const authUser = (0, express_async_handler_1.default)((req, res) => __awaiter(vo
         throw new Error('Invalid email or password');
     }
 }));
-exports.authUser = authUser;
-// @desc    Register a new user
-// @route   POST /api/users
+exports.authDoctor = authDoctor;
+// @desc    Register a new doctor
+// @route   POST /api/doctors
 // @access  Public
-const registerUser = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const registerDoctor = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { name, email, password, age, gender, phone, address } = req.body;
-    const userExists = yield userModel_js_1.default.findOne({ email });
-    if (userExists) {
+    const doctorExists = yield doctorModel_js_1.default.findOne({ email });
+    if (doctorExists) {
         res.status(400);
-        throw new Error('User already exists');
+        throw new Error('Doctor already exists');
     }
-    const user = yield userModel_js_1.default.create({
+    const doctor = yield doctorModel_js_1.default.create({
         name,
         email,
         password,
@@ -57,86 +57,86 @@ const registerUser = (0, express_async_handler_1.default)((req, res) => __awaite
         phone,
         address
     });
-    if (user) {
-        (0, generateToken_js_1.default)(res, user._id);
+    if (doctor) {
+        (0, generateToken_js_1.default)(res, doctor._id);
         res.status(201).json({
-            _id: user._id,
-            name: user.name,
-            email: user.email,
-            age: user.age,
-            gender: user.gender,
-            phone: user.phone,
-            address: user.address,
+            _id: doctor._id,
+            name: doctor.name,
+            email: doctor.email,
+            age: doctor.age,
+            gender: doctor.gender,
+            phone: doctor.phone,
+            address: doctor.address,
         });
     }
     else {
         res.status(400);
-        throw new Error('Invalid user data');
+        throw new Error('Invalid doctor data');
     }
 }));
-exports.registerUser = registerUser;
-// @desc    Logout user / clear cookie
-// @route   POST /api/users/logout
+exports.registerDoctor = registerDoctor;
+// @desc    Logout doctor / clear cookie
+// @route   POST /api/doctors/logout
 // @access  Public
-const logoutUser = (req, res) => {
+const logoutDoctor = (req, res) => {
     res.cookie('jwt', '', {
         httpOnly: true,
         expires: new Date(0),
     });
     res.status(200).json({ message: 'Logged out successfully' });
 };
-exports.logoutUser = logoutUser;
-// @desc    Get user profile
-// @route   GET /api/users/profile
+exports.logoutDoctor = logoutDoctor;
+// @desc    Get doctor profile
+// @route   GET /api/doctors/profile
 // @access  Private
-const getUserProfile = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield userModel_js_1.default.findById(req.user._id);
-    if (user) {
+const getDoctorProfile = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const doctor = yield doctorModel_js_1.default.findById(req.doctor._id);
+    if (doctor) {
         res.json({
-            _id: user._id,
-            name: user.name,
-            email: user.email,
-            age: user.age,
-            gender: user.gender,
-            phone: user.phone,
-            address: user.address,
+            _id: doctor._id,
+            name: doctor.name,
+            email: doctor.email,
+            age: doctor.age,
+            gender: doctor.gender,
+            phone: doctor.phone,
+            address: doctor.address,
         });
     }
     else {
         res.status(404);
-        throw new Error('User not found');
+        throw new Error('Doctor not found');
     }
 }));
-exports.getUserProfile = getUserProfile;
-// @desc    Update user profile
-// @route   PUT /api/users/profile
+exports.getDoctorProfile = getDoctorProfile;
+// @desc    Update doctor profile
+// @route   PUT /api/doctors/profile
 // @access  Private
-const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield userModel_js_1.default.findById(req.user._id);
-    if (user) {
-        user.name = req.body.name || user.name;
-        user.email = req.body.email || user.email;
-        user.age = req.body.age || user.age;
-        user.gender = req.body.gender || user.gender;
-        user.phone = req.body.phone || user.phone;
-        user.address = req.body.address || user.address;
+const updateDoctorProfile = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const doctor = yield doctorModel_js_1.default.findById(req.doctor._id);
+    if (doctor) {
+        doctor.name = req.body.name || doctor.name;
+        doctor.email = req.body.email || doctor.email;
+        doctor.age = req.body.age || doctor.age;
+        doctor.gender = req.body.gender || doctor.gender;
+        doctor.phone = req.body.phone || doctor.phone;
+        doctor.address = req.body.address || doctor.address;
         if (req.body.password) {
-            user.password = req.body.password;
+            doctor.password = req.body.password;
         }
-        const updatedUser = yield user.save();
+        const updatedDoctor = yield doctor.save();
         res.json({
-            _id: updatedUser._id,
-            name: updatedUser.name,
-            email: updatedUser.email,
-            age: updatedUser.age,
-            gender: updatedUser.gender,
-            phone: updatedUser.phone,
-            address: updatedUser.address,
+            _id: updatedDoctor._id,
+            name: updatedDoctor.name,
+            email: updatedDoctor.email,
+            age: updatedDoctor.age,
+            gender: updatedDoctor.gender,
+            phone: updatedDoctor.phone,
+            address: updatedDoctor.address,
         });
     }
     else {
         res.status(404);
-        throw new Error('User not found');
+        throw new Error('Doctor not found');
     }
 }));
-exports.updateUserProfile = updateUserProfile;
+exports.updateDoctorProfile = updateDoctorProfile;

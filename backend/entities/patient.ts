@@ -1,6 +1,5 @@
-import User from "./user";
 
-export default class Patient implements User{
+export default class Patient{
     phone: string;
     address: string;
     gender: string;

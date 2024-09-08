@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
 
-const generateToken = (res: any, userId: any) => {
+const generateToken = (res: any, doctorId: any) => {
   const jwtSecret: any = process.env.JWT_SECRET;
-  const token = jwt.sign({ userId }, jwtSecret, {
+  const token = jwt.sign({ doctorId }, jwtSecret, {
     expiresIn: '30d',
   });
 

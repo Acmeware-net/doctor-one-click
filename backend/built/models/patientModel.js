@@ -32,7 +32,7 @@ const schema = new mongoose_1.Schema({
 }, {
     timestamps: true,
 });
-// Match user entered password to hashed password in database
+// Match doctor entered password to hashed password in database
 schema.methods.matchPassword = function (enteredPassword) {
     return __awaiter(this, void 0, void 0, function* () {
         return yield bcryptjs_1.default.compare(enteredPassword, this.password);

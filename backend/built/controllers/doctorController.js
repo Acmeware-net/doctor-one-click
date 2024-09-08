@@ -12,34 +12,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updatePatientProfile = exports.getPatientProfile = exports.logoutPatient = exports.registerPatient = exports.authPatient = void 0;
+exports.updateDoctorProfile = exports.getDoctorProfile = exports.logoutDoctor = exports.registerDoctor = exports.authDoctor = void 0;
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
-const patientModel_js_1 = __importDefault(require("../models/patientModel.js"));
+const doctorModel_js_1 = __importDefault(require("../models/doctorModel.js"));
 const generateToken_js_1 = __importDefault(require("../utils/generateToken.js"));
-// @desc    Auth patient & get token
-// @route   POST /api/patients/auth
+// @desc    Auth doctor & get token
+// @route   POST /api/doctors/auth
 // @access  Public
-const authPatient = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const authDoctor = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
-    console.log(`email : ${email}`);
-    const patient = yield patientModel_js_1.default.findOne({ email });
+    console.log(email);
+    const doctor = yield doctorModel_js_1.default.findOne({ email });
     // @ts-ignore
-    if (patient && (yield patient.matchPassword(password))) {
-        (0, generateToken_js_1.default)(res, patient._id);
+    if (doctor && (yield doctor.matchPassword(password))) {
+        (0, generateToken_js_1.default)(res, doctor._id);
         res.json({
-            _id: patient._id,
-            name: patient.name,
-            email: patient.email,
-            age: patient.age,
-            gender: patient.gender,
-            phone: patient.phone,
-            address: patient.address,
-            headline: patient.headline,
-            description: patient.description,
-            specialization: patient.specialization,
-            experience: patient.experience,
-            city: patient.city,
-            country: patient.country,
+            _id: doctor._id,
+            name: doctor.name,
+            email: doctor.email,
         });
     }
     else {
@@ -47,137 +37,106 @@ const authPatient = (0, express_async_handler_1.default)((req, res) => __awaiter
         throw new Error('Invalid email or password');
     }
 }));
-exports.authPatient = authPatient;
-// @desc    Register a new patient
-// @route   POST /api/patients
+exports.authDoctor = authDoctor;
+// @desc    Register a new doctor
+// @route   POST /api/doctors
 // @access  Public
-const registerPatient = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, email, password, age, gender, phone, address, headline, description, specialization, experience, city, country } = req.body;
-    const patientExists = yield patientModel_js_1.default.findOne({ email });
-    if (patientExists) {
+const registerDoctor = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { name, email, password, age, gender, phone, address } = req.body;
+    const doctorExists = yield doctorModel_js_1.default.findOne({ email });
+    if (doctorExists) {
         res.status(400);
-        throw new Error('patient already exists');
+        throw new Error('Doctor already exists');
     }
-    const patient = yield patientModel_js_1.default.create({
+    const doctor = yield doctorModel_js_1.default.create({
         name,
         email,
         password,
         age,
         gender,
         phone,
-        address,
-        headline,
-        description,
-        specialization,
-        experience,
-        city,
-        country,
+        address
     });
-    if (patient) {
-        (0, generateToken_js_1.default)(res, patient._id);
+    if (doctor) {
+        (0, generateToken_js_1.default)(res, doctor._id);
         res.status(201).json({
-            _id: patient._id,
-            name: patient.name,
-            email: patient.email,
-            age: patient.age,
-            gender: patient.gender,
-            phone: patient.phone,
-            address: patient.address,
-            headline: patient.headline,
-            description: patient.description,
-            specialization: patient.specialization,
-            experience: patient.experience,
-            city: patient.city,
-            country: patient.country,
+            _id: doctor._id,
+            name: doctor.name,
+            email: doctor.email,
+            age: doctor.age,
+            gender: doctor.gender,
+            phone: doctor.phone,
+            address: doctor.address,
         });
     }
     else {
         res.status(400);
-        throw new Error('Invalid patient data');
+        throw new Error('Invalid doctor data');
     }
 }));
-exports.registerPatient = registerPatient;
-// @desc    Logout patient / clear cookie
-// @route   POST /api/patients/logout
+exports.registerDoctor = registerDoctor;
+// @desc    Logout doctor / clear cookie
+// @route   POST /api/doctors/logout
 // @access  Public
-const logoutPatient = (req, res) => {
+const logoutDoctor = (req, res) => {
     res.cookie('jwt', '', {
         httpOnly: true,
         expires: new Date(0),
     });
     res.status(200).json({ message: 'Logged out successfully' });
 };
-exports.logoutPatient = logoutPatient;
-// @desc    Get patient profile
-// @route   GET /api/patients/profile
+exports.logoutDoctor = logoutDoctor;
+// @desc    Get doctor profile
+// @route   GET /api/doctors/profile
 // @access  Private
-const getPatientProfile = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const patient = yield patientModel_js_1.default.findById(req.patient._id);
-    console.log(`Patient id: ${req.patient._id}`);
-    if (patient) {
+const getDoctorProfile = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const doctor = yield doctorModel_js_1.default.findById(req.doctor._id);
+    if (doctor) {
         res.json({
-            _id: patient._id,
-            name: patient.name,
-            email: patient.email,
-            age: patient.age,
-            gender: patient.gender,
-            phone: patient.phone,
-            address: patient.address,
-            headline: patient.headline,
-            description: patient.description,
-            specialization: patient.specialization,
-            experience: patient.experience,
-            city: patient.city,
-            country: patient.country,
+            _id: doctor._id,
+            name: doctor.name,
+            email: doctor.email,
+            age: doctor.age,
+            gender: doctor.gender,
+            phone: doctor.phone,
+            address: doctor.address,
         });
     }
     else {
         res.status(404);
-        throw new Error('patient not found');
+        throw new Error('Doctor not found');
     }
 }));
-exports.getPatientProfile = getPatientProfile;
-// @desc    Update patient profile
-// @route   PUT /api/patients/profile
+exports.getDoctorProfile = getDoctorProfile;
+// @desc    Update doctor profile
+// @route   PUT /api/doctors/profile
 // @access  Private
-const updatePatientProfile = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const patient = yield patientModel_js_1.default.findById(req.patient._id);
-    if (patient) {
-        patient.name = req.body.name || patient.name;
-        patient.email = req.body.email || patient.email;
-        patient.age = req.body.age || patient.age;
-        patient.gender = req.body.gender || patient.gender;
-        patient.phone = req.body.phone || patient.phone;
-        patient.address = req.body.address || patient.address;
-        patient.headline = req.body.headline || patient.headline;
-        patient.description = req.body.description || patient.description;
-        patient.specialization = req.body.specialization || patient.specialization;
-        patient.experience = req.body.experience || patient.experience;
-        patient.city = req.body.city || patient.city;
-        patient.country = req.body.country || patient.country;
+const updateDoctorProfile = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const doctor = yield doctorModel_js_1.default.findById(req.doctor._id);
+    if (doctor) {
+        doctor.name = req.body.name || doctor.name;
+        doctor.email = req.body.email || doctor.email;
+        doctor.age = req.body.age || doctor.age;
+        doctor.gender = req.body.gender || doctor.gender;
+        doctor.phone = req.body.phone || doctor.phone;
+        doctor.address = req.body.address || doctor.address;
         if (req.body.password) {
-            patient.password = req.body.password;
+            doctor.password = req.body.password;
         }
-        const updatedpatient = yield patient.save();
+        const updatedDoctor = yield doctor.save();
         res.json({
-            _id: updatedpatient._id,
-            name: updatedpatient.name,
-            email: updatedpatient.email,
-            age: updatedpatient.age,
-            gender: updatedpatient.gender,
-            phone: updatedpatient.phone,
-            address: updatedpatient.address,
-            headline: updatedpatient.headline,
-            description: updatedpatient.description,
-            specialization: updatedpatient.specialization,
-            experience: updatedpatient.experience,
-            city: updatedpatient.city,
-            country: updatedpatient.country,
+            _id: updatedDoctor._id,
+            name: updatedDoctor.name,
+            email: updatedDoctor.email,
+            age: updatedDoctor.age,
+            gender: updatedDoctor.gender,
+            phone: updatedDoctor.phone,
+            address: updatedDoctor.address,
         });
     }
     else {
         res.status(404);
-        throw new Error('patient not found');
+        throw new Error('Doctor not found');
     }
 }));
-exports.updatePatientProfile = updatePatientProfile;
+exports.updateDoctorProfile = updateDoctorProfile;

@@ -15,31 +15,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 // Create a Schema corresponding to the document interface.
-const schema = new mongoose_1.Schema({
+const doctorSchema = new mongoose_1.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
-    phone: { type: String, required: true },
-    address: { type: String, required: true },
-    gender: { type: String, required: true },
+    phone: { type: String, required: false },
+    address: { type: String, required: false },
+    gender: { type: String, required: false },
     age: { type: String, required: false },
-    experience: { type: String, required: true },
-    city: { type: String, required: true },
-    country: { type: String, required: true },
-    specialization: { type: String, required: true },
-    headline: { type: String, required: true },
-    description: { type: String, required: false },
 }, {
     timestamps: true,
 });
-// Match user entered password to hashed password in database
-schema.methods.matchPassword = function (enteredPassword) {
+// Match doctor entered password to hashed password in database
+doctorSchema.methods.matchPassword = function (enteredPassword) {
     return __awaiter(this, void 0, void 0, function* () {
         return yield bcryptjs_1.default.compare(enteredPassword, this.password);
     });
 };
 // Encrypt password using bcrypt
-schema.pre('save', function (next) {
+doctorSchema.pre('save', function (next) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!this.isModified('password')) {
             next();
@@ -50,5 +44,5 @@ schema.pre('save', function (next) {
     });
 });
 // Create a Model.
-const _Patient = (0, mongoose_1.model)('Patient', schema);
-exports.default = _Patient;
+const Doctor = (0, mongoose_1.model)('Doctor', doctorSchema);
+exports.default = Doctor;

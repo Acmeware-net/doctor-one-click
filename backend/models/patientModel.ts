@@ -22,7 +22,7 @@ const schema = new Schema<Patient>({
   timestamps: true,
 });
 
-// Match user entered password to hashed password in database
+// Match doctor entered password to hashed password in database
 schema.methods.matchPassword = async function (enteredPassword: any) {
     return await bcrypt.compare(enteredPassword, this.password);
   };
