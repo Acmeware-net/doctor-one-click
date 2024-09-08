@@ -2,9 +2,9 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const PrivateRoute = () => {
-  const { userInfo } = useSelector((state) => state.auth);
+  const { doctorInfo } = useSelector((state) => state.auth);
 
-  if (userInfo === undefined) {
+  if (doctorInfo === undefined) {
     // Optionally, you could show a loading spinner or a message here if needed
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -14,7 +14,7 @@ const PrivateRoute = () => {
     );
   }
 
-  return userInfo ? <Outlet /> : <Navigate to='/login' replace />;
+  return doctorInfo ? <Outlet /> : <Navigate to='/login' replace />;
 };
 
 export default PrivateRoute;

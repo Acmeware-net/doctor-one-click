@@ -1,12 +1,12 @@
-import User from "./user";
 
-export class Doctor implements User{
+interface Doctor{
+    name: string;
+    email: string;
+    password: string;
     phone: string;
     address: string;
     gender: string;
     age: string;
-    name: string;
-    email: string;
-    password: string;
-    specialization: string;
-}
+  }
+
+export default Doctor;

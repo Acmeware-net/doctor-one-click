@@ -1,9 +1,9 @@
 import { Schema, model, connect } from 'mongoose';
 import bcrypt from 'bcryptjs';
-import User from '../entities/user';
+import Doctor from '../entities/doctor';
 
 // Create a Schema corresponding to the document interface.
-const userSchema = new Schema<User>({
+const doctorSchema = new Schema<Doctor>({
   name: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
@@ -16,13 +16,13 @@ const userSchema = new Schema<User>({
   timestamps: true,
 });
 
-// Match user entered password to hashed password in database
-userSchema.methods.matchPassword = async function (enteredPassword: any) {
+// Match doctor entered password to hashed password in database
+doctorSchema.methods.matchPassword = async function (enteredPassword: any) {
     return await bcrypt.compare(enteredPassword, this.password);
   };
   
   // Encrypt password using bcrypt
-  userSchema.pre('save', async function (next: any) {
+  doctorSchema.pre('save', async function (next: any) {
     if (!this.isModified('password')) {
       next();
     }
@@ -33,6 +33,6 @@ userSchema.methods.matchPassword = async function (enteredPassword: any) {
   });
 
 // Create a Model.
-const User = model<User>('User', userSchema);
+const Doctor = model<Doctor>('Doctor', doctorSchema);
 
-export default User;
+export default Doctor;

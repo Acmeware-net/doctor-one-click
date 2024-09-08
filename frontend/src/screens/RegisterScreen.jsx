@@ -10,7 +10,6 @@ import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
 
 
-
 const RegisterScreen = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -28,13 +27,13 @@ const RegisterScreen = () => {
 
   const [register, { isLoading }] = useRegisterMutation();
 
-  const { userInfo } = useSelector((state) => state.auth);
+  const { doctorInfo } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (userInfo) {
+    if (doctorInfo) {
       navigate('/');
     }
-  }, [navigate, userInfo]);
+  }, [navigate, doctorInfo]);
 
   const submitHandler = async (e) => {
     e.preventDefault();

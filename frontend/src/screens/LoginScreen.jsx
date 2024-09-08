@@ -18,13 +18,13 @@ import Loader from '../components/Loader';
 
   const [login, { isLoading }] = useLoginMutation();
 
-  const { userInfo } = useSelector((state) => state.auth);
+  const { doctorInfo } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (userInfo) {
+    if (doctorInfo) {
       navigate('/');
     }
-  }, [navigate, userInfo]);
+  }, [navigate, doctorInfo]);
 
   const submitHandler = async (e) => {
     e.preventDefault();

@@ -5,7 +5,7 @@ import { useLogoutMutation } from '../slices/usersApiSlice';
 import { logout } from '../slices/authSlice';
 
 const Header = () => {
-  const { userInfo } = useSelector((state) => state.auth);
+  const { doctorInfo } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,10 +29,10 @@ const Header = () => {
           Welcome back!
         </Link>
         <div className="flex space-x-4">
-          {userInfo ? (
+          {doctorInfo ? (
             <>
               <div className="flex items-center space-x-2">
-                <span className="text-sm font-medium">{userInfo.name}</span>
+                <span className="text-sm font-medium">{doctorInfo.name}</span>
                 <Link to="/profile" className="hover:text-gray-300">
                   <span>Profile</span>
                 </Link>

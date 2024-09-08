@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import FormContainer from '../components/FormContainer';
 import { toast } from 'react-toastify';
 import Loader from '../components/Loader';
-import { useUpdateUserMutation } from '../slices/usersApiSlice';
+import { useUpdateDoctorMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 
 const ProfileScreen = () => {
@@ -15,14 +15,14 @@ const ProfileScreen = () => {
 
   const dispatch = useDispatch();
 
-  const { userInfo } = useSelector((state) => state.auth);
+  const { doctorInfo } = useSelector((state) => state.auth);
 
-  const [updateProfile, { isLoading }] = useUpdateUserMutation();
+  const [updateProfile, { isLoading }] = useUpdateDoctorMutation();
 
   useEffect(() => {
-    setName(userInfo.name);
-    setEmail(userInfo.email);
-  }, [userInfo.email, userInfo.name]);
+    setName(doctorInfo.name);
+    setEmail(doctorInfo.email);
+  }, [doctorInfo.email, doctorInfo.name]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -31,7 +31,7 @@ const ProfileScreen = () => {
     } else {
       try {
         const res = await updateProfile({
-          _id: userInfo._id,
+          _id: doctorInfo._id,
           name,
           email,
           password,

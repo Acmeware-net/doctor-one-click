@@ -10,14 +10,14 @@ dotenv_1.default.config();
 const db_js_1 = __importDefault(require("./config/db.js"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const errorMiddleware_js_1 = require("./middleware/errorMiddleware.js");
-const userRoutes_js_1 = __importDefault(require("./routes/userRoutes.js"));
+const routes_js_1 = __importDefault(require("./routes/routes.js"));
 const port = process.env.PORT || 5000;
 (0, db_js_1.default)();
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, cookie_parser_1.default)());
-app.use('/api/users', userRoutes_js_1.default);
+app.use('/api/doctors', routes_js_1.default);
 if (process.env.NODE_ENV === 'production') {
     const __dirname = path_1.default.resolve();
     app.use(express_1.default.static(path_1.default.join(__dirname, '/frontend/dist')));

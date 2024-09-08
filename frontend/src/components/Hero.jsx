@@ -6,7 +6,7 @@ const Hero = () => {
         <div className="p-5 flex flex-col items-center bg-light bg-white w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-lg">
           <h1 className="text-4xl font-bold text-center mb-4 text-blue-600">Your Health, Our Priority</h1>
           <p className="text-center text-gray-700 mb-4">
-            Connect with top doctors and healthcare providers at your convenience.
+            Connect with top patients and healthcare providers at your convenience.
           </p>
           <div className="flex space-x-4">
             <a href="/login">
