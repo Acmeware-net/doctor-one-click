@@ -8,13 +8,13 @@ import {
   updateUserProfile,
 } from '../controllers/userController.js';
 import {
-  authDoctor,
-  registerDoctor,
-  logoutDoctor,
-  getDoctorProfile,
-  updateDoctorProfile
-} from '../controllers/doctorController.js';
-import { protect, protectDoctor } from '../middleware/authMiddleware.js';
+  authPatient,
+  registerPatient,
+  logoutPatient,
+  getPatientProfile,
+  updatePatientProfile
+} from '../controllers/patientController.js';
+import { protect, protectPatient } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 // user routes
@@ -26,12 +26,12 @@ router
   .get(protect, getUserProfile)
   .put(protect, updateUserProfile);
 
-// Doctor routes
-router.post('/registerdoctor', registerDoctor);
-router.post('/authdoctor', authDoctor);
-router.post('/logoutdoctor', logoutDoctor);
+// Patient routes
+router.post('/registerpatient', registerPatient);
+router.post('/authpatient', authPatient);
+router.post('/logoutpatient', logoutPatient);
 router
-  .route('/profiledoctor')
-  .get(protectDoctor, getDoctorProfile)
-  .put(protectDoctor, updateDoctorProfile);
+  .route('/profilepatient')
+  .get(protectPatient, getPatientProfile)
+  .put(protectPatient, updatePatientProfile);
 export default router;

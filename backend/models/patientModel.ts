@@ -1,9 +1,9 @@
 import { Schema, model, connect } from 'mongoose';
 import bcrypt from 'bcryptjs';
-import Doctor from '../entities/doctor';
+import Patient from '../entities/patient';
 
 // Create a Schema corresponding to the document interface.
-const schema = new Schema<Doctor>({
+const schema = new Schema<Patient>({
   name: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
@@ -39,6 +39,6 @@ schema.methods.matchPassword = async function (enteredPassword: any) {
   });
 
 // Create a Model.
-const _Doctor = model<Doctor>('Doctor', schema);
+const _Patient = model<Patient>('Patient', schema);
 
-export default _Doctor;
+export default _Patient;

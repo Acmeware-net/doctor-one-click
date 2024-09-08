@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import asyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
-import Doctor from '../models/doctorModel.js';
+import Patient from '../models/patientModel.js';
 
 const protect = asyncHandler(async (req: any, res: any, next: any) => {
   let token;
@@ -30,7 +30,7 @@ const protect = asyncHandler(async (req: any, res: any, next: any) => {
 
 
 
-const protectDoctor = asyncHandler(async (req: any, res: any, next: any) => {
+const protectPatient = asyncHandler(async (req: any, res: any, next: any) => {
   let token;
 
   token = req.cookies.jwt;
@@ -41,7 +41,7 @@ console.log(`token : ${token}`);
       const decoded: any = jwt.verify(token, jwtSecret);
       const userId: any = decoded.userId;
       console.log(`decoded token: ${decoded}`);
-      req.user = await Doctor.findById(userId).select('-password');
+      req.user = await Patient.findById(userId).select('-password');
       console.log(`requested user is ${req.user}`);
       next();
     } catch (error) {
@@ -55,4 +55,4 @@ console.log(`token : ${token}`);
   }
 });
 
-export { protect, protectDoctor };
+export { protect, protectPatient };

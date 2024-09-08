@@ -12,11 +12,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.protectDoctor = exports.protect = void 0;
+exports.protectPatient = exports.protect = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
 const userModel_js_1 = __importDefault(require("../models/userModel.js"));
-const doctorModel_js_1 = __importDefault(require("../models/doctorModel.js"));
+const patientModel_js_1 = __importDefault(require("../models/patientModel.js"));
 const protect = (0, express_async_handler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let token;
     token = req.cookies.jwt;
@@ -43,7 +43,7 @@ const protect = (0, express_async_handler_1.default)((req, res, next) => __await
     }
 }));
 exports.protect = protect;
-const protectDoctor = (0, express_async_handler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const protectPatient = (0, express_async_handler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let token;
     token = req.cookies.jwt;
     console.log(`token : ${token}`);
@@ -53,7 +53,7 @@ const protectDoctor = (0, express_async_handler_1.default)((req, res, next) => _
             const decoded = jsonwebtoken_1.default.verify(token, jwtSecret);
             const userId = decoded.userId;
             console.log(`decoded token: ${decoded}`);
-            req.user = yield doctorModel_js_1.default.findById(userId).select('-password');
+            req.user = yield patientModel_js_1.default.findById(userId).select('-password');
             console.log(`requested user is ${req.user}`);
             next();
         }
@@ -68,4 +68,4 @@ const protectDoctor = (0, express_async_handler_1.default)((req, res, next) => _
         throw new Error('Not authorized, no token');
     }
 }));
-exports.protectDoctor = protectDoctor;
+exports.protectPatient = protectPatient;
