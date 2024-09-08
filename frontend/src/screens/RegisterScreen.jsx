@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRegisterMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
-import "./RegisterScreen.css"
+
 
 
 const RegisterScreen = () => {
@@ -50,105 +50,126 @@ const RegisterScreen = () => {
     }
   };
 
-  return (
-    <div className='registerform'>
-    <FormContainer>
-      <h1>Register</h1>
-      <form onSubmit={submitHandler}>
-        <div className='my-2' id='name'>
-          <label>Name</label>
-          <input
-            type='name'
-            placeholder='Enter name'
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          ></input>
-        </div>
-
-        <div className='my-2' id='email'>
-          <label>Email Address</label>
-          <input
-            type='email'
-            placeholder='Enter email'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          ></input>
-        </div>
-
-        <div className='my-2' id='age'>
-          <label>Email Your Age</label>
-          <input
-            type='age'
-            placeholder='Enter your age'
-            value={age}
-            onChange={(e) => setAge(e.target.value)}
-          ></input>
-        </div>
-
-        <div className='my-2' id='gender'>
-          <label>Email Your Gender</label>
-          <input
-            type='gender'
-            placeholder='Enter your gender'
-            value={gender}
-            onChange={(e) => setGender(e.target.value)}
-          ></input>
-        </div>
-
-        <div className='my-2' id='phone'>
-          <label>Email Phone Number</label>
-          <input
-            type='phone'
-            placeholder='Enter your phone number'
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-          ></input>
-        </div>
-
-        <div className='my-2' id='address'>
-          <label>Email Your Home Address</label>
-          <input
-            type='address'
-            placeholder='Enter your home address'
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-          ></input>
-        </div>
-
-        <div className='my-2' id='password'>
-          <label>Password</label>
-          <input
-            type='password'
-            placeholder='Enter password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          ></input>
-        </div>
-        <div className='my-2' id='confirmPassword'>
-          <label>Confirm Password</label>
-          <input
-            type='password'
-            placeholder='Confirm password'
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          ></input>
-        </div>
-
-        <button type='submit' variant='primary' className='mt-3'>
-          Register
-        </button>
-
-        {isLoading && <Loader />}
-      </form>
-
-      <div className='py-3'>
-        <div>
-          Already have an account? <Link to={`/login`}>Login</Link>
-        </div>
+  return(
+    <div className='flex justify-center font-poppins'>
+  <div className= " mt-10 max-w-6xl  bg-gray-100 p-10" >
+    <h1 className='text-2xl text-gray-800 text-center mb-5'>Register</h1>
+    <form onSubmit={submitHandler}
+     className='bg-white p-10 rounded-lg  shadow-md   animate-fadeIn'>
+     <div className="grid grid-cols-2 gap-8">
+      <div className='my-2' id='name'>
+        <label className='block mb-2 text-gray-600 font-medium'> Name</label>
+        <input
+          type='text'
+          placeholder='Enter name'
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
+        />
       </div>
-    </FormContainer>
+ <div className='my-2' id='age'>
+        <label className='block mb-2 text-gray-600 font-medium'>Age</label>
+        <input
+          type='text'
+          placeholder='Enter age'
+          value={age}
+          onChange={(e) => setAge(e.target.value)}
+          className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
+        />
+      </div>
+
+      <div className='my-2' id='email'>
+        <label className='block mb-2 text-gray-600 font-medium'>Email Address</label>
+        <input
+          type='email'
+          placeholder='Enter email address'
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
+        />
+      </div>
+
+     
+
+      <div className='my-2' id='gender'>
+        <label className='block mb-2 text-gray-600 font-medium'>Gender</label>
+        <input
+          type='text'
+          placeholder='Enter gender'
+          value={gender}
+          onChange={(e) => setGender(e.target.value)}
+          className='p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
+        />
+      </div>
+
+       <div className='my-2' id='password'>
+        <label className='block mb-2 text-gray-600 font-medium'>Password</label>
+        <input
+          type='password'
+          placeholder='Enter password'
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className='p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
+        />
+      </div>
+
+      <div className='my-2' id='phone'>
+        <label className='block mb-2 text-gray-600 font-medium'>Phone Number</label>
+        <input
+          type='text'
+          placeholder='Enter phone number'
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
+        />
+      </div>
+
+       <div className='my-2' id='confirmPassword'>
+        <label className='block mb-2 text-gray-600 font-medium'>Confirm Password</label>
+        <input
+          type='password'
+          placeholder='Confirm password'
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          className='p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
+        />
+      </div>
+
+      <div className='my-2' id='address'>
+        <label className='block mb-2 text-gray-600 font-medium'>Home Address</label>
+        <input
+          type='text'
+          placeholder='Enter home address'
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+          className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
+        />
+      </div>
+
+     
+
+     
+      </div>
+
+      <button type='submit' className='w-full p-2 rounded-md font-semibold text-lg bg-blue-400 text-white font-medium hover:bg-green-500 transition-all mt-3'>
+        Register
+      </button>
+
+      {isLoading && <Loader />}
+    </form>
+
+    <div className='py-3 text-center'>
+      <div>
+        Already have an account? <Link to={`/login`} className='text-blue-400 font-medium '>Login</Link>
+      </div>
     </div>
+  </div>
+</div>
+
   );
+  
+  
+ 
 };
 
 export default RegisterScreen;
