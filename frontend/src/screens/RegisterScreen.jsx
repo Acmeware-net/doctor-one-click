@@ -20,6 +20,8 @@ const RegisterScreen = () => {
   const [gender, setGender] = useState(''); 
   const [phone, setPhone] = useState(''); 
   const [address, setAddress] = useState(''); 
+  const [city, setCity] = useState(''); 
+  const [country, setCountry] = useState(''); 
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -61,19 +63,9 @@ const RegisterScreen = () => {
         <label className='block mb-2 text-gray-600 font-medium'> Name</label>
         <input
           type='text'
-          placeholder='Enter name'
+          placeholder='e.g. John Doe'
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
-        />
-      </div>
- <div className='my-2' id='age'>
-        <label className='block mb-2 text-gray-600 font-medium'>Age</label>
-        <input
-          type='text'
-          placeholder='Enter age'
-          value={age}
-          onChange={(e) => setAge(e.target.value)}
           className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
         />
       </div>
@@ -82,33 +74,54 @@ const RegisterScreen = () => {
         <label className='block mb-2 text-gray-600 font-medium'>Email Address</label>
         <input
           type='email'
-          placeholder='Enter email address'
+          placeholder='e.g. username@domain.com'
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
         />
       </div>
 
-     
+      <div className='my-2' id='password'>
+        <label className='block mb-2 text-gray-600 font-medium'>Password</label>
+        <input
+          type='password'
+          placeholder='e.g. t5X&#1qZ'
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className='p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
+        />
+      </div>
+
+      <div className='my-2' id='confirmPassword'>
+        <label className='block mb-2 text-gray-600 font-medium'>Confirm Password</label>
+        <input
+          type='password'
+          placeholder='e.g. repeat password'
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          className='p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
+        />
+      </div>
+      
+
+ <div className='my-2' id='age'>
+        <label className='block mb-2 text-gray-600 font-medium'>Age</label>
+        <input
+          type='text'
+          placeholder='e.g. 20'
+          value={age}
+          onChange={(e) => setAge(e.target.value)}
+          className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
+        />
+      </div>
 
       <div className='my-2' id='gender'>
         <label className='block mb-2 text-gray-600 font-medium'>Gender</label>
         <input
           type='text'
-          placeholder='Enter gender'
+          placeholder='e.g. male'
           value={gender}
           onChange={(e) => setGender(e.target.value)}
-          className='p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
-        />
-      </div>
-
-       <div className='my-2' id='password'>
-        <label className='block mb-2 text-gray-600 font-medium'>Password</label>
-        <input
-          type='password'
-          placeholder='Enter password'
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
           className='p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
         />
       </div>
@@ -117,36 +130,45 @@ const RegisterScreen = () => {
         <label className='block mb-2 text-gray-600 font-medium'>Phone Number</label>
         <input
           type='text'
-          placeholder='Enter phone number'
+          placeholder='e.g. +1 510 5469655'
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
         />
-      </div>
-
-       <div className='my-2' id='confirmPassword'>
-        <label className='block mb-2 text-gray-600 font-medium'>Confirm Password</label>
-        <input
-          type='password'
-          placeholder='Confirm password'
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          className='p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
-        />
-      </div>
+      </div>      
 
       <div className='my-2' id='address'>
-        <label className='block mb-2 text-gray-600 font-medium'>Home Address</label>
+        <label className='block mb-2 text-gray-600 font-medium'>Address</label>
         <input
           type='text'
-          placeholder='Enter home address'
+          placeholder='e.g. Office 2 street 5 area downtown'
           value={address}
           onChange={(e) => setAddress(e.target.value)}
           className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
         />
       </div>
 
-     
+      <div className='my-2' id='city'>
+        <label className='block mb-2 text-gray-600 font-medium'>City</label>
+        <input
+          type='text'
+          placeholder='e.g. San Francisco'
+          value={address}
+          onChange={(e) => setCity(e.target.value)}
+          className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
+        />
+      </div>
+
+      <div className='my-2' id='country'>
+        <label className='block mb-2 text-gray-600 font-medium'>Country</label>
+        <input
+          type='text'
+          placeholder='e.g. USA'
+          value={address}
+          onChange={(e) => setCountry(e.target.value)}
+          className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
+        />
+      </div>
 
      
       </div>
