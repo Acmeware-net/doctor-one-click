@@ -34,10 +34,6 @@ const authPatient = (0, express_async_handler_1.default)((req, res) => __awaiter
             gender: patient.gender,
             phone: patient.phone,
             address: patient.address,
-            headline: patient.headline,
-            description: patient.description,
-            specialization: patient.specialization,
-            experience: patient.experience,
             city: patient.city,
             country: patient.country,
         });
@@ -52,7 +48,7 @@ exports.authPatient = authPatient;
 // @route   POST /api/patients
 // @access  Public
 const registerPatient = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, email, password, age, gender, phone, address, headline, description, specialization, experience, city, country } = req.body;
+    const { name, email, password, age, gender, phone, address, city, country } = req.body;
     const patientExists = yield patientModel_js_1.default.findOne({ email });
     if (patientExists) {
         res.status(400);
@@ -66,10 +62,6 @@ const registerPatient = (0, express_async_handler_1.default)((req, res) => __awa
         gender,
         phone,
         address,
-        headline,
-        description,
-        specialization,
-        experience,
         city,
         country,
     });
@@ -83,10 +75,6 @@ const registerPatient = (0, express_async_handler_1.default)((req, res) => __awa
             gender: patient.gender,
             phone: patient.phone,
             address: patient.address,
-            headline: patient.headline,
-            description: patient.description,
-            specialization: patient.specialization,
-            experience: patient.experience,
             city: patient.city,
             country: patient.country,
         });
@@ -123,10 +111,6 @@ const getPatientProfile = (0, express_async_handler_1.default)((req, res) => __a
             gender: patient.gender,
             phone: patient.phone,
             address: patient.address,
-            headline: patient.headline,
-            description: patient.description,
-            specialization: patient.specialization,
-            experience: patient.experience,
             city: patient.city,
             country: patient.country,
         });
@@ -149,10 +133,6 @@ const updatePatientProfile = (0, express_async_handler_1.default)((req, res) => 
         patient.gender = req.body.gender || patient.gender;
         patient.phone = req.body.phone || patient.phone;
         patient.address = req.body.address || patient.address;
-        patient.headline = req.body.headline || patient.headline;
-        patient.description = req.body.description || patient.description;
-        patient.specialization = req.body.specialization || patient.specialization;
-        patient.experience = req.body.experience || patient.experience;
         patient.city = req.body.city || patient.city;
         patient.country = req.body.country || patient.country;
         if (req.body.password) {
@@ -167,10 +147,6 @@ const updatePatientProfile = (0, express_async_handler_1.default)((req, res) => 
             gender: updatedpatient.gender,
             phone: updatedpatient.phone,
             address: updatedpatient.address,
-            headline: updatedpatient.headline,
-            description: updatedpatient.description,
-            specialization: updatedpatient.specialization,
-            experience: updatedpatient.experience,
             city: updatedpatient.city,
             country: updatedpatient.country,
         });

@@ -7,10 +7,7 @@ export default class Patient{
     name: string;
     email: string;
     password: string;
-    specialization: string;
-    description: string;
-    headline: string;
-    experience: string;
+    // TODO
     city: string;
     country: string;
 }

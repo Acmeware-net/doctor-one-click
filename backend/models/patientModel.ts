@@ -11,12 +11,8 @@ const schema = new Schema<Patient>({
   address: { type: String, required: true },
   gender: { type: String, required: true },
   age: { type: String, required: false },
-  experience: { type: String, required: true },
   city: { type: String, required: true },
   country: { type: String, required: true },
-  specialization: {type: String, required: true},
-  headline: {type: String, required: true},
-  description: {type: String, required: false},
 },
 {
   timestamps: true,

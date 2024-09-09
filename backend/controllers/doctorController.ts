@@ -28,7 +28,7 @@ const authDoctor = asyncHandler(async (req: any, res: any) => {
 // @route   POST /api/doctors
 // @access  Public
 const registerDoctor = asyncHandler(async (req: any, res: any) => {
-  const { name, email, password, age, gender, phone, address } = req.body;
+  const { name, email, password, age, gender, phone, address, city, country, headline, description, specialization, experience } = req.body;
 
   const doctorExists = await Doctor.findOne({ email });
 
@@ -44,7 +44,13 @@ const registerDoctor = asyncHandler(async (req: any, res: any) => {
     age,
     gender,
     phone,
-    address
+    address,
+    city,
+    country,
+    specialization,
+    headline,
+    description,
+    experience
   });
 
   if (doctor) {
@@ -58,6 +64,12 @@ const registerDoctor = asyncHandler(async (req: any, res: any) => {
       gender: doctor.gender,
       phone: doctor.phone,
       address: doctor.address,
+      city: doctor.address,
+      country: doctor.country,
+      specialization: doctor.specialization,
+      headline: doctor.headline,
+      description: doctor.description,
+      experience: doctor.experience
     });
   } else {
     res.status(400);
@@ -91,6 +103,12 @@ const getDoctorProfile = asyncHandler(async (req: any, res: any) => {
       gender: doctor.gender,
       phone: doctor.phone,
       address: doctor.address,
+      city: doctor.address,
+      country: doctor.country,
+      specialization: doctor.specialization,
+      headline: doctor.headline,
+      description: doctor.description,
+      experience: doctor.experience
     });
   } else {
     res.status(404);
@@ -111,7 +129,12 @@ const updateDoctorProfile = asyncHandler(async (req: any, res: any) => {
     doctor.gender = req.body.gender || doctor.gender;
     doctor.phone = req.body.phone || doctor.phone;
     doctor.address = req.body.address || doctor.address;
-    
+    doctor.city = req.body.city || doctor.city;
+    doctor.country = req.body.country || doctor.country;
+    doctor.specialization = req.body.specialization || doctor.specialization;
+    doctor.headline = req.body.headline || doctor.headline;
+    doctor.description = req.body.description || doctor.description;
+    doctor.experience = req.body.experience || doctor.experience;
     if (req.body.password) {
       doctor.password = req.body.password;
     }
@@ -126,6 +149,12 @@ const updateDoctorProfile = asyncHandler(async (req: any, res: any) => {
       gender: updatedDoctor.gender,
       phone: updatedDoctor.phone,
       address: updatedDoctor.address,
+      city: updatedDoctor.address,
+      country: updatedDoctor.country,
+      specialization: updatedDoctor.specialization,
+      headline: updatedDoctor.headline,
+      description: updatedDoctor.description,
+      experience: updatedDoctor.experience
     });
   } else {
     res.status(404);

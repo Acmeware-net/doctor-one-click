@@ -15,12 +15,16 @@ const RegisterScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [age, setAge] = useState(''); 
+  const [dateofbirth, setDateofbirth] = useState(''); 
   const [gender, setGender] = useState(''); 
   const [phone, setPhone] = useState(''); 
   const [address, setAddress] = useState(''); 
   const [city, setCity] = useState(''); 
-  const [country, setCountry] = useState(''); 
+  const [state, setState] = useState(''); 
+  const [license, setLicense] = useState(''); 
+  const [zipcode, setZipCode] = useState(''); 
+  const [terms, setTerms] = useState(''); 
+  const [privacy, setPrivacy] = useState(''); 
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -42,6 +46,7 @@ const RegisterScreen = () => {
       toast.error('Passwords do not match');
     } else {
       try {
+        console.log
         const res = await register({ name, email, password, age, gender, phone, address }).unwrap();
         dispatch(setCredentials({ ...res }));
         navigate('/');
@@ -103,13 +108,13 @@ const RegisterScreen = () => {
       </div>
       
 
- <div className='my-1' id='age'>
-        <label className='block mb-2 text-gray-600 font-medium'>Age</label>
+ <div className='my-1' id='dateofbirth'>
+        <label className='block mb-2 text-gray-600 font-medium'>Date of birth</label>
         <input
-          type='text'
-          placeholder='e.g. 20'
-          value={age}
-          onChange={(e) => setAge(e.target.value)}
+          type='date'
+          placeholder='e.g. 25'
+          value={dateofbirth}
+          onChange={(e) => setDateofbirth(e.target.value)}
           className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
         />
       </div>
@@ -117,12 +122,24 @@ const RegisterScreen = () => {
       <div className='my-1' id='gender'>
         <label className='block mb-2 text-gray-600 font-medium'>Gender</label>
         <input
-          type='text'
-          placeholder='e.g. male'
-          value={gender}
+          type='radio'
+          id='male'
+          value='male'
+          name='gender'
           onChange={(e) => setGender(e.target.value)}
           className='p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
         />
+        <label for='male'> male</label>
+        <span>  </span>
+        <input
+          type='radio'
+          id='female'
+          value='female'
+          name='gender'
+          onChange={(e) => setGender(e.target.value)}
+          className='p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
+        />
+        <label for='male'> female</label>
       </div>
 
       <div className='my-1' id='phone'>
@@ -135,6 +152,17 @@ const RegisterScreen = () => {
           className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
         />
       </div>      
+
+      <div className='my-1' id='license'>
+        <label className='block mb-2 text-gray-600 font-medium'>License No.</label>
+        <input
+          type='text'
+          placeholder='e.g. #1234567890'
+          value={license}
+          onChange={(e) => setLicense(e.target.value)}
+          className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
+        />
+      </div>  
 
       <div className='my-1' id='address'>
         <label className='block mb-2 text-gray-600 font-medium'>Address</label>
@@ -152,26 +180,48 @@ const RegisterScreen = () => {
         <input
           type='text'
           placeholder='e.g. San Francisco'
-          value={address}
+          value={city}
           onChange={(e) => setCity(e.target.value)}
           className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
         />
       </div>
 
-      <div className='my-1' id='country'>
-        <label className='block mb-2 text-gray-600 font-medium'>Country</label>
+      <div className='my-1' id='state'>
+        <label className='block mb-2 text-gray-600 font-medium'>State</label>
         <input
           type='text'
-          placeholder='e.g. USA'
-          value={address}
-          onChange={(e) => setCountry(e.target.value)}
+          placeholder='e.g. California'
+          value={state}
+          onChange={(e) => setState(e.target.value)}
           className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
         />
       </div>
 
+      <div className='my-1' id='zipcode'>
+        <label className='block mb-2 text-gray-600 font-medium'>Zip Code</label>
+        <input
+          type='text'
+          placeholder='e.g. 98406'
+          value={zipcode}
+          onChange={(e) => setZipCode(e.target.value)}
+          className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
+        />
+      </div>
      
       </div>
-
+      <div><h1>Consent and Privacy</h1>
+        <input 
+        type='checkbox'
+        id='cb-terms'
+        />
+        <label for='cb-terms'> I hereby agree to the terms and conditions by the use of this software.</label>
+        <br/>
+        <input 
+        type='checkbox'
+        id='cb-privacy'
+        />
+        <label for='cb-privacy'> I hereby agree to the privacy policy by the use of this software.</label>
+      </div>
       <button type='submit' className='w-full p-2 rounded-md font-semibold text-lg bg-blue-400 text-white font-medium hover:bg-green-500 transition-all mt-3'>
         Register
       </button>
