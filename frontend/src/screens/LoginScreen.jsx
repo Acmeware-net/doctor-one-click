@@ -80,7 +80,7 @@ import Loader from '../components/Loader';
 
         <div className="py-2 text-center">
           <div>
-            New Customer? <Link to="/register" className="text-blue-400">Register</Link>
+            New Doctor? <Link to="/register" className="text-blue-400">Register</Link>
           </div>
         </div>
       </div>
