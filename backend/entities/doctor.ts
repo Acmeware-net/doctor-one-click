@@ -12,7 +12,8 @@ interface Doctor{
     headline: string;
     experience: string;
     city: string;
-    country: string;
+    state: string;
+    zipcode: string;
   }
 
 export default Doctor;

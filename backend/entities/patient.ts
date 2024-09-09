@@ -1,3 +1,5 @@
+import Appointment from "./appointment";
+import Checkup from "./checkup";
 
 export default class Patient{
     phone: string;
@@ -8,6 +10,8 @@ export default class Patient{
     email: string;
     password: string;
     // TODO
+    checkups: Checkup[];
+    appointments: Appointment[];
     city: string;
     country: string;
 }

@@ -21,7 +21,7 @@ const generateToken_js_1 = __importDefault(require("../utils/generateToken.js"))
 // @access  Public
 const authDoctor = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
-    console.log(email);
+    console.log(`email is ${email}`);
     const doctor = yield doctorModel_js_1.default.findOne({ email });
     // @ts-ignore
     if (doctor && (yield doctor.matchPassword(password))) {
@@ -33,6 +33,7 @@ const authDoctor = (0, express_async_handler_1.default)((req, res) => __awaiter(
         });
     }
     else {
+        console.log(`code enters this block`);
         res.status(401);
         throw new Error('Invalid email or password');
     }
@@ -42,7 +43,8 @@ exports.authDoctor = authDoctor;
 // @route   POST /api/doctors
 // @access  Public
 const registerDoctor = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, email, password, age, gender, phone, address, city, country, headline, description, specialization, experience } = req.body;
+    const { name, email, password, age, gender, phone, address, city, state, headline, description, specialization, experience } = req.body;
+    console.log(`Doctor comes to login with email ${email}`);
     const doctorExists = yield doctorModel_js_1.default.findOne({ email });
     if (doctorExists) {
         res.status(400);
@@ -57,7 +59,7 @@ const registerDoctor = (0, express_async_handler_1.default)((req, res) => __awai
         phone,
         address,
         city,
-        country,
+        state,
         specialization,
         headline,
         description,
@@ -74,7 +76,7 @@ const registerDoctor = (0, express_async_handler_1.default)((req, res) => __awai
             phone: doctor.phone,
             address: doctor.address,
             city: doctor.address,
-            country: doctor.country,
+            state: doctor.state,
             specialization: doctor.specialization,
             headline: doctor.headline,
             description: doctor.description,
@@ -113,7 +115,7 @@ const getDoctorProfile = (0, express_async_handler_1.default)((req, res) => __aw
             phone: doctor.phone,
             address: doctor.address,
             city: doctor.address,
-            country: doctor.country,
+            state: doctor.state,
             specialization: doctor.specialization,
             headline: doctor.headline,
             description: doctor.description,
@@ -139,7 +141,7 @@ const updateDoctorProfile = (0, express_async_handler_1.default)((req, res) => _
         doctor.phone = req.body.phone || doctor.phone;
         doctor.address = req.body.address || doctor.address;
         doctor.city = req.body.city || doctor.city;
-        doctor.country = req.body.country || doctor.country;
+        doctor.state = req.body.country || doctor.state;
         doctor.specialization = req.body.specialization || doctor.specialization;
         doctor.headline = req.body.headline || doctor.headline;
         doctor.description = req.body.description || doctor.description;
@@ -157,7 +159,7 @@ const updateDoctorProfile = (0, express_async_handler_1.default)((req, res) => _
             phone: updatedDoctor.phone,
             address: updatedDoctor.address,
             city: updatedDoctor.address,
-            country: updatedDoctor.country,
+            country: updatedDoctor.state,
             specialization: updatedDoctor.specialization,
             headline: updatedDoctor.headline,
             description: updatedDoctor.description,

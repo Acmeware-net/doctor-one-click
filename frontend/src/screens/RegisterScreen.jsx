@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 
-import FormContainer from '../components/FormContainer';
 import Loader from '../components/Loader';
 // import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Link, useNavigate } from 'react-router-dom';
@@ -32,7 +31,7 @@ const RegisterScreen = () => {
   const [register, { isLoading }] = useRegisterMutation();
 
   const { doctorInfo } = useSelector((state) => state.auth);
-
+  
   useEffect(() => {
     if (doctorInfo) {
       navigate('/');
@@ -41,13 +40,14 @@ const RegisterScreen = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-
     if (password !== confirmPassword) {
+      console.log(' I am inside passwords do not match block');
       toast.error('Passwords do not match');
     } else {
       try {
-        console.log
+        console.log(' I am at line 49 inside RegisterScreen.jsx');
         const res = await register({ name, email, password, age, gender, phone, address }).unwrap();
+        console.log(`res is ${res}`)
         dispatch(setCredentials({ ...res }));
         navigate('/');
       } catch (err) {
@@ -138,6 +138,7 @@ const RegisterScreen = () => {
           name='gender'
           onChange={(e) => setGender(e.target.value)}
           className='p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
+        
         />
         <label for='male'> female</label>
       </div>
@@ -213,12 +214,14 @@ const RegisterScreen = () => {
         <input 
         type='checkbox'
         id='cb-terms'
+        onChange={(e) => setTerms(e.target.value)}
         />
         <label for='cb-terms'> I hereby agree to the terms and conditions by the use of this software.</label>
         <br/>
         <input 
         type='checkbox'
         id='cb-privacy'
+        onChange={(e) => setPrivacy(e.target.value)}
         />
         <label for='cb-privacy'> I hereby agree to the privacy policy by the use of this software.</label>
       </div>

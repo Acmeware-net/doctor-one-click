@@ -15,8 +15,8 @@ const Hero = () => {
               </button>
             </a>
             <a href="/register">
-              <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
-                Register
+              <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                Sign Up
               </button>
             </a>
           </div>

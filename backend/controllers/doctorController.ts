@@ -7,7 +7,7 @@ import generateToken from '../utils/generateToken.js';
 // @access  Public
 const authDoctor = asyncHandler(async (req: any, res: any) => {
   const { email, password } = req.body;
-  console.log(email);
+  console.log(`email is ${email}`);
   const doctor = await Doctor.findOne({ email });
   // @ts-ignore
   if (doctor && (await doctor.matchPassword(password))) {
@@ -19,6 +19,7 @@ const authDoctor = asyncHandler(async (req: any, res: any) => {
       email: doctor.email,
     });
   } else {
+    console.log(`code enters this block`);
     res.status(401);
     throw new Error('Invalid email or password');
   }
@@ -28,8 +29,8 @@ const authDoctor = asyncHandler(async (req: any, res: any) => {
 // @route   POST /api/doctors
 // @access  Public
 const registerDoctor = asyncHandler(async (req: any, res: any) => {
-  const { name, email, password, age, gender, phone, address, city, country, headline, description, specialization, experience } = req.body;
-
+  const { name, email, password, age, gender, phone, address, city, state, headline, description, specialization, experience } = req.body;
+  console.log(`Doctor comes to login with email ${email}`)
   const doctorExists = await Doctor.findOne({ email });
 
   if (doctorExists) {
@@ -46,7 +47,7 @@ const registerDoctor = asyncHandler(async (req: any, res: any) => {
     phone,
     address,
     city,
-    country,
+    state,
     specialization,
     headline,
     description,
@@ -65,7 +66,7 @@ const registerDoctor = asyncHandler(async (req: any, res: any) => {
       phone: doctor.phone,
       address: doctor.address,
       city: doctor.address,
-      country: doctor.country,
+      state: doctor.state,
       specialization: doctor.specialization,
       headline: doctor.headline,
       description: doctor.description,
@@ -104,7 +105,7 @@ const getDoctorProfile = asyncHandler(async (req: any, res: any) => {
       phone: doctor.phone,
       address: doctor.address,
       city: doctor.address,
-      country: doctor.country,
+      state: doctor.state,
       specialization: doctor.specialization,
       headline: doctor.headline,
       description: doctor.description,
@@ -130,7 +131,7 @@ const updateDoctorProfile = asyncHandler(async (req: any, res: any) => {
     doctor.phone = req.body.phone || doctor.phone;
     doctor.address = req.body.address || doctor.address;
     doctor.city = req.body.city || doctor.city;
-    doctor.country = req.body.country || doctor.country;
+    doctor.state = req.body.country || doctor.state;
     doctor.specialization = req.body.specialization || doctor.specialization;
     doctor.headline = req.body.headline || doctor.headline;
     doctor.description = req.body.description || doctor.description;
@@ -150,7 +151,7 @@ const updateDoctorProfile = asyncHandler(async (req: any, res: any) => {
       phone: updatedDoctor.phone,
       address: updatedDoctor.address,
       city: updatedDoctor.address,
-      country: updatedDoctor.country,
+      country: updatedDoctor.state,
       specialization: updatedDoctor.specialization,
       headline: updatedDoctor.headline,
       description: updatedDoctor.description,
