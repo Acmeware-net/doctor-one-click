@@ -6,9 +6,9 @@ interface Doctor{
     phone: string;
     address: string;
     gender: string;
-    age: string;
+    dob: string;
     specialization: string;
-    description: string;
+    bio: string;
     headline: string;
     experience: string;
     city: string;

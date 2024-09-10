@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRegisterMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 
 const RegisterScreen = () => {
@@ -22,8 +24,10 @@ const RegisterScreen = () => {
   const [state, setState] = useState(''); 
   const [license, setLicense] = useState(''); 
   const [zipcode, setZipCode] = useState(''); 
-  const [terms, setTerms] = useState(''); 
-  const [privacy, setPrivacy] = useState(''); 
+  const [terms, setTerms] = useState(false); 
+  const [privacy, setPrivacy] = useState(false); 
+  const [specialization, setSpecialization] = useState(''); 
+  const [experience, setExperience] = useState(''); 
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -34,22 +38,21 @@ const RegisterScreen = () => {
   
   useEffect(() => {
     if (doctorInfo) {
-      navigate('/');
+      navigate('/dashboard');
     }
   }, [navigate, doctorInfo]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      console.log(' I am inside passwords do not match block');
       toast.error('Passwords do not match');
     } else {
       try {
-        console.log(' I am at line 49 inside RegisterScreen.jsx');
-        const res = await register({ name, email, password, age, gender, phone, address }).unwrap();
+        console.log(`name: ${name}, email: ${email}, password: ${password}, dob: ${dateofbirth}, gender: ${gender}, phone: ${phone}, address: ${address}, city: ${city}, state: ${state}, specialization: ${specialization}, experience: ${experience}, terms: ${terms}, privacy: ${privacy}`)
+        const res = await register({ name, email, password, dateofbirth, gender, phone, address, city, state, specialization, experience}).unwrap();
         console.log(`res is ${res}`)
         dispatch(setCredentials({ ...res }));
-        navigate('/');
+        navigate('/dashboard');
       } catch (err) {
         toast.error(err?.data?.message || err.error);
       }
@@ -105,14 +108,13 @@ const RegisterScreen = () => {
           onChange={(e) => setConfirmPassword(e.target.value)}
           className='p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
         />
-      </div>
-      
+      </div>     
 
- <div className='my-1' id='dateofbirth'>
+      <div className='my-1' id='dob'>
         <label className='block mb-2 text-gray-600 font-medium'>Date of birth</label>
+        {/* <DatePicker value='1990-01-01' selected={dateofbirth} onChange={(date) => setDateofbirth(date)} /> */}
         <input
           type='date'
-          placeholder='e.g. 25'
           value={dateofbirth}
           onChange={(e) => setDateofbirth(e.target.value)}
           className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
@@ -129,8 +131,8 @@ const RegisterScreen = () => {
           onChange={(e) => setGender(e.target.value)}
           className='p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
         />
-        <label for='male'> male</label>
-        <span>  </span>
+        <label for='male'> male   </label>
+        <span>       </span>
         <input
           type='radio'
           id='female'
@@ -140,7 +142,7 @@ const RegisterScreen = () => {
           className='p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
         
         />
-        <label for='male'> female</label>
+        <label for='male'>   female</label>
       </div>
 
       <div className='my-1' id='phone'>
@@ -155,7 +157,7 @@ const RegisterScreen = () => {
       </div>      
 
       <div className='my-1' id='license'>
-        <label className='block mb-2 text-gray-600 font-medium'>License No.</label>
+        <label className='block mb-2 text-gray-600 font-medium'>Medical License No.</label>
         <input
           type='text'
           placeholder='e.g. #1234567890'
@@ -164,6 +166,28 @@ const RegisterScreen = () => {
           className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
         />
       </div>  
+
+      <div className='my-1' id='specialization'>
+        <label className='block mb-2 text-gray-600 font-medium'>Specialization</label>
+        <input
+          type='text'
+          placeholder='e.g. Dentist'
+          value={specialization}
+          onChange={(e) => setSpecialization(e.target.value)}
+          className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
+        />
+      </div>
+
+      <div className='my-1' id='experience'>
+        <label className='block mb-2 text-gray-600 font-medium'>Experience</label>
+        <input
+          type='text'
+          placeholder='e.g. 5 years'
+          value={experience}
+          onChange={(e) => setExperience(e.target.value)}
+          className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
+        />
+      </div>
 
       <div className='my-1' id='address'>
         <label className='block mb-2 text-gray-600 font-medium'>Address</label>
@@ -209,19 +233,21 @@ const RegisterScreen = () => {
         />
       </div>
      
+      
+
       </div>
       <div><h1>Consent and Privacy</h1>
         <input 
         type='checkbox'
         id='cb-terms'
-        onChange={(e) => setTerms(e.target.value)}
+        onChange={(e) => setTerms(e.target.checked)}
         />
         <label for='cb-terms'> I hereby agree to the terms and conditions by the use of this software.</label>
         <br/>
         <input 
         type='checkbox'
         id='cb-privacy'
-        onChange={(e) => setPrivacy(e.target.value)}
+        onChange={(e) => setPrivacy(e.target.checked)}
         />
         <label for='cb-privacy'> I hereby agree to the privacy policy by the use of this software.</label>
       </div>

@@ -29,7 +29,7 @@ const authDoctor = asyncHandler(async (req: any, res: any) => {
 // @route   POST /api/doctors
 // @access  Public
 const registerDoctor = asyncHandler(async (req: any, res: any) => {
-  const { name, email, password, age, gender, phone, address, city, state, headline, description, specialization, experience } = req.body;
+  const { name, email, password, dob, gender, phone, address, city, state, specialization, experience } = req.body;
   console.log(`Doctor comes to login with email ${email}`)
   const doctorExists = await Doctor.findOne({ email });
 
@@ -42,15 +42,13 @@ const registerDoctor = asyncHandler(async (req: any, res: any) => {
     name,
     email,
     password,
-    age,
+    dob,
     gender,
     phone,
     address,
     city,
     state,
     specialization,
-    headline,
-    description,
     experience
   });
 
@@ -61,7 +59,7 @@ const registerDoctor = asyncHandler(async (req: any, res: any) => {
       _id: doctor._id,
       name: doctor.name,
       email: doctor.email,
-      age: doctor.age,
+      dob: doctor.dob,
       gender: doctor.gender,
       phone: doctor.phone,
       address: doctor.address,
@@ -69,7 +67,7 @@ const registerDoctor = asyncHandler(async (req: any, res: any) => {
       state: doctor.state,
       specialization: doctor.specialization,
       headline: doctor.headline,
-      description: doctor.description,
+      bio: doctor.bio,
       experience: doctor.experience
     });
   } else {
@@ -100,7 +98,7 @@ const getDoctorProfile = asyncHandler(async (req: any, res: any) => {
       _id: doctor._id,
       name: doctor.name,
       email: doctor.email,
-      age: doctor.age,
+      dob: doctor.dob,
       gender: doctor.gender,
       phone: doctor.phone,
       address: doctor.address,
@@ -108,7 +106,7 @@ const getDoctorProfile = asyncHandler(async (req: any, res: any) => {
       state: doctor.state,
       specialization: doctor.specialization,
       headline: doctor.headline,
-      description: doctor.description,
+      bio: doctor.bio,
       experience: doctor.experience
     });
   } else {
@@ -126,7 +124,7 @@ const updateDoctorProfile = asyncHandler(async (req: any, res: any) => {
   if (doctor) {
     doctor.name = req.body.name || doctor.name;
     doctor.email = req.body.email || doctor.email;
-    doctor.age = req.body.age || doctor.age;
+    doctor.dob = req.body.dob || doctor.dob;
     doctor.gender = req.body.gender || doctor.gender;
     doctor.phone = req.body.phone || doctor.phone;
     doctor.address = req.body.address || doctor.address;
@@ -134,7 +132,7 @@ const updateDoctorProfile = asyncHandler(async (req: any, res: any) => {
     doctor.state = req.body.country || doctor.state;
     doctor.specialization = req.body.specialization || doctor.specialization;
     doctor.headline = req.body.headline || doctor.headline;
-    doctor.description = req.body.description || doctor.description;
+    doctor.bio = req.body.bio || doctor.bio;
     doctor.experience = req.body.experience || doctor.experience;
     if (req.body.password) {
       doctor.password = req.body.password;
@@ -146,7 +144,7 @@ const updateDoctorProfile = asyncHandler(async (req: any, res: any) => {
       _id: updatedDoctor._id,
       name: updatedDoctor.name,
       email: updatedDoctor.email,
-      age: updatedDoctor.age,
+      dob: updatedDoctor.dob,
       gender: updatedDoctor.gender,
       phone: updatedDoctor.phone,
       address: updatedDoctor.address,
@@ -154,7 +152,7 @@ const updateDoctorProfile = asyncHandler(async (req: any, res: any) => {
       country: updatedDoctor.state,
       specialization: updatedDoctor.specialization,
       headline: updatedDoctor.headline,
-      description: updatedDoctor.description,
+      bio: updatedDoctor.bio,
       experience: updatedDoctor.experience
     });
   } else {

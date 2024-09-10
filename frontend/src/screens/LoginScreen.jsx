@@ -22,7 +22,7 @@ import Loader from '../components/Loader';
 
   useEffect(() => {
     if (doctorInfo) {
-      navigate('/');
+      navigate('/dashboard');
     }
   }, [navigate, doctorInfo]);
 

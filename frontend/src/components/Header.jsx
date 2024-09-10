@@ -32,7 +32,9 @@ const Header = () => {
           {doctorInfo ? (
             <>
               <div className="flex items-center space-x-2">
+                <Link to="/dashboard" className="hover:text-gray-300">
                 <span className="text-sm font-medium">{doctorInfo.name}</span>
+                </Link>
                 <Link to="/profile" className="hover:text-gray-300">
                   <span>Profile</span>
                 </Link>
