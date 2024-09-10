@@ -49,7 +49,7 @@ const RegisterScreen = () => {
     } else {
       try {
         console.log(`name: ${name}, email: ${email}, password: ${password}, dob: ${dateofbirth}, gender: ${gender}, phone: ${phone}, address: ${address}, city: ${city}, state: ${state}, specialization: ${specialization}, experience: ${experience}, terms: ${terms}, privacy: ${privacy}`)
-        const res = await register({ name, email, password, dateofbirth, gender, phone, address, city, state, specialization, experience}).unwrap();
+        const res = await register({ name, email, password, dateofbirth, gender, phone, address, city, state, license, specialization, experience}).unwrap();
         console.log(`res is ${res}`)
         dispatch(setCredentials({ ...res }));
         navigate('/dashboard');
@@ -239,14 +239,14 @@ const RegisterScreen = () => {
       <div><h1>Consent and Privacy</h1>
         <input 
         type='checkbox'
-        id='cb-terms'
+        id='terms'
         onChange={(e) => setTerms(e.target.checked)}
         />
         <label for='cb-terms'> I hereby agree to the terms and conditions by the use of this software.</label>
         <br/>
         <input 
         type='checkbox'
-        id='cb-privacy'
+        id='privacy'
         onChange={(e) => setPrivacy(e.target.checked)}
         />
         <label for='cb-privacy'> I hereby agree to the privacy policy by the use of this software.</label>

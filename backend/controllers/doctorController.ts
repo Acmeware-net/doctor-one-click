@@ -29,7 +29,7 @@ const authDoctor = asyncHandler(async (req: any, res: any) => {
 // @route   POST /api/doctors
 // @access  Public
 const registerDoctor = asyncHandler(async (req: any, res: any) => {
-  const { name, email, password, dob, gender, phone, address, city, state, specialization, experience } = req.body;
+  const { name, email, password, dateofbirth, gender, phone, address, city, state, license, specialization, experience } = req.body;
   console.log(`Doctor comes to login with email ${email}`)
   const doctorExists = await Doctor.findOne({ email });
 
@@ -42,14 +42,15 @@ const registerDoctor = asyncHandler(async (req: any, res: any) => {
     name,
     email,
     password,
-    dob,
+    dateofbirth,
     gender,
     phone,
     address,
     city,
     state,
     specialization,
-    experience
+    experience,
+    license
   });
 
   if (doctor) {
