@@ -13,6 +13,7 @@ const doctorSchema = new Schema<Doctor>({
   dob: { type: String, required: true },
   specialization: { type: String, required: true },
   bio: { type: String, required: false },
+  image: { type: String, required: false },
   headline: { type: String, required: true },
   experience: { type: String, required: true },
   city: { type: String, required: true },

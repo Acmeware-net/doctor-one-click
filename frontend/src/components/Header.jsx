@@ -25,15 +25,16 @@ const Header = () => {
   return (
     <header className="bg-gray-800 text-white">
       <nav className="container mx-auto px-4 py-2 flex justify-between items-center">
-        <Link to="/" className="text-lg font-bold">
-          Welcome back!
+        <Link to="/" className=" font-bold">
+          Welcome <span className="text-sm font-medium">{doctorInfo?.name}</span>
         </Link>
+       
         <div className="flex space-x-4">
           {doctorInfo ? (
             <>
               <div className="flex items-center space-x-2">
                 <Link to="/dashboard" className="hover:text-gray-300">
-                <span className="text-sm font-medium">{doctorInfo.name}</span>
+                <img src='../../public/doc.jpg' className=' w-10 h-10 rounded-full' />
                 </Link>
                 <Link to="/profile" className="hover:text-gray-300">
                   <span>Profile</span>
@@ -49,12 +50,10 @@ const Header = () => {
           ) : (
             <>
               <Link to="/login" className="flex items-center space-x-2 hover:text-gray-300">
-                <FaSignInAlt />
-                <span>Sign In</span>
+                <span className='border rounded-lg p-2'>Sign In</span>
               </Link>
               <Link to="/register" className="flex items-center space-x-2 hover:text-gray-300">
-                <FaSignOutAlt />
-                <span>Sign Up</span>
+                <span className='border rounded-lg p-2 hover:bg-grey-300'>Sign Up</span>
               </Link>
             </>
           )}

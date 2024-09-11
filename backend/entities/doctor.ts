@@ -9,6 +9,7 @@ interface Doctor{
     dob: string;
     specialization: string;
     bio: string;
+    image: string;
     headline: string;
     experience: string;
     city: string;

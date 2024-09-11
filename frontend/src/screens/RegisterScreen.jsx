@@ -7,8 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRegisterMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 
 
 const RegisterScreen = () => {
@@ -112,7 +110,6 @@ const RegisterScreen = () => {
 
       <div className='my-1' id='dob'>
         <label className='block mb-2 text-gray-600 font-medium'>Date of birth</label>
-        {/* <DatePicker value='1990-01-01' selected={dateofbirth} onChange={(date) => setDateofbirth(date)} /> */}
         <input
           type='date'
           value={dateofbirth}
