@@ -4,7 +4,7 @@ const Hero = () => {
     <>
    
 
-    {/* <div class="bg-white">
+    <div class="bg-white">
   
     <div class="relative isolate px-6 pt-14 lg:px-8">
       <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
@@ -17,7 +17,7 @@ const Hero = () => {
           </div>
         </div>
         <div class="text-center">
-          <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Your online medical facility</h1>
+          <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Your medical care facility</h1>
           <p class="mt-6 text-lg leading-8 text-gray-600"> We connect patients with top healthcare providers at convenience </p>
           <div class="mt-10 flex items-center justify-center gap-x-6">
           <a href="/login">
@@ -37,7 +37,7 @@ const Hero = () => {
         <div class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#046856] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]" ></div>
       </div>
     </div>
-  </div> */}
+  </div>
 </>  
   );
 };

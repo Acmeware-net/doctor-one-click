@@ -1,20 +1,17 @@
 import React from 'react'
+import Card from '../components/Card';
+
 
 const DashboardScreen = () => {
   return (
     <div>
-      <h1>Dashboard</h1>
-      <div class="grid grid-cols-4 gap-4 border-4 rounded-lg ">
-      <div className='border-2 rounded-sm border-black' >01</div>
-      <div className='border-2 rounded-sm border-black' >02</div>
-      <div className='border-2 rounded-sm border-black' >03</div>
-      <div className='border-2 rounded-sm border-black' >04</div>
-      <div className='border-2 rounded-sm border-black' >05</div>
-      <div className='border-2 rounded-sm border-black' >06</div>
-      <div className='border-2 rounded-sm border-black' >07</div>
-      <div className='border-2 rounded-sm border-black' >08</div>
-      <div className='border-2 rounded-sm border-black' >09</div>
-      <div className='border-2 rounded-sm border-black' >10</div>
+      <div className='text-center font-mono text-2xl antialiased hover:subpixel-antialiased font-semibold text-teal-200'>Dashboard</div>
+      <div class="grid grid-cols-4 gap-4 rounded-lg ">
+      
+      <Card type="Pending"/>
+      <Card type="Canceled"/>
+      <Card type="Completed"/>
+      <Card type='Total' className=''/>
     </div> 
     </div>
   )
