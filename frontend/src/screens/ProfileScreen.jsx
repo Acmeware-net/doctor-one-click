@@ -46,48 +46,52 @@ const ProfileScreen = () => {
   };
   return (
     <FormContainer>
-      <h1>Update Profile</h1>
+      <h1 className='text-2xl text-gray-800 text-center mb-5'>Update Profile</h1>
 
       <form onSubmit={submitHandler}>
         <div className='my-2' controlId='name'>
-          <label>Name</label>
+          <label className='block mb-2 text-gray-600 font-medium'>Name</label>
           <input
             type='name'
             placeholder='Enter name'
             value={name}
             onChange={(e) => setName(e.target.value)}
+            className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
           ></input>
         </div>
         <div className='my-2' controlId='email'>
-          <label>Email Address</label>
+          <label className='block mb-2 text-gray-600 font-medium'>Email Address</label>
           <input
             type='email'
             placeholder='Enter email'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
           ></input>
         </div>
         <div className='my-2' controlId='password'>
-          <label>Password</label>
+          <label className='block mb-2 text-gray-600 font-medium'>Password</label>
           <input
             type='password'
             placeholder='Enter password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
           ></input>
         </div>
 
         <div className='my-2' controlId='confirmPassword'>
-          <label>Confirm Password</label>
+          <label className='block mb-2 text-gray-600 font-medium'>Confirm Password</label>
           <input
             type='password'
             placeholder='Confirm password'
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
+            className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
           ></input>
         </div>
 
-        <button type='submit' variant='primary' className='mt-3'>
+        <button type='submit' variant='primary' className='w-full p-2 rounded-md font-semibold text-lg bg-blue-400 text-white font-medium hover:bg-green-500 transition-all mt-3'>
           Update
         </button>
 
