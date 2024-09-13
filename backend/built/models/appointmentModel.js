@@ -5,6 +5,7 @@ const schema = new mongoose_1.Schema({
     doctorId: { type: String, required: true },
     patientId: { type: String, required: true },
     status: { type: String, required: true },
+    datetime: { type: Date, required: true }
 }, {
     timestamps: true,
 });

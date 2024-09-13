@@ -5,6 +5,7 @@ const schema = new Schema<Appointment>({
   doctorId: {type: String, required: true},
   patientId: {type: String, required: true},
   status: {type: String, required: true},
+  datetime: {type:Date, required:true}
 },
 {
   timestamps: true,

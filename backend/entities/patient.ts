@@ -1,7 +1,7 @@
 import Appointment from "./appointment";
 import Checkup from "./checkup";
 
-export default class Patient{
+export default interface Patient{
     phone: string;
     address: string;
     gender: string;

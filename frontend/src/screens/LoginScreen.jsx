@@ -37,7 +37,7 @@ import Loader from '../components/Loader';
     }
   };
   return (
-     <div className="flex justify-center font-poppins">
+     <div className="flex justify-center font-poppins bg-green-babypowder">
       <div className= "mt-10  bg-gray-100 p-10">
         <h1 className="text-2xl text-gray-800 text-center mb-5">Sign In</h1>
 

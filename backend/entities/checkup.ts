@@ -1,9 +1,9 @@
-export default class Checkup{
+export default interface Checkup{
 
     patientId: string;
     doctorId: string;
-    datetime: string;
     description: string;
-    prescription: string;
+    prescription: string[];
     images: string[];
+    datetime: Date;
 }

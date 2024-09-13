@@ -28,10 +28,17 @@ export default {
         green: {
           500: "#24AE7C",
           600: "#0D2A1F",
+          nyanzalight:"#F3FFE1",
+          nyanzadark:"#DFFFD6",
+          sage:"#BFCC94",
+          babypowder:"#F0F4EF",
         },
         blue: {
           500: "#79B5EC",
           600: "#152432",
+          custom:"#9089fc",
+          tiffany:"#99E1D9",
+          cambridge:"#7FBEAB",
         },
         red: {
           500: "#F37877",
@@ -49,6 +56,10 @@ export default {
           600: "#76828D",
           700: "#ABB8C4",
         },
+        gray: {
+          battleship:"#85877C",
+
+        }
       },
       fontFamily: {
          poppins: ['Poppins', 'sans-serif'],

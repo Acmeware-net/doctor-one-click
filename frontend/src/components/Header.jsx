@@ -22,21 +22,37 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-gray-800 text-white z-100">
+    <header className="bg-gray-battleship text-white z-100">
       <nav className="container mx-auto px-4 py-2 flex justify-between items-center">
-        <Link to="/" className=" font-bold">
-          AppOintment
-        </Link>
-       
+        <div>
+          <Link to="/" className=" font-bold font-sans text-2xl">
+            AppOintment
+          </Link>
+        </div>
+        <div class='flex gap-4'>
+          <div>
+          <input
+            id="q"
+            aria-label="Search contacts"
+            placeholder="Search"
+            type="search"
+            name="q"
+            class='p-2 rounded-lg w-300'
+          />
+          </div>
+          <div>
+          <button class='border border-02 p-2 rounded-lg hover:bg-gray-500'>Search</button>
+          </div>
+        </div>
         <div className="flex space-x-4">
           {doctorInfo ? (
             <>
               <div className="flex items-center space-x-2">
                 <Link to="/dashboard" className="hover:text-gray-300">
-                <span className="text-sm font-medium">Welcome back</span>
-                <span className="text-sm font-medium"> {doctorInfo?.name}</span>
+                  <span className="text-sm font-medium">Welcome back</span>
+                  <span className="text-sm font-medium"> {doctorInfo?.name}</span>
                 </Link>
-                  <img src='../../public/doc.jpg' className=' w-10 h-10 rounded-full' />
+                <img src='./doc.jpg' className=' w-10 h-10 rounded-full' />
                 <Link to="/profile" className="hover:text-gray-300">
                   <span className='border rounded-md p-2'>Profile</span>
                 </Link>

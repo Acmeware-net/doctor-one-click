@@ -58,7 +58,7 @@ const RegisterScreen = () => {
   };
 
   return(
-    <div className='flex justify-center font-poppins'>
+    <div className='flex justify-center font-poppins bg-green-sage'>
   <div className= " mt-10 max-w-6xl  bg-gray-100 p-10" >
     <h1 className='text-2xl text-gray-800 text-center mb-5'>Sign up as doctor</h1>
     <form onSubmit={submitHandler}

@@ -43,7 +43,7 @@ exports.authDoctor = authDoctor;
 // @route   POST /api/doctors
 // @access  Public
 const registerDoctor = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, email, password, age, gender, phone, address, city, state, headline, description, specialization, experience } = req.body;
+    const { name, email, password, dateofbirth, gender, phone, address, city, state, license, specialization, experience } = req.body;
     console.log(`Doctor comes to login with email ${email}`);
     const doctorExists = yield doctorModel_js_1.default.findOne({ email });
     if (doctorExists) {
@@ -54,16 +54,15 @@ const registerDoctor = (0, express_async_handler_1.default)((req, res) => __awai
         name,
         email,
         password,
-        age,
+        dateofbirth,
         gender,
         phone,
         address,
         city,
         state,
         specialization,
-        headline,
-        description,
-        experience
+        experience,
+        license
     });
     if (doctor) {
         (0, generateToken_js_1.default)(res, doctor._id);
@@ -71,7 +70,7 @@ const registerDoctor = (0, express_async_handler_1.default)((req, res) => __awai
             _id: doctor._id,
             name: doctor.name,
             email: doctor.email,
-            age: doctor.age,
+            dob: doctor.dob,
             gender: doctor.gender,
             phone: doctor.phone,
             address: doctor.address,
@@ -79,7 +78,7 @@ const registerDoctor = (0, express_async_handler_1.default)((req, res) => __awai
             state: doctor.state,
             specialization: doctor.specialization,
             headline: doctor.headline,
-            description: doctor.description,
+            bio: doctor.bio,
             experience: doctor.experience
         });
     }
@@ -110,7 +109,7 @@ const getDoctorProfile = (0, express_async_handler_1.default)((req, res) => __aw
             _id: doctor._id,
             name: doctor.name,
             email: doctor.email,
-            age: doctor.age,
+            dob: doctor.dob,
             gender: doctor.gender,
             phone: doctor.phone,
             address: doctor.address,
@@ -118,7 +117,7 @@ const getDoctorProfile = (0, express_async_handler_1.default)((req, res) => __aw
             state: doctor.state,
             specialization: doctor.specialization,
             headline: doctor.headline,
-            description: doctor.description,
+            bio: doctor.bio,
             experience: doctor.experience
         });
     }
@@ -136,7 +135,7 @@ const updateDoctorProfile = (0, express_async_handler_1.default)((req, res) => _
     if (doctor) {
         doctor.name = req.body.name || doctor.name;
         doctor.email = req.body.email || doctor.email;
-        doctor.age = req.body.age || doctor.age;
+        doctor.dob = req.body.dob || doctor.dob;
         doctor.gender = req.body.gender || doctor.gender;
         doctor.phone = req.body.phone || doctor.phone;
         doctor.address = req.body.address || doctor.address;
@@ -144,7 +143,7 @@ const updateDoctorProfile = (0, express_async_handler_1.default)((req, res) => _
         doctor.state = req.body.country || doctor.state;
         doctor.specialization = req.body.specialization || doctor.specialization;
         doctor.headline = req.body.headline || doctor.headline;
-        doctor.description = req.body.description || doctor.description;
+        doctor.bio = req.body.bio || doctor.bio;
         doctor.experience = req.body.experience || doctor.experience;
         if (req.body.password) {
             doctor.password = req.body.password;
@@ -154,7 +153,7 @@ const updateDoctorProfile = (0, express_async_handler_1.default)((req, res) => _
             _id: updatedDoctor._id,
             name: updatedDoctor.name,
             email: updatedDoctor.email,
-            age: updatedDoctor.age,
+            dob: updatedDoctor.dob,
             gender: updatedDoctor.gender,
             phone: updatedDoctor.phone,
             address: updatedDoctor.address,
@@ -162,7 +161,7 @@ const updateDoctorProfile = (0, express_async_handler_1.default)((req, res) => _
             country: updatedDoctor.state,
             specialization: updatedDoctor.specialization,
             headline: updatedDoctor.headline,
-            description: updatedDoctor.description,
+            bio: updatedDoctor.bio,
             experience: updatedDoctor.experience
         });
     }

@@ -1,3 +1,5 @@
+import Appointment from "./appointment";
+import Checkup from "./checkup";
 
 interface Doctor{
     name: string;
@@ -15,6 +17,8 @@ interface Doctor{
     city: string;
     state: string;
     zipcode: string;
+    checkups: Checkup[];
+    appointments: Appointment[];
   }
 
 export default Doctor;
