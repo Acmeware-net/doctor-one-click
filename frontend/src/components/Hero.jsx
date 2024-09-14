@@ -3,7 +3,7 @@ const Hero = () => {
   return (
     <>
 
-      <div class="bg-green-sage ">
+      <div class="from-green-sage to-green-babypowder bg-gradient-to-r ">
         <div class="relative isolate px-6 pt-14 lg:px-8">
           <div class="text-9xl text-center font-sans font-semibold font-black text-cyan-600 antialiased pt-20">AppOintment</div>
           <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
@@ -19,12 +19,12 @@ const Hero = () => {
               <p class="mt-6 text-lg leading-8 text-gray-600"> We connect patients with top healthcare providers at convenience </p>
               <div class="mt-10 flex items-center justify-center gap-x-6">
                 <a href="/login">
-                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                  <button className="bg-blue-500  text-white font-bold py-2 px-4 rounded drop-shadow-xl hover:drop-shadow-2xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 ">
                     Sign In
                   </button>
                 </a>
                 <a href="/register">
-                  <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                  <button className="bg-green-sage  text-white font-bold py-2 px-4 rounded drop-shadow-xl hover:drop-shadow-2xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 ">
                     Sign Up
                   </button>
                 </a>
@@ -39,7 +39,7 @@ const Hero = () => {
 
 
       <div class='bg-green-nyanzalight flex flex-row justify-center justify-items-stretch content-evenly gap-4'>
-        <div class="justify-evenly basis-1/2 p-5 text-5xl p-5">
+        <div class="justify-evenly basis-1/2 p-5 text-5xl p-5  content-center">
         <div class='m-10 p-6 font-poppins text-center'>
           No need to wait in lines, just in a few clicks your appointment with your doctor is set
           </div>
@@ -49,16 +49,16 @@ const Hero = () => {
 
 
       <div class=' flex flex-row justify-evenly justify-items-stretch content-evenly gap-4'>
-        <div class=" basis-1/2"><img src="/doctors.jfif" alt='Doctor is checking bp of patient' /></div>
-        <div class=" basis-1/2 p-10 text-5xl font-poppins text-center">
-         We keep your record of all your checkups from all your doctors at one place
+        <div class=" basis-1/2"><img className="w-600" src="/doctors.jfif" alt='Doctor is checking bp of patient' /></div>
+        <div class=" basis-1/2 p-10 text-5xl font-poppins text-center content-center">
+         We keep record of all your checkups from all your doctors in one place
         </div>
       </div>
 
 
       <div class='bg-green-nyanzalight flex flex-row justify-center justify-items-stretch content-evenly gap-4'>
-        <div class="justify-evenly basis-1/2 p-5 text-5xl p-5">
-        <div class='m-10 p-10 font-poppins text-center'>
+        <div class="justify-evenly basis-1/2 p-5 text-5xl p-5  content-center">
+        <div class='m-10 p-10 font-poppins text-center '>
           You only need to go to the doctor when physical checkup is necessary
           </div>
         </div>
@@ -68,7 +68,7 @@ const Hero = () => {
 
       <div class=' flex flex-row justify-evenly justify-items-stretch content-evenly gap-4'>
         <div class=" basis-1/2"><img src="/AdobeStock_136041571.jpeg" alt='Doctor is checking bp of patient' /></div>
-        <div class=" basis-1/2 text-5xl p-10 font-poppins text-center">
+        <div class=" basis-1/2 text-5xl p-10 font-poppins text-center content-center">
           We build trust between doctors and patients
         </div>
       </div>

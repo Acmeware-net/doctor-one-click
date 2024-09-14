@@ -24,8 +24,8 @@ const Header = () => {
   return (
     <header className="bg-gray-battleship text-white z-100">
       <nav className="container mx-auto px-4 py-2 flex justify-between items-center">
-        <div>
-          <Link to="/" className=" font-bold font-sans text-2xl">
+        <div className=" font-bold font-sans text-2xl drop-shadow-xl">
+          <Link to="/">
             AppOintment
           </Link>
         </div>
@@ -37,11 +37,11 @@ const Header = () => {
             placeholder="Search"
             type="search"
             name="q"
-            class='p-2 rounded-lg w-300'
+            class='p-2 rounded-lg w-300 drop-shadow-md'
           />
           </div>
           <div>
-          <button class='border border-02 p-2 rounded-lg hover:bg-gray-500'>Search</button>
+          <button class='bg-gray-battleship p-2 rounded-lg hover:bg-green-sage drop-shadow-lg transition duration-300'>Search</button>
           </div>
         </div>
         <div className="flex space-x-4">
@@ -65,13 +65,16 @@ const Header = () => {
               </div>
             </>
           ) : (
-            <>
-              <Link to="/login" className="flex items-center space-x-2 hover:text-gray-300">
-                <span className='border rounded-lg p-2'>Sign In</span>
+            <><div className="bg-gray-battleship p-2 rounded-lg hover:bg-green-sage drop-shadow-lg transition duration-300">
+              <Link to="/login" >
+                <span className='p-2'>Sign In</span>
               </Link>
-              <Link to="/register" className="flex items-center space-x-2 hover:text-gray-300">
-                <span className='border rounded-lg p-2 hover:bg-grey-300'>Sign Up</span>
+              </div>
+              <div class='bg-gray-battleship p-2 rounded-lg hover:bg-green-sage drop-shadow-lg transition duration-300'>
+              <Link to="/register" className="">
+                <span className='rounded-lg p-2 '>Sign Up</span>
               </Link>
+              </div>
             </>
           )}
         </div>
