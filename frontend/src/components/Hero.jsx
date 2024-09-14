@@ -3,7 +3,7 @@ const Hero = () => {
   return (
     <>
 
-      <div class="from-green-sage to-green-babypowder bg-gradient-to-r ">
+      <div class="from-green-sage to-green-babypowder bg-gradient-to-b ">
         <div class="relative isolate px-6 pt-14 lg:px-8">
           <div class="text-9xl text-center font-sans font-semibold font-black text-cyan-600 antialiased pt-20">AppOintment</div>
           <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
