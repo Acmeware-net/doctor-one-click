@@ -17,6 +17,7 @@ const express_async_handler_1 = __importDefault(require("express-async-handler")
 const appointmentModel_1 = __importDefault(require("../models/appointmentModel"));
 // Create a new appointment document
 const createAppointment = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(`inside create appointment method...`);
     const { doctorId, patientId, status } = req.body;
     const datetime = new Date();
     console.log(`doctor: ${doctorId}, patient: ${patientId}, date-time: ${datetime}, status: ${status}`);

@@ -5,6 +5,7 @@ import _Prescription from '../models/prescriptionModel';
 // Create a new appointment document
 
 const createAppointment = asyncHandler(async (req: any, res: any) => {
+    console.log(`inside create appointment method...`)
     const { doctorId, patientId, status } = req.body;
     const datetime = new Date();
     console.log(`doctor: ${doctorId}, patient: ${patientId}, date-time: ${datetime}, status: ${status}`)
