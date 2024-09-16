@@ -12,82 +12,90 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateCheckup = exports.findCheckup = exports.createCheckup = void 0;
+exports.updatePrescription = exports.findPrescription = exports.createPrescription = void 0;
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
-const checkupModel_1 = __importDefault(require("../models/checkupModel"));
-// Create a new checkup document
-const createCheckup = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { doctorId, patientId, notes, prescription, images } = req.body;
+const prescriptionModel_1 = __importDefault(require("../models/prescriptionModel"));
+// Create a new prescription document
+const createPrescription = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { name, dose, number, route, frequency, dispensed, refills, substitute } = req.body;
     const datetime = new Date();
-    console.log(`doctor: ${doctorId}, patient: ${patientId}, date-time: ${datetime}, notes: ${notes}, prescription: ${prescription}, images: ${images}`);
-    const checkup = yield checkupModel_1.default.create({
-        doctorId,
-        patientId,
-        datetime,
-        notes,
-        prescription,
-        images
+    console.log(`name: ${name}, dose: ${dose}, number: ${number}, route: ${route}, frequency: ${frequency}, dispensed: ${dispensed}, refills: ${refills}, substitute: ${substitute}`);
+    const prescription = yield prescriptionModel_1.default.create({
+        name,
+        dose,
+        number,
+        route,
+        frequency,
+        dispensed,
+        refills,
+        substitute
     });
-    if (checkup) {
+    if (prescription) {
         res.status(201).json({
-            message: 'Checkup created successfully',
+            message: 'Prescription created successfully',
         });
     }
     else {
-        res.status(400).json({ message: 'Unable to create checkup' });
-        throw new Error('Unable to create checkup');
+        res.status(400).json({ message: 'Unable to create prescription' });
+        throw new Error('Unable to create prescription');
     }
 }));
-exports.createCheckup = createCheckup;
-// Get a checkup document by id
-const findCheckup = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.createPrescription = createPrescription;
+// Get a prescription document by id
+const findPrescription = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.body;
     console.log(`id is ${id}`);
-    const checkup = yield checkupModel_1.default.findOne({ id });
-    if (checkup) {
+    const prescription = yield prescriptionModel_1.default.findOne({ id });
+    if (prescription) {
         res.status(200).json({
-            doctor_id: checkup.doctorId,
-            patient_id: checkup.patientId,
-            date_time: checkup.datetime,
-            notes: checkup.notes,
-            prescription: checkup.prescription,
-            images: checkup.images,
+            name: prescription.name,
+            dose: prescription.dose,
+            number: prescription.number,
+            route: prescription.route,
+            frequency: prescription.frequency,
+            refills: prescription.refills,
+            substitute: prescription.substitute
         });
     }
     else {
-        res.status(404).json({ message: 'Checkup not found' });
-        throw new Error('Unable to find checkup');
+        res.status(404).json({ message: 'Prescription not found' });
+        throw new Error('Unable to find prescription');
     }
 }));
-exports.findCheckup = findCheckup;
-// Update a checkup document by id
-const updateCheckup = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.findPrescription = findPrescription;
+// Update a prescription document by id
+const updatePrescription = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.body;
-    console.log(`id is ${id} notes are ${req.body.notes} params are ${req.body.params}`);
-    const checkup = yield checkupModel_1.default.findOne({ id });
-    if (checkup) {
-        console.log(`checkup found ${checkup}`);
-        checkup.notes = req.body.notes || checkup.notes;
-        checkup.prescription = req.body.prescription || checkup.prescription;
-        checkup.images = req.body.images || checkup.images;
-        const updateCheckup = yield checkup.save();
-        if (updateCheckup) {
+    console.log(`id is ${id} name are ${req.body.name} params are ${req.body.params}`);
+    const prescription = yield prescriptionModel_1.default.findOne({ id });
+    if (prescription) {
+        console.log(`prescription found ${prescription}`);
+        prescription.name = req.body.name || prescription.name;
+        prescription.dose = req.body.dose || prescription.dose;
+        prescription.number = req.body.number || prescription.number;
+        prescription.route = req.body.route || prescription.route;
+        prescription.frequency = req.body.frequency || prescription.frequency;
+        prescription.refills = req.body.refills || prescription.refills;
+        prescription.substitute = req.body.substitute || prescription.substitute;
+        const updatePrescription = yield prescription.save();
+        if (updatePrescription) {
             res.status(201).json({
-                doctor_id: updateCheckup.doctorId,
-                patient_id: updateCheckup.patientId,
-                date_time: updateCheckup.datetime,
-                notes: updateCheckup.notes,
-                prescription: updateCheckup.prescription,
-                images: updateCheckup.images,
+                name: updatePrescription.name,
+                dose: updatePrescription.dose,
+                number: updatePrescription.number,
+                route: updatePrescription.route,
+                frequency: updatePrescription.frequency,
+                refills: updatePrescription.refills,
+                substitute: updatePrescription.substitute,
             });
         }
         else {
-            res.status(404).json({ message: "Unable to update requested checkup" });
+            res.status(404).json({ message: "Unable to update requested prescription" });
         }
     }
     else {
-        res.status(404).json({ message: 'Checkup not found' });
-        throw new Error('Unable to find checkup');
+        res.status(404).json({ message: 'Prescription not found' });
+        throw new Error('Unable to find prescription');
     }
 }));
-exports.updateCheckup = updateCheckup;
+exports.updatePrescription = updatePrescription;

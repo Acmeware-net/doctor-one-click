@@ -22,6 +22,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use('/api/doctors', doctorRoutes);
+app.use('/api/patient', patientRoutes);
+app.use('/api/appointment', appointmentRoutes);
+app.use('/api/checkup', checkupRoutes);
 
 
 if (process.env.NODE_ENV === 'production') {
