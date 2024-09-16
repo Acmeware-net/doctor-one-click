@@ -21,10 +21,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 
-app.use('/doctor', doctorRoutes);
-app.use('/patient', patientRoutes);
-app.use('/appointment', appointmentRoutes);
-app.use('/checkup', checkupRoutes);
+app.use('/api/doctors', doctorRoutes);
+
 
 if (process.env.NODE_ENV === 'production') {
   const __dirname = path.resolve();
