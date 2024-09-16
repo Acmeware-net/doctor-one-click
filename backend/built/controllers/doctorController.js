@@ -33,7 +33,6 @@ const authDoctor = (0, express_async_handler_1.default)((req, res) => __awaiter(
         });
     }
     else {
-        console.log(`code enters this block`);
         res.status(401);
         throw new Error('Invalid email or password');
     }

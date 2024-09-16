@@ -19,6 +19,7 @@ const doctorModel_js_1 = __importDefault(require("../models/doctorModel.js"));
 const patientModel_js_1 = __importDefault(require("../models/patientModel.js"));
 const protect = (0, express_async_handler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let token;
+    console.log(`Inside auth middleware`);
     token = req.cookies.jwt;
     console.log(`token : ${token}`);
     if (token) {

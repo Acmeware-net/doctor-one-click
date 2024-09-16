@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import FormContainer from '../components/FormContainer';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLoginMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
@@ -18,13 +17,13 @@ import Loader from '../components/Loader';
 
   const [login, { isLoading }] = useLoginMutation();
 
-  const { doctorInfo } = useSelector((state) => state.auth);
+  const { patientInfo } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (doctorInfo) {
+    if (patientInfo) {
       navigate('/dashboard');
     }
-  }, [navigate, doctorInfo]);
+  }, [navigate, patientInfo]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -39,7 +38,7 @@ import Loader from '../components/Loader';
   return (
      <div className="flex justify-center font-poppins bg-green-babypowder">
       <div className= "mt-10  bg-gray-100 p-10">
-        <h1 className="text-2xl text-gray-800 text-center mb-5">Sign In as Doctor</h1>
+        <h1 className="text-2xl text-gray-800 text-center mb-5">Sign In as Patient</h1>
 
         <form
           onSubmit={submitHandler}
@@ -80,7 +79,7 @@ import Loader from '../components/Loader';
 
         <div className="py-2 text-center">
           <div>
-            New Doctor? <Link to="/register" className="text-blue-400">Register</Link>
+            New Doctor? <Link to="/registerpatient" className="text-blue-400">Register</Link>
           </div>
         </div>
       </div>

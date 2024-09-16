@@ -14,6 +14,17 @@ import {
   getPatientProfile,
   updatePatientProfile
 } from '../controllers/patientController.js';
+import {
+  createAppointment,
+  findAppointment,
+  updateAppointment,
+} from '../controllers/appointmentController.js';
+
+import {
+  createCheckup,
+  findCheckup,
+  updateCheckup,
+} from '../controllers/checkupController.js';
 import { protect, protectPatient } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
@@ -34,4 +45,14 @@ router
   .route('/profilepatient')
   .get(protectPatient, getPatientProfile)
   .put(protectPatient, updatePatientProfile);
+
+// Checkup routes
+router.post('/createcheckup', createCheckup);
+router.get('/getcheckup', findCheckup);
+router.post('/updatecheckup', updateCheckup);
+
+// Appointment routes
+router.post('/createappointment', createAppointment);
+router.get('/getappointment', findAppointment);
+router.post('/updateappointment', updateAppointment);
 export default router;

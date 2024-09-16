@@ -19,7 +19,6 @@ const authDoctor = asyncHandler(async (req: any, res: any) => {
       email: doctor.email,
     });
   } else {
-    console.log(`code enters this block`);
     res.status(401);
     throw new Error('Invalid email or password');
   }

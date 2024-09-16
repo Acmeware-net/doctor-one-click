@@ -6,7 +6,9 @@ import store from './store';
 import App from './App';
 import HomeScreen from './screens/HomeScreen';
 import LoginScreen from './screens/LoginScreen';
+import PatientLoginScreen from './screens/PatientLoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
+import PatientRegisterScreen from './screens/PatientRegisterScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import DashboardScreen from './screens/DashboardScreen';
 import PrivateRoute from './components/PrivateRoute';
@@ -17,7 +19,9 @@ const router = createBrowserRouter(
     <Route path='/' element={<App />}>
       <Route index={true} element={<HomeScreen />} />
         <Route path='/login' element={<LoginScreen />} />
+        <Route path='/loginpatient' element={<PatientLoginScreen />} />
         <Route path='/register' element={<RegisterScreen />} />
+        <Route path='/registerpatient' element={<PatientRegisterScreen />} />
         <Route path='' element={<PrivateRoute />}>
         <Route path='/profile' element={<ProfileScreen />} />
         <Route path='/dashboard' element={<DashboardScreen />} />

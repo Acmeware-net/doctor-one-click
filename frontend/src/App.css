@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'CustomFont';
+    src: url('./assets/fonts/campuni-test-cufonfonts/CampuniTest-Medium.otf') format('otf'),
+         url('./assets/fonts/campuni-test-cufonfonts/CampuniTest-Regular.otf') format('otf'),
+         url('./assets/fonts/campuni-test-cufonfonts/CampuniTest-Thin.otf') format('otf');
+    /* Add additional font formats if necessary */
+    /* Specify the correct path to the font files */
+  }
+  
+  body {
+    font-family: 'CustomFont', sans-serif;
+  }

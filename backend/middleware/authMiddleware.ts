@@ -5,7 +5,7 @@ import Patient from '../models/patientModel.js';
 
 const protect = asyncHandler(async (req: any, res: any, next: any) => {
   let token;
-
+  console.log(`Inside auth middleware`);
   token = req.cookies.jwt;
   console.log(`token : ${token}`);
   if (token) {
