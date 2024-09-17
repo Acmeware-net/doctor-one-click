@@ -9,7 +9,7 @@ import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
 
 
-const RegisterScreen = () => {
+const PatientRegister = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -60,7 +60,7 @@ const RegisterScreen = () => {
   return(
     <div className='flex justify-center font-poppins bg-green-sage'>
   <div className= " mt-10 max-w-6xl  bg-gray-100 p-10" >
-    <h1 className='text-2xl text-gray-800 text-center mb-5'>Sign up as doctor</h1>
+    <h1 className='text-2xl text-gray-800 text-center mb-5'>Sign up as patient</h1>
     <form onSubmit={submitHandler}
      className='bg-white p-10 rounded-lg  shadow-md   animate-fadeIn'>
      <div className="grid grid-cols-2 gap-8">
@@ -257,7 +257,7 @@ const RegisterScreen = () => {
 
     <div className='py-3 text-center'>
       <div>
-        Already have an account? <Link to={`/login`} className='text-blue-400 font-medium '>Login</Link>
+        Already have an account? <Link to={`/loginpatient`} className='text-blue-400 font-medium '>Login</Link>
       </div>
     </div>
   </div>
@@ -269,4 +269,4 @@ const RegisterScreen = () => {
  
 };
 
-export default RegisterScreen;
+export default PatientRegister;

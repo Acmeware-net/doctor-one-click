@@ -9,7 +9,7 @@ import Loader from '../components/Loader';
 
 
 
-  const LoginScreen = () => {
+  const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -88,4 +88,4 @@ import Loader from '../components/Loader';
   );
 };
 
-export default LoginScreen;
+export default Login;

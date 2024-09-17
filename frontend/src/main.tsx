@@ -4,27 +4,27 @@ import { Provider } from 'react-redux';
 import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
 import store from './store';
 import App from './App';
-import HomeScreen from './screens/HomeScreen';
-import LoginScreen from './screens/LoginScreen';
-import PatientLoginScreen from './screens/PatientLoginScreen';
-import RegisterScreen from './screens/RegisterScreen';
-import PatientRegisterScreen from './screens/PatientRegisterScreen';
-import ProfileScreen from './screens/ProfileScreen';
-import DashboardScreen from './screens/DashboardScreen';
+import Home from './screens/Home';
+import Login from './screens/Login';
+import PatientLogin from './screens/PatientLogin';
+import Register from './screens/Register';
+import PatientRegister from './screens/PatientRegister';
+import Profile from './screens/Profile';
+import Dashboard from './screens/Dashboard';
 import PrivateRoute from './components/PrivateRoute';
 import './index.css';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App />}>
-      <Route index={true} element={<HomeScreen />} />
-        <Route path='/login' element={<LoginScreen />} />
-        <Route path='/loginpatient' element={<PatientLoginScreen />} />
-        <Route path='/register' element={<RegisterScreen />} />
-        <Route path='/registerpatient' element={<PatientRegisterScreen />} />
+      <Route index={true} element={<Home />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/login/patient' element={<PatientLogin />} />
+        <Route path='/register' element={<Register />} />
+        <Route path='/register/patient' element={<PatientRegister />} />
         <Route path='' element={<PrivateRoute />}>
-        <Route path='/profile' element={<ProfileScreen />} />
-        <Route path='/dashboard' element={<DashboardScreen />} />
+        <Route path='/profile' element={<Profile />} />
+        <Route path='/dashboard' element={<Dashboard />} />
       </Route>
     </Route>
   )

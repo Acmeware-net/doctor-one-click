@@ -18,12 +18,12 @@ const Hero = () => {
               <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Your medical care facility</h1>
               <p class="mt-6 text-lg leading-8 text-gray-600"> We connect patients with top healthcare providers at convenience </p>
               <div class="mt-10 flex items-center justify-center gap-x-6">
-                <a href="/loginpatient">
+                <a href="/login/patient">
                   <button className="bg-blue-500  text-white font-bold py-2 px-4 rounded drop-shadow-xl hover:drop-shadow-2xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 ">
                     Sign In
                   </button>
                 </a>
-                <a href="/registerpatient">
+                <a href="/register/patient">
                   <button className="bg-green-sage  text-white font-bold py-2 px-4 rounded drop-shadow-xl hover:drop-shadow-2xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 ">
                     Sign Up
                   </button>
