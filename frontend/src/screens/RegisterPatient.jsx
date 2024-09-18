@@ -9,7 +9,7 @@ import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
 
 
-const PatientRegister = () => {
+const RegisterPatient = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -269,4 +269,4 @@ const PatientRegister = () => {
  
 };
 
-export default PatientRegister;
+export default RegisterPatient;

@@ -99,7 +99,7 @@ const Register = () => {
       </div>
 
       <div className='my-1' id='usertype'>
-      <label htmlFor='usertype'>User Type</label><br/>
+      <label htmlFor='usertype'>Account Type</label><br/>
       <input
         type='radio'
         id='doctor'

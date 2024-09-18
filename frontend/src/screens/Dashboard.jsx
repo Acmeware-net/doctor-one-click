@@ -28,8 +28,8 @@ const Dashboard = () => {
       <div className="grid grid-cols-6 gap-4">
         <div className=' p-5 row-span-10 grid-rows-5'>
           <Link to="/dashboard"><div className='bg-green-nyanzalight hover:hover:bg-blue-100 p-5 my-3 font-sans rounded-md'>Dashboard</div></Link>
-          { (userInfo.type === 'doctor') ? <Link to="/dashboard/doctors"><div className='bg-green-nyanzalight hover:bg-blue-100 p-5 my-3 font-sans rounded-md'>Doctors</div></Link> : 
-          <Link to="/dashboard/patients"><div className='bg-green-nyanzalight hover:bg-blue-100 p-5 my-3 font-sans rounded-md'>Patients</div></Link>}
+          { (userInfo.type === 'doctor') ? <Link to="/dashboard/patients"><div className='bg-green-nyanzalight hover:bg-blue-100 p-5 my-3 font-sans rounded-md'>Patients</div></Link> : 
+          <Link to="/dashboard/doctors"><div className='bg-green-nyanzalight hover:bg-blue-100 p-5 my-3 font-sans rounded-md'>Doctors</div></Link>}
           <Link to="/dashboard/checkups"><div className='bg-green-nyanzalight hover:bg-blue-100 p-5 my-3 font-sans rounded-md'>Checkups</div></Link>
           <Link to="/dashboard/appointments"><div className='bg-green-nyanzalight hover:bg-blue-100 p-5 my-3 font-sans rounded-md'>Appointments</div></Link>
           <Link to="/dashboard/profile"><div className='bg-green-nyanzalight hover:bg-blue-100 p-5 my-3 font-sans rounded-md'>Profile</div></Link>

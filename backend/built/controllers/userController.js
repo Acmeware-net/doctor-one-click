@@ -128,7 +128,7 @@ const getUserProfile = (0, express_async_handler_1.default)((req, res) => __awai
     const user = yield userModel_js_1.default.findById(req.user._id);
     if (user) {
         res.json({
-            _id: user._id,
+            // _id: user._id,
             // name: user.name,
             email: user.email,
             // dateofbirth: user.dateofbirth,

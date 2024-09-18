@@ -26,10 +26,10 @@ const protect = (0, express_async_handler_1.default)((req, res, next) => __await
         try {
             const jwtSecret = process.env.JWT_SECRET;
             const decoded = jsonwebtoken_1.default.verify(token, jwtSecret);
-            const doctorId = decoded.doctorId;
-            console.log(`user id: ${doctorId}`);
-            req.doctor = yield userModel_js_1.default.findById(doctorId).select('-password');
-            console.log(`request user is ${req.doctor}`);
+            const userId = decoded.userId;
+            console.log(`user id: ${userId}`);
+            req.user = yield userModel_js_1.default.findById(userId).select('-password');
+            console.log(`request user is ${req.user}`);
             next();
         }
         catch (error) {
@@ -52,9 +52,9 @@ const protectPatient = (0, express_async_handler_1.default)((req, res, next) => 
         try {
             const jwtSecret = process.env.JWT_SECRET;
             const decoded = jsonwebtoken_1.default.verify(token, jwtSecret);
-            const doctorId = decoded.doctorId;
+            const userId = decoded.userId;
             console.log(`decoded token: ${decoded}`);
-            req.doctor = yield patientModel_js_1.default.findById(doctorId).select('-password');
+            req.doctor = yield patientModel_js_1.default.findById(userId).select('-password');
             console.log(`requested doctor is ${req.doctor}`);
             next();
         }
