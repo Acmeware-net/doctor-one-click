@@ -4,7 +4,7 @@ import { useLogoutMutation } from '../slices/usersApiSlice';
 import { logout } from '../slices/authSlice';
 
 const Header = () => {
-  const { doctorInfo } = useSelector((state) => state.auth);
+  const { userInfo } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ const Header = () => {
             AppOintment
           </Link>
         </div>
-        <div class='flex gap-4'>
+        <div className='flex gap-4'>
           <div>
           <input
             id="q"
@@ -37,28 +37,26 @@ const Header = () => {
             placeholder="Search"
             type="search"
             name="q"
-            class='p-2 rounded-lg w-300 drop-shadow-md'
+            className='p-2 rounded-lg w-300 drop-shadow-md'
           />
           </div>
           <div>
-          <button class='bg-gray-battleship p-2 rounded-lg hover:bg-green-sage drop-shadow-lg transition duration-300'>Search</button>
+          <button className='bg-gray-battleship p-2 rounded-lg hover:bg-green-sage drop-shadow-lg transition duration-300'>Search</button>
           </div>
         </div>
         <div className="flex space-x-4">
-          {doctorInfo ? (
+          {userInfo ? (
             <>
               <div className="flex items-center space-x-2">
                 <Link to="/dashboard" className="hover:text-gray-300">
                   <span className="text-sm font-medium">Welcome back</span>
-                  <span className="text-sm font-medium"> {doctorInfo?.name}</span>
+                  <span className="text-sm font-medium"> {userInfo?.name}</span>
                 </Link>
                 <img src='./doc.jpg' className=' w-10 h-10 rounded-full' />
-                <Link to="/profile" className="hover:text-gray-300">
-                  <span className='border rounded-md p-2'>Profile</span>
-                </Link>
+                
                 <button
                   onClick={logoutHandler}
-                  className="hover:text-gray-300 focus:outline-none border rounded-md p-2"
+                  className="bg-gray-battleship p-2 rounded-lg hover:bg-green-sage drop-shadow-lg transition duration-300"
                 >
                   Logout
                 </button>
@@ -70,7 +68,7 @@ const Header = () => {
                 <span className='p-2'>Sign In</span>
               </Link>
               </div>
-              <div class='bg-gray-battleship p-2 rounded-lg hover:bg-green-sage drop-shadow-lg transition duration-300'>
+              <div className='bg-gray-battleship p-2 rounded-lg hover:bg-green-sage drop-shadow-lg transition duration-300'>
               <Link to="/register" className="">
                 <span className='rounded-lg p-2 '>Sign Up</span>
               </Link>

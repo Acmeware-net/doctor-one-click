@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.protectPatient = exports.protect = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
-const doctorModel_js_1 = __importDefault(require("../models/doctorModel.js"));
+const userModel_js_1 = __importDefault(require("../models/userModel.js"));
 const patientModel_js_1 = __importDefault(require("../models/patientModel.js"));
 const protect = (0, express_async_handler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let token;
@@ -27,9 +27,9 @@ const protect = (0, express_async_handler_1.default)((req, res, next) => __await
             const jwtSecret = process.env.JWT_SECRET;
             const decoded = jsonwebtoken_1.default.verify(token, jwtSecret);
             const doctorId = decoded.doctorId;
-            console.log(`decoded token: ${decoded}`);
-            req.doctor = yield doctorModel_js_1.default.findById(doctorId).select('-password');
-            console.log(`request doctor is ${req.doctor}`);
+            console.log(`user id: ${doctorId}`);
+            req.doctor = yield userModel_js_1.default.findById(doctorId).select('-password');
+            console.log(`request user is ${req.doctor}`);
             next();
         }
         catch (error) {

@@ -18,13 +18,13 @@ const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const schema = new mongoose_1.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true },
-    password: { type: String, required: true },
-    phone: { type: String, required: true },
-    address: { type: String, required: true },
-    gender: { type: String, required: true },
+    password: { type: String, required: false },
+    phone: { type: String, required: false },
+    address: { type: String, required: false },
+    gender: { type: String, required: false },
     age: { type: String, required: false },
-    city: { type: String, required: true },
-    country: { type: String, required: true },
+    city: { type: String, required: false },
+    country: { type: String, required: false },
 }, {
     timestamps: true,
 });

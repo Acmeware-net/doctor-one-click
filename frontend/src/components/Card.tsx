@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 
 const Card = (props:any) => {
 
-  const { doctorInfo } = useSelector((state:any) => state.auth);
+  const { userInfo } = useSelector((state:any) => state.auth);
   
   return (
         <>

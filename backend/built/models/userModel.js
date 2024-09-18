@@ -15,33 +15,29 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 // Create a Schema corresponding to the document interface.
-const doctorSchema = new mongoose_1.Schema({
-    name: { type: String, required: true },
+const userSchema = new mongoose_1.Schema({
+    // name: { type: String, required: true },
     email: { type: String, required: true },
-    // password: { type: String, required: true },
-    phone: { type: String, required: false },
-    address: { type: String, required: false },
-    gender: { type: String, required: false },
-    dateofbirth: { type: String, required: false },
-    specialization: { type: String, required: false },
-    bio: { type: String, required: false },
-    image: { type: String, required: false },
-    headline: { type: String, required: false },
-    experience: { type: String, required: false },
-    city: { type: String, required: false },
-    state: { type: String, required: false },
-    zipcode: { type: String, required: false },
+    password: { type: String, required: true },
+    // phone: { type: String, required: false },
+    // address: { type: String, required: false },
+    // gender: { type: String, required: false },
+    // dateofbirth: { type: String, required: false },
+    // city: { type: String, required: false },
+    // state: { type: String, required: false },
+    // zipcode: { type: String, required: false },
+    type: { type: String, required: true },
 }, {
     timestamps: true,
 });
-// Match doctor entered password to hashed password in database
-doctorSchema.methods.matchPassword = function (enteredPassword) {
+// Match user entered password to hashed password in database
+userSchema.methods.matchPassword = function (enteredPassword) {
     return __awaiter(this, void 0, void 0, function* () {
         return yield bcryptjs_1.default.compare(enteredPassword, this.password);
     });
 };
 // Encrypt password using bcrypt
-doctorSchema.pre('save', function (next) {
+userSchema.pre('save', function (next) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!this.isModified('password')) {
             next();
@@ -52,5 +48,5 @@ doctorSchema.pre('save', function (next) {
     });
 });
 // Create a Model.
-const Doctor = (0, mongoose_1.model)('Doctor', doctorSchema);
-exports.default = Doctor;
+const User = (0, mongoose_1.model)('User', userSchema);
+exports.default = User;

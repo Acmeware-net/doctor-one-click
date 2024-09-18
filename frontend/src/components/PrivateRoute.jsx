@@ -2,9 +2,10 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const PrivateRoute = () => {
-  const { doctorInfo } = useSelector((state) => state.auth);
+  const { userInfo } = useSelector((state) => state.auth);
 
-  if (doctorInfo === undefined) {
+  setTimeout(()=>{console.log(`checking authenication`)},5000);
+  if (userInfo === undefined) {
     // Optionally, you could show a loading spinner or a message here if needed
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -13,8 +14,7 @@ const PrivateRoute = () => {
       </div>
     );
   }
-
-  return doctorInfo ? <Outlet /> : <Navigate to='/login' replace />;
+  return userInfo ? <Outlet /> : <Navigate to='/login' replace />;
 };
 
 export default PrivateRoute;

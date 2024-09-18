@@ -10,46 +10,57 @@ import { toast } from 'react-toastify';
 
 
 const Register = () => {
-  const [name, setName] = useState('');
+  // const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [dateofbirth, setDateofbirth] = useState(''); 
-  const [gender, setGender] = useState(''); 
-  const [phone, setPhone] = useState(''); 
-  const [address, setAddress] = useState(''); 
-  const [city, setCity] = useState(''); 
-  const [state, setState] = useState(''); 
-  const [license, setLicense] = useState(''); 
-  const [zipcode, setZipCode] = useState(''); 
+  // const [dateofbirth, setDateofbirth] = useState(''); 
+  // const [gender, setGender] = useState(''); 
+  // const [phone, setPhone] = useState(''); 
+  // const [address, setAddress] = useState(''); 
+  // const [city, setCity] = useState(''); 
+  // const [state, setState] = useState(''); 
+  // const [license, setLicense] = useState(''); 
+  // const [zipcode, setZipCode] = useState(''); 
   const [terms, setTerms] = useState(false); 
   const [privacy, setPrivacy] = useState(false); 
-  const [specialization, setSpecialization] = useState(''); 
-  const [experience, setExperience] = useState(''); 
-
+  // const [specialization, setSpecialization] = useState(''); 
+  // const [experience, setExperience] = useState(''); 
+  const [doctor, setDoctor] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [register, { isLoading }] = useRegisterMutation();
 
-  const { doctorInfo } = useSelector((state) => state.auth);
-  
+  const { userInfo } = useSelector((state) => state.auth);
+  const isEmailEmpty = true;
+
   useEffect(() => {
-    if (doctorInfo) {
+    if (userInfo) {
       navigate('/dashboard');
     }
-  }, [navigate, doctorInfo]);
+  }, [navigate, userInfo]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    console.log(`email: ${email} password: ${password} isDoctor: ${doctor}`)
+      if(doctor){
+        console.log(`user is doctor`)
+      }else{
+        console.log(`user is patient`)
+      }
     if (password !== confirmPassword) {
       toast.error('Passwords do not match');
     } else {
       try {
-        console.log(`name: ${name}, email: ${email}, password: ${password}, dob: ${dateofbirth}, gender: ${gender}, phone: ${phone}, address: ${address}, city: ${city}, state: ${state}, specialization: ${specialization}, experience: ${experience}, terms: ${terms}, privacy: ${privacy}`)
-        const res = await register({ name, email, password, dateofbirth, gender, phone, address, city, state, license, specialization, experience}).unwrap();
+        const res = await register({ email, password, doctor}).unwrap();
         console.log(`res is ${res}`)
         dispatch(setCredentials({ ...res }));
+        if(doctor){
+          console.log(doctor)
+          setDoctor(!doctor);
+          console.log(doctor)
+        }
         navigate('/dashboard');
       } catch (err) {
         toast.error(err?.data?.message || err.error);
@@ -60,11 +71,11 @@ const Register = () => {
   return(
     <div className='flex justify-center font-poppins bg-green-sage'>
   <div className= " mt-10 max-w-6xl  bg-gray-100 p-10" >
-    <h1 className='text-2xl text-gray-800 text-center mb-5'>Sign up as doctor</h1>
+    <h1 className='text-2xl text-gray-800 text-center mb-5'>Sign up</h1>
     <form onSubmit={submitHandler}
      className='bg-white p-10 rounded-lg  shadow-md   animate-fadeIn'>
      <div className="grid grid-cols-2 gap-8">
-      <div className='my-1' id='name'>
+      {/* <div className='my-1' id='name'>
         <label className='block mb-2 text-gray-600 font-medium'> Name</label>
         <input
           type='text'
@@ -73,7 +84,7 @@ const Register = () => {
           onChange={(e) => setName(e.target.value)}
           className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
         />
-      </div>
+      </div> */}
 
       <div className='my-1' id='email'>
         <label className='block mb-2 text-gray-600 font-medium'>Email Address</label>
@@ -83,9 +94,34 @@ const Register = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
-        />
+        /><br/>
+       {(email==='') && <span className='text-red-700'>Email address cannot be empty</span>}
       </div>
 
+      <div className='my-1' id='usertype'>
+      <label htmlFor='usertype'>User Type</label><br/>
+      <input
+        type='radio'
+        id='doctor'
+        value='doctor'
+        name='usertype'
+        className='p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200 border-2'
+        onChange={(e) => setDoctor(e.target.checked)}
+        checked
+
+      />
+      <label htmlFor='doctor'> Doctor   </label>
+
+      <input
+        type='radio'
+        id='patient'
+        value='patient'
+        name='usertype'
+        onChange={(e) => setDoctor(!e.target.checked)}
+        className='p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
+      />
+      <label htmlFor='patient'>   Patient</label>
+    </div>
       <div className='my-1' id='password'>
         <label className='block mb-2 text-gray-600 font-medium'>Password</label>
         <input
@@ -95,6 +131,8 @@ const Register = () => {
           onChange={(e) => setPassword(e.target.value)}
           className='p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
         />
+        <br/>
+        {(password==='') && <span className='text-red-700'>Password cannot be empty</span>}
       </div>
 
       <div className='my-1' id='confirmPassword'>
@@ -106,8 +144,11 @@ const Register = () => {
           onChange={(e) => setConfirmPassword(e.target.value)}
           className='p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
         />
+        <br/>
+        {(password !== confirmPassword) && <span className='text-red-700'>Passwords do not match</span>}
       </div>     
 
+{/*       
       <div className='my-1' id='dob'>
         <label className='block mb-2 text-gray-600 font-medium'>Date of birth</label>
         <input
@@ -128,7 +169,7 @@ const Register = () => {
           onChange={(e) => setGender(e.target.value)}
           className='p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
         />
-        <label for='male'> male   </label>
+        <label htmlFor='male'> male   </label>
         <span>       </span>
         <input
           type='radio'
@@ -139,7 +180,7 @@ const Register = () => {
           className='p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
         
         />
-        <label for='male'>   female</label>
+        <label htmlFor='male'>   female</label>
       </div>
 
       <div className='my-1' id='phone'>
@@ -228,7 +269,7 @@ const Register = () => {
           onChange={(e) => setZipCode(e.target.value)}
           className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
         />
-      </div>
+      </div> */}
      
       
 
@@ -239,14 +280,14 @@ const Register = () => {
         id='terms'
         onChange={(e) => setTerms(e.target.checked)}
         />
-        <label for='cb-terms'> I hereby agree to the terms and conditions by the use of this software.</label>
+        <label htmlFor='terms'> I hereby agree to the <span className='text-cyan-500 hover:opacity-50'><Link to="/terms">terms and conditions</Link></span> by the use of this software.</label>
         <br/>
         <input 
         type='checkbox'
         id='privacy'
         onChange={(e) => setPrivacy(e.target.checked)}
         />
-        <label for='cb-privacy'> I hereby agree to the privacy policy by the use of this software.</label>
+        <label htmlFor='privacy'> I hereby agree to the <span className='text-cyan-500 hover:opacity-50'><Link to="/privacy">privacy policy</Link></span> by the use of this software.</label>
       </div>
       <button type='submit' className='w-full p-2 rounded-md font-semibold text-lg bg-blue-400 text-white font-medium hover:bg-green-500 transition-all mt-3'>
         Register

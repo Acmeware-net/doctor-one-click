@@ -5,6 +5,7 @@ dotenv.config();
 import connectDB from './config/db.js';
 import cookieParser from 'cookie-parser';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
+import userRoutes from './routes/userRoutes.js';
 import doctorRoutes from './routes/doctorRoutes.js';
 import patientRoutes from './routes/patientRoutes.js';
 import appointmentRoutes from './routes/appointmentRoutes.js';
@@ -21,6 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 
+app.use('/api/users', userRoutes);
 app.use('/api/doctors', doctorRoutes);
 app.use('/api/patient', patientRoutes);
 app.use('/api/appointment', appointmentRoutes);

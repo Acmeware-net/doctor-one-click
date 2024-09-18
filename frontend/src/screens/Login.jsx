@@ -18,17 +18,23 @@ import Loader from '../components/Loader';
 
   const [login, { isLoading }] = useLoginMutation();
 
-  const { doctorInfo } = useSelector((state) => state.auth);
+  const { userInfo } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (doctorInfo) {
+    if (userInfo) {
       navigate('/dashboard');
     }
-  }, [navigate, doctorInfo]);
+  }, [navigate, userInfo]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
+      // console.log(`email: ${email} password: ${password} isDoctor: ${isDoctor} isPatient: ${isPatient}`)
+      // if(isPatient){
+      //   console.log(`user is patient`)
+      // }else{
+      //   console.log(`user is doctor`)
+      // }
       const res = await login({ email, password }).unwrap();
       dispatch(setCredentials({ ...res }));
       navigate('/');
@@ -39,7 +45,7 @@ import Loader from '../components/Loader';
   return (
      <div className="flex justify-center font-poppins bg-green-babypowder">
       <div className= "mt-10  bg-gray-100 p-10">
-        <h1 className="text-2xl text-gray-800 text-center mb-5">Sign In as Doctor</h1>
+        <h1 className="text-2xl text-gray-800 text-center mb-5">Sign In</h1>
 
         <form
           onSubmit={submitHandler}
@@ -80,7 +86,7 @@ import Loader from '../components/Loader';
 
         <div className="py-2 text-center">
           <div>
-            New Doctor? <Link to="/register" className="text-blue-400">Register</Link>
+            New User? <Link to="/register" className="text-blue-400">Register</Link>
           </div>
         </div>
       </div>

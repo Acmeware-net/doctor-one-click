@@ -1,23 +1,45 @@
-import React from 'react'
-import Card from '../components/Card';
-
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate, Link, Outlet } from 'react-router-dom';
+import { useLogoutMutation } from '../slices/usersApiSlice';
+import { logout } from '../slices/authSlice';
 
 const Dashboard = () => {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [logoutApiCall] = useLogoutMutation();
+  
+  const { userInfo } = useSelector((state) => state.auth);
+
+  const logoutHandler = async () => {
+    try {
+      await logoutApiCall().unwrap();
+      dispatch(logout());
+      navigate('/login');
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <div>
-      <div className='text-center font-mono text-5xl antialiased hover:subpixel-antialiased font-semibold text-teal-200'>Dashboard</div>
-      <div class="grid grid-cols-6 border border-red gap-4">
-        <div className='border border-black p-5 row-span-10 grid-rows-5'>
-          <div class='bg-blue-100 hover:bg-blue-200 p-5 my-3 font-sans rounded-md'>Dashboard</div>
-          <div class='bg-blue-100 hover:bg-blue-200 p-5 my-3 font-sans rounded-md'>Patients</div>
-          <div class='bg-blue-100 hover:bg-blue-200 p-5 my-3 font-sans rounded-md'>Checkups</div>
-          <div class='bg-blue-100 hover:bg-blue-200 p-5 my-3 font-sans rounded-md'>Appointments</div>
-          <div class='bg-blue-100 hover:bg-blue-200 p-5 my-3 font-sans rounded-md'>Profile</div>
-          <div class='bg-blue-100 hover:bg-blue-200 p-5 my-3 font-sans rounded-md'>Settings</div>
-          <div class='bg-blue-100 hover:bg-blue-200 p-5 my-3 font-sans rounded-md'>Logout </div>
+      <div className='text-center font-mono text-5xl antialiased hover:subpixel-antialiased font-semibold text-green-nyanzadark py-7'>Dashboard</div>
+      <div className="grid grid-cols-6 gap-4">
+        <div className=' p-5 row-span-10 grid-rows-5'>
+          <Link to="/dashboard"><div className='bg-green-nyanzalight hover:hover:bg-blue-100 p-5 my-3 font-sans rounded-md'>Dashboard</div></Link>
+          { (userInfo.type === 'doctor') ? <Link to="/dashboard/doctors"><div className='bg-green-nyanzalight hover:bg-blue-100 p-5 my-3 font-sans rounded-md'>Doctors</div></Link> : 
+          <Link to="/dashboard/patients"><div className='bg-green-nyanzalight hover:bg-blue-100 p-5 my-3 font-sans rounded-md'>Patients</div></Link>}
+          <Link to="/dashboard/checkups"><div className='bg-green-nyanzalight hover:bg-blue-100 p-5 my-3 font-sans rounded-md'>Checkups</div></Link>
+          <Link to="/dashboard/appointments"><div className='bg-green-nyanzalight hover:bg-blue-100 p-5 my-3 font-sans rounded-md'>Appointments</div></Link>
+          <Link to="/dashboard/profile"><div className='bg-green-nyanzalight hover:bg-blue-100 p-5 my-3 font-sans rounded-md'>Profile</div></Link>
+          <Link to="/dashboard/settings"><div className='bg-green-nyanzalight hover:bg-blue-100 p-5 my-3 font-sans rounded-md'>Settings</div></Link>
+          <div onClick={logoutHandler} className='bg-green-nyanzalight hover:bg-blue-100 p-5 my-3 font-sans rounded-md cursor-pointer'>Logout </div>
         </div>
-        <div class='p-5 border border-green rounded-lg col-span-5 row-span-12'></div>
-      
+        <div className='p-5 rounded-lg col-span-5 row-span-12'>
+          <Outlet />
+        </div>
+
 
       </div>
       {/* <Card type="Pending" />

@@ -69,7 +69,7 @@ const registerDoctor = (0, express_async_handler_1.default)((req, res) => __awai
             _id: doctor._id,
             name: doctor.name,
             email: doctor.email,
-            dob: doctor.dob,
+            dateofbirth: doctor.dateofbirth,
             gender: doctor.gender,
             phone: doctor.phone,
             address: doctor.address,
@@ -108,11 +108,11 @@ const getDoctorProfile = (0, express_async_handler_1.default)((req, res) => __aw
             _id: doctor._id,
             name: doctor.name,
             email: doctor.email,
-            dob: doctor.dob,
+            dateofbirth: doctor.dateofbirth,
             gender: doctor.gender,
             phone: doctor.phone,
             address: doctor.address,
-            city: doctor.address,
+            city: doctor.city,
             state: doctor.state,
             specialization: doctor.specialization,
             headline: doctor.headline,
@@ -134,7 +134,7 @@ const updateDoctorProfile = (0, express_async_handler_1.default)((req, res) => _
     if (doctor) {
         doctor.name = req.body.name || doctor.name;
         doctor.email = req.body.email || doctor.email;
-        doctor.dob = req.body.dob || doctor.dob;
+        doctor.dateofbirth = req.body.dob || doctor.dateofbirth;
         doctor.gender = req.body.gender || doctor.gender;
         doctor.phone = req.body.phone || doctor.phone;
         doctor.address = req.body.address || doctor.address;
@@ -145,14 +145,14 @@ const updateDoctorProfile = (0, express_async_handler_1.default)((req, res) => _
         doctor.bio = req.body.bio || doctor.bio;
         doctor.experience = req.body.experience || doctor.experience;
         if (req.body.password) {
-            doctor.password = req.body.password;
+            // doctor.password = req.body.password;
         }
         const updatedDoctor = yield doctor.save();
         res.json({
             _id: updatedDoctor._id,
             name: updatedDoctor.name,
             email: updatedDoctor.email,
-            dob: updatedDoctor.dob,
+            dob: updatedDoctor.dateofbirth,
             gender: updatedDoctor.gender,
             phone: updatedDoctor.phone,
             address: updatedDoctor.address,
