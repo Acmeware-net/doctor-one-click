@@ -8,6 +8,7 @@ interface Doctor{
     phone: string;
     address: string;
     specialization: string;
+    license: string;
     bio: string;
     image: string;
     headline: string;

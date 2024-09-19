@@ -14,9 +14,9 @@ const protect = asyncHandler(async (req: any, res: any, next: any) => {
       const jwtSecret: any = process.env.JWT_SECRET;
       const decoded: any = jwt.verify(token, jwtSecret);
       console.log(`decoded token : ${decoded}`)
-      const doctorId: any = decoded.doctorId;
-      console.log(`user id: ${doctorId}`);
-      req.user = await User.findById(doctorId).select('-password');
+      const userId: any = decoded.userId;
+      console.log(`user id: ${userId}`);
+      req.user = await User.findById(userId).select('-password');
       console.log(`request user is ${req.user}`);
       next();
     } catch (error) {
@@ -42,9 +42,9 @@ console.log(`token : ${token}`);
       const jwtSecret: any = process.env.JWT_SECRET;
       const decoded: any = jwt.verify(token, jwtSecret);
       const userId: any = decoded.userId;
-      console.log(`decoded token: ${decoded}`);
-      req.doctor = await Patient.findById(userId).select('-password');
-      console.log(`requested doctor is ${req.doctor}`);
+      console.log(`userId: ${userId}`);
+      req.user = await User.findById(userId).select('-password');
+      console.log(`requested user is ${req.user}`);
       next();
     } catch (error) {
       console.error(error);

@@ -144,43 +144,84 @@ const getUserProfile = asyncHandler(async (req: any, res: any) => {
 // @route   PUT /api/users/profile
 // @access  Private
 const updateUserProfile = asyncHandler(async (req: any, res: any) => {
-  console.log(`User comes to update profile, id: ${req.user._id} and name: ${req.user.name} email ${req.user.email} and password : ${req.user.password}`)
-        
+  console.log('Entering updateUserProfile method in userController...')
+  console.log(req.body)
+  const { _id, name, email, password, phone, address, gender, dateofbirth, city, state, zipcode, experience, specialization, bio, headline, image, license } = req.body;
+  console.log(`User comes to update profile, id: ${_id} and name: ${name} email ${email} and password : ${password}`)
+  console.log(`User comes to update profile, phone: ${phone} and address: ${address} gender ${gender} and city : ${city}`)
+  console.log(`User comes to update profile, state: ${state} and zipcode: ${zipcode} experience ${experience} and specialization : ${specialization}`)
+  console.log(`User comes to update profile, bio: ${bio} and headline: ${headline} image ${image} and license : ${license}`)
+
   const user = await User.findById(req.user._id);
-  if (user?.type === 'patient'){
-      console.log(`user type is patient`)
-  }
-  if (user?.type === 'doctor'){
-    console.log(`user type is doctor`)
-}
-  console.log(`user to update is ${user}`)
+
+
   if (user) {
-    // user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
-    // user.dateofbirth = req.body.dob || user.dateofbirth;
-    // user.gender = req.body.gender || user.gender;
-    // user.phone = req.body.phone || user.phone;
-    // user.address = req.body.address || user.address;
-    // user.city = req.body.city || user.city;
-    // user.state = req.body.country || user.state;
-    // user.zipcode = req.body.zipcode || user.zipcode;
+
     if (req.body.password) {
       user.password = req.body.password;
     }
-    await user.save();
-    const updatedUser = await user.save();
 
+    await user.save();
+
+    const userId = req.user._id;
+    let updatedUser = null;
+
+    if (user?.type === 'patient') {
+      console.log(`user type is patient`)
+      updatedUser = await Patient.findOne({ userId });
+      if (updatedUser) {
+        updatedUser.name = req.body.name || updatedUser.name;
+        updatedUser.email = req.body.email || updatedUser.email;
+        updatedUser.dateofbirth = req.body.dateofbirth || updatedUser.dateofbirth;
+        updatedUser.gender = req.body.gender || updatedUser.gender;
+        updatedUser.phone = req.body.phone || updatedUser.phone;
+        updatedUser.address = req.body.address || updatedUser.address;
+        updatedUser.city = req.body.city || updatedUser.city;
+        updatedUser.state = req.body.country || updatedUser.state;
+        updatedUser.zipcode = req.body.zipcode || updatedUser.zipcode;
+        updatedUser.save();
+      }
+      console.log(`updatedUser is patient ${updatedUser}`);
+    }
+    if (user?.type === 'doctor') {
+      console.log(`user type is doctor`)
+      updatedUser = await Doctor.findOne({ userId });
+      if (updatedUser) {
+        updatedUser.name = req.body.name || updatedUser.name;
+        updatedUser.email = req.body.email || updatedUser.email;
+        updatedUser.dateofbirth = req.body.dateofbirth || updatedUser.dateofbirth;
+        updatedUser.gender = req.body.gender || updatedUser.gender;
+        updatedUser.phone = req.body.phone || updatedUser.phone;
+        updatedUser.address = req.body.address || updatedUser.address;
+        updatedUser.city = req.body.city || updatedUser.city;
+        updatedUser.state = req.body.country || updatedUser.state;
+        updatedUser.zipcode = req.body.zipcode || updatedUser.zipcode;
+        updatedUser.experience = req.body.experience || updatedUser.experience;
+        updatedUser.specialization = req.body.specialization || updatedUser.specialization;
+        updatedUser.bio = req.body.bio || updatedUser.bio;
+        updatedUser.headline = req.body.headline || updatedUser.headline;
+        updatedUser.license = req.body.license || updatedUser.license;
+        updatedUser.save();
+      }
+      console.log(`updatedUser is doctor ${updatedUser}`);
+    }
+    console.log(`user to update is ${user}`)
+    if(updatedUser){
     res.json({
-      // name: updatedUser.name,
+      name: updatedUser.name,
       email: updatedUser.email,
-      // dateofbirth: updatedUser.dateofbirth,
-      // gender: updatedUser.gender,
-      // phone: updatedUser.phone,
-      // address: updatedUser.address,
-      // city: updatedUser.address,
-      // country: updatedUser.state,
-      // zipcode: updatedUser.zipcode,
+      dateofbirth: updatedUser.dateofbirth,
+      gender: updatedUser.gender,
+      phone: updatedUser.phone,
+      address: updatedUser.address,
+      city: updatedUser.address,
+      country: updatedUser.state,
+      zipcode: updatedUser.zipcode,
     });
+  }else {
+    res.json({message:"User not found."})
+  }
   } else {
     res.status(404);
     throw new Error('User not found');

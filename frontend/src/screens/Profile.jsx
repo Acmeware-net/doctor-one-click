@@ -30,7 +30,7 @@ const Profile = () => {
   const dispatch = useDispatch();
 
   const { userInfo } = useSelector((state) => state.auth);
-
+  console.log(``)
   const [updateProfile, { isLoading }] = useUpdateUserMutation();
 
   useEffect(() => {
@@ -45,11 +45,27 @@ const Profile = () => {
     } else {
       try {
         console.log(`User comes to update profile, id: ${userInfo._id} and name: ${name} email ${email} and password : ${password}`)
+        console.log(`User comes to update profile, phone: ${phone} and address: ${address} gender ${gender} and city : ${city}`)
+        console.log(`User comes to update profile, state: ${state} and zipcode: ${zipcode} experience ${experience} and specialization : ${specialization}`)
+        console.log(`User comes to update profile, bio: ${bio} and headline: ${headline} image ${image} and license : ${license}`)
         const res = await updateProfile({
           _id: userInfo._id,
           name,
           email,
           password,
+          gender,
+          dateofbirth,
+          phone,
+          address,
+          city,
+          state,
+          zipcode,
+          experience,
+          specialization,
+          bio,
+          headline,
+          image,
+          license,
         }).unwrap();
         console.log(res);
         dispatch(setCredentials(res));
@@ -120,28 +136,7 @@ const Profile = () => {
           ></input>
         </div>
 
-        <div className='my-2' >
-          <label className='block mb-2 text-gray-600 font-medium'>Gender</label>
-          <input
-            type='text'
-            placeholder='Enter your gender'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
-          ></input>
-        </div>
-
-        <div className='my-2' >
-          <label className='block mb-2 text-gray-600 font-medium'>Email Address</label>
-          <input
-            type='email'
-            placeholder='Enter email'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
-          ></input>
-        </div>
-
+        
         <div className='my-1' id='gender'>
         <label className='block mb-2 text-gray-600 font-medium'>Gender</label>
         <input
@@ -176,7 +171,7 @@ const Profile = () => {
         />
       </div>      
 
-      <div className='my-1' id='license'>
+      {(userInfo.type === 'doctor') && <div className='my-1' id='license'>
         <label className='block mb-2 text-gray-600 font-medium'>Medical License No.</label>
         <input
           type='text'
@@ -185,8 +180,8 @@ const Profile = () => {
           onChange={(e) => setLicense(e.target.value)}
           className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
         />
-      </div>  
-
+      </div>  }
+      {(userInfo.type === 'doctor') &&
       <div className='my-1' id='specialization'>
         <label className='block mb-2 text-gray-600 font-medium'>Specialization</label>
         <input
@@ -196,8 +191,8 @@ const Profile = () => {
           onChange={(e) => setSpecialization(e.target.value)}
           className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
         />
-      </div>
-
+      </div>}
+      {(userInfo.type === 'doctor') &&
       <div className='my-1' id='experience'>
         <label className='block mb-2 text-gray-600 font-medium'>Experience</label>
         <input
@@ -207,18 +202,9 @@ const Profile = () => {
           onChange={(e) => setExperience(e.target.value)}
           className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
         />
-      </div>
+      </div>}
 
-      <div className='my-1' id='address'>
-        <label className='block mb-2 text-gray-600 font-medium'>Address</label>
-        <input
-          type='text'
-          placeholder='e.g. Office 2 street 5 area downtown'
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-          className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
-        />
-      </div>
+     
 
       <div className='my-1' id='city'>
         <label className='block mb-2 text-gray-600 font-medium'>City</label>
@@ -252,7 +238,7 @@ const Profile = () => {
           className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
         />
       </div>
-
+      {(userInfo.type === 'doctor') &&
         <div className='my-2' >
           <label className='block mb-2 text-gray-600 font-medium'>Headline</label>
           <input
@@ -262,8 +248,9 @@ const Profile = () => {
             onChange={(e) => setHeadline(e.target.value)}
             className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
           ></input>
-        </div>
+        </div>}
 
+        {(userInfo.type === 'doctor') &&
         <div className='my-2' >
           <label className='block mb-2 text-gray-600 font-medium'>Bio</label>
           <input
@@ -273,7 +260,7 @@ const Profile = () => {
             onChange={(e) => setBio(e.target.value)}
             className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
           ></input>
-        </div>
+        </div>}
 
         <div className='my-1' id='password'>
         <label className='block mb-2 text-gray-600 font-medium'>Password</label>
@@ -301,7 +288,7 @@ const Profile = () => {
         {(password !== confirmPassword) && <span className='text-red-700'>Passwords do not match</span>}
       </div>    
 
-      
+
         <button type='submit' variant='primary' className='w-full p-2 rounded-md font-semibold text-lg bg-blue-400 text-white font-medium hover:bg-green-500 transition-all mt-3'>
           Update
         </button>

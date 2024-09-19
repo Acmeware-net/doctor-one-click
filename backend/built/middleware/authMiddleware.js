@@ -16,7 +16,6 @@ exports.protectPatient = exports.protect = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
 const userModel_js_1 = __importDefault(require("../models/userModel.js"));
-const patientModel_js_1 = __importDefault(require("../models/patientModel.js"));
 const protect = (0, express_async_handler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let token;
     console.log(`Entering protect method inside auth middleware`);
@@ -27,9 +26,9 @@ const protect = (0, express_async_handler_1.default)((req, res, next) => __await
             const jwtSecret = process.env.JWT_SECRET;
             const decoded = jsonwebtoken_1.default.verify(token, jwtSecret);
             console.log(`decoded token : ${decoded}`);
-            const doctorId = decoded.doctorId;
-            console.log(`user id: ${doctorId}`);
-            req.user = yield userModel_js_1.default.findById(doctorId).select('-password');
+            const userId = decoded.userId;
+            console.log(`user id: ${userId}`);
+            req.user = yield userModel_js_1.default.findById(userId).select('-password');
             console.log(`request user is ${req.user}`);
             next();
         }
@@ -54,9 +53,9 @@ const protectPatient = (0, express_async_handler_1.default)((req, res, next) => 
             const jwtSecret = process.env.JWT_SECRET;
             const decoded = jsonwebtoken_1.default.verify(token, jwtSecret);
             const userId = decoded.userId;
-            console.log(`decoded token: ${decoded}`);
-            req.doctor = yield patientModel_js_1.default.findById(userId).select('-password');
-            console.log(`requested doctor is ${req.doctor}`);
+            console.log(`userId: ${userId}`);
+            req.user = yield userModel_js_1.default.findById(userId).select('-password');
+            console.log(`requested user is ${req.user}`);
             next();
         }
         catch (error) {

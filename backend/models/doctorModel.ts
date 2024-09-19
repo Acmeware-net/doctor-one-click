@@ -12,6 +12,7 @@ const doctorSchema = new Schema<Doctor>({
   gender: { type: String, required: false },
   dateofbirth: { type: String, required: false },
   specialization: { type: String, required: false },
+  license: { type: String, required: false },
   bio: { type: String, required: false },
   image: { type: String, required: false },
   headline: { type: String, required: false },
