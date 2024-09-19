@@ -7,12 +7,13 @@ export default interface Patient{
     phone: string;
     address: string;
     gender: string;
-    age: string;
+    dateofbirth: string;
     email: string;
     password: string;
     // TODO
-    checkups: Checkup[];
-    appointments: Appointment[];
+    checkups: string[];
+    appointments: string[];
     city: string;
-    country: string;
+    state: string;
+    zipcode: string;
 }

@@ -17,12 +17,12 @@ const authPatient = asyncHandler(async (req: any, res: any) => {
       _id: patient._id,
       name: patient.name,
       email: patient.email,
-      age: patient.age,
+      dateofbirth: patient.dateofbirth,
       gender: patient.gender,
       phone: patient.phone,
       address: patient.address,
       city: patient.city,
-      country: patient.country,
+      state: patient.state,
     });
   } else {
     res.status(401);
@@ -62,12 +62,12 @@ const registerPatient = asyncHandler(async (req: any, res: any) => {
       _id: patient._id,
       name: patient.name,
       email: patient.email,
-      age: patient.age,
+      dateofbirth: patient.dateofbirth,
       gender: patient.gender,
       phone: patient.phone,
       address: patient.address,
       city: patient.city,
-      country: patient.country,
+      state: patient.state,
     });
   } else {
     res.status(400);
@@ -97,12 +97,12 @@ const getPatientProfile = asyncHandler(async (req: any, res: any) => {
       _id: patient._id,
       name: patient.name,
       email: patient.email,
-      age: patient.age,
+      dateofbirth: patient.dateofbirth,
       gender: patient.gender,
       phone: patient.phone,
       address: patient.address,
       city: patient.city,
-      country: patient.country,
+      state: patient.state,
     });
   } else {
     res.status(404);
@@ -119,12 +119,12 @@ const updatePatientProfile = asyncHandler(async (req: any, res: any) => {
   if (patient) {
     patient.name = req.body.name || patient.name;
     patient.email = req.body.email || patient.email;
-    patient.age = req.body.age || patient.age;
+    patient.dateofbirth = req.body.age || patient.dateofbirth;
     patient.gender = req.body.gender || patient.gender;
     patient.phone = req.body.phone || patient.phone;
     patient.address = req.body.address || patient.address;
     patient.city = req.body.city || patient.city;
-    patient.country = req.body.country || patient.country;
+    patient.state = req.body.country || patient.state;
 
     if (req.body.password) {
       patient.password = req.body.password;
@@ -136,12 +136,12 @@ const updatePatientProfile = asyncHandler(async (req: any, res: any) => {
       _id: updatedpatient._id,
       name: updatedpatient.name,
       email: updatedpatient.email,
-      age: updatedpatient.age,
+      dateofbirth: updatedpatient.dateofbirth,
       gender: updatedpatient.gender,
       phone: updatedpatient.phone,
       address: updatedpatient.address,
       city: updatedpatient.city,
-      country: updatedpatient.country,
+      state: updatedpatient.state,
     });
   } else {
     res.status(404);

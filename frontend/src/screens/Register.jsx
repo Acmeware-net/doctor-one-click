@@ -126,7 +126,7 @@ const Register = () => {
         <label className='block mb-2 text-gray-600 font-medium'>Password</label>
         <input
           type='password'
-          placeholder='e.g. t5X&#1qZ'
+          placeholder='e.g. 1q#rT$7uZ'
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className='p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'

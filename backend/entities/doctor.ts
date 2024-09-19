@@ -17,8 +17,8 @@ interface Doctor{
     city: string;
     state: string;
     zipcode: string;
-    checkups: Checkup[];
-    appointments: Appointment[];
+    checkups: string[];
+    appointments: string[];
   }
 
 export default Doctor;

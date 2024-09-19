@@ -69,11 +69,12 @@ const registerUser = (0, express_async_handler_1.default)((req, res) => __awaite
         type,
     });
     const userId = user.id;
-    console.log(`user id is ${user.id}`);
+    let newUser = null;
+    console.log(`New user registered with id ${user.id}`);
     if (!doctor) {
         console.log("inside isPatient block");
         let name = "patient";
-        const patient = yield patientModel_js_1.default.create({
+        newUser = yield patientModel_js_1.default.create({
             userId,
             name,
             email
@@ -82,25 +83,26 @@ const registerUser = (0, express_async_handler_1.default)((req, res) => __awaite
     else {
         console.log("inside isDoctor block");
         let name = "doctor";
-        const doctor = yield doctorModel_js_1.default.create({
+        newUser = yield doctorModel_js_1.default.create({
             userId,
             name,
             email
         });
     }
+    console.log(`newUser is ${newUser}`);
     if (user) {
         (0, generateToken_js_1.default)(res, user._id);
         res.status(201).json({
             _id: user._id,
-            // name: user.name,
+            name: newUser.name,
             email: user.email,
-            // dateofbirth: user.dateofbirth,
-            // gender: user.gender,
-            // phone: user.phone,
-            // address: user.address,
-            // city: user.address,
-            // state: user.state,
-            // zipcode: user.zipcode,
+            dateofbirth: newUser.dateofbirth,
+            gender: newUser.gender,
+            phone: newUser.phone,
+            address: newUser.address,
+            city: newUser.address,
+            state: newUser.state,
+            zipcode: newUser.zipcode,
             type: user.type,
         });
     }

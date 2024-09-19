@@ -19,6 +19,8 @@ const doctorSchema = new Schema<Doctor>({
   city: { type: String, required: false },
   state: { type: String, required: false },
   zipcode: { type: String, required: false },
+  checkups: { type: [], required: false },
+  appointments: { type: [], required: false },
 },
 {
   timestamps: true,

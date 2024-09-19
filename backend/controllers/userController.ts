@@ -59,11 +59,12 @@ const registerUser = asyncHandler(async (req: any, res: any) => {
   });
 
   const userId = user.id;
-  console.log(`user id is ${user.id}`)
+  let newUser = null;
+  console.log(`New user registered with id ${user.id}`)
   if (!doctor) {
     console.log("inside isPatient block")
     let name = "patient"
-    const patient = await Patient.create({
+    newUser = await Patient.create({
       userId,
       name,
       email
@@ -72,28 +73,28 @@ const registerUser = asyncHandler(async (req: any, res: any) => {
   else {
     console.log("inside isDoctor block")
     let name = "doctor"
-    const doctor = await Doctor.create({
+    newUser = await Doctor.create({
       userId,
       name,
       email
     });
   }
-
+  console.log(`newUser is ${newUser}`);
 
   if (user) {
     generateToken(res, user._id);
 
     res.status(201).json({
       _id: user._id,
-      // name: user.name,
+      name: newUser.name,
       email: user.email,
-      // dateofbirth: user.dateofbirth,
-      // gender: user.gender,
-      // phone: user.phone,
-      // address: user.address,
-      // city: user.address,
-      // state: user.state,
-      // zipcode: user.zipcode,
+      dateofbirth: newUser.dateofbirth,
+      gender: newUser.gender,
+      phone: newUser.phone,
+      address: newUser.address,
+      city: newUser.address,
+      state: newUser.state,
+      zipcode: newUser.zipcode,
       type: user.type,
     });
   } else {
