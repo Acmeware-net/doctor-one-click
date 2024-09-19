@@ -34,8 +34,16 @@ const Profile = () => {
   const [updateProfile, { isLoading }] = useUpdateUserMutation();
 
   useEffect(() => {
+    console.log(`useEffect runs`);
     setName(userInfo.name);
     setEmail(userInfo.email);
+    setPhone(userInfo.phone);
+    setAddress(userInfo.address);
+    setGender(userInfo.gender);
+    setCity(userInfo.city);
+    setState(userInfo.state);
+    setZipCode(userInfo.zipcode);
+    setDateofbirth(userInfo.dateofbirth);
   }, [userInfo.email, userInfo.name]);
 
   const submitHandler = async (e) => {
@@ -146,6 +154,7 @@ const Profile = () => {
           name='gender'
           onChange={(e) => setGender(e.target.value)}
           className='p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
+          checked = {(gender === 'male')}
         />
         <label htmlFor='male'> male   </label>
         <span>       </span>
@@ -156,6 +165,7 @@ const Profile = () => {
           name='gender'
           onChange={(e) => setGender(e.target.value)}
           className='p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
+          checked = {(gender === 'female')}
         
         />
         <label htmlFor='male'>   female</label>

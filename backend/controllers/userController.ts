@@ -14,20 +14,37 @@ const authUser = asyncHandler(async (req: any, res: any) => {
   // @ts-ignore
   if (user && (await user.matchPassword(password))) {
     generateToken(res, user._id);
+    console.log(`user type : ${user.type}`)
+    let userAccount = null;
+    let userId = user._id;
+    if (user?.type === 'patient') {
+      userAccount = await Patient.findOne({ userId });
 
+    }
+    if (user?.type === 'doctor') {
+      userAccount = await Doctor.findOne({ userId });
+    }
+if(userAccount){
     res.json({
       _id: user._id,
-      // name: user.name,
-      email: user.email,
-      // dateofbirth: user.dateofbirth,
-      // gender: user.gender,
-      // phone: user.phone,
-      // address: user.address,
-      // city: user.address,
-      // state: user.state,
-      // zipcode: user.zipcode,
+      name: userAccount.name,
+      email: userAccount.email,
+      dateofbirth: userAccount.dateofbirth,
+      gender: userAccount.gender,
+      phone: userAccount.phone,
+      address: userAccount.address,
+      city: userAccount.city,
+      state: userAccount.state,
+      zipcode: userAccount.zipcode,
       type: user.type,
     });
+  }else{
+    res.json({
+      _id: user._id,
+      email: user.email,
+      type: user.type,
+    });
+  }
   } else {
     res.status(401);
     throw new Error('Invalid email or password');
