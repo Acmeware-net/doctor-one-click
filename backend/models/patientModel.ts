@@ -4,6 +4,7 @@ import Patient from '../entities/patient';
 
 // Create a Schema corresponding to the document interface.
 const schema = new Schema<Patient>({
+  userId: { type: String, required: true },
   name: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: false },

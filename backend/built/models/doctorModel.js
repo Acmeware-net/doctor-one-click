@@ -16,9 +16,9 @@ const mongoose_1 = require("mongoose");
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 // Create a Schema corresponding to the document interface.
 const doctorSchema = new mongoose_1.Schema({
+    userId: { type: String, required: true },
     name: { type: String, required: true },
     email: { type: String, required: true },
-    // password: { type: String, required: true },
     phone: { type: String, required: false },
     address: { type: String, required: false },
     gender: { type: String, required: false },

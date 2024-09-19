@@ -6,16 +6,17 @@ import Patient from '../models/patientModel.js';
 
 const protect = asyncHandler(async (req: any, res: any, next: any) => {
   let token;
-  console.log(`Inside auth middleware`);
+  console.log(`Entering protect method inside auth middleware`);
   token = req.cookies.jwt;
   console.log(`token : ${token}`);
   if (token) {
     try {
       const jwtSecret: any = process.env.JWT_SECRET;
       const decoded: any = jwt.verify(token, jwtSecret);
-      const userId: any = decoded.userId;
-      console.log(`user id: ${userId}`);
-      req.user = await User.findById(userId).select('-password');
+      console.log(`decoded token : ${decoded}`)
+      const doctorId: any = decoded.doctorId;
+      console.log(`user id: ${doctorId}`);
+      req.user = await User.findById(doctorId).select('-password');
       console.log(`request user is ${req.user}`);
       next();
     } catch (error) {

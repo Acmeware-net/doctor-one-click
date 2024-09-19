@@ -69,6 +69,7 @@ const registerUser = (0, express_async_handler_1.default)((req, res) => __awaite
         type,
     });
     const userId = user.id;
+    console.log(`user id is ${user.id}`);
     if (!doctor) {
         console.log("inside isPatient block");
         let name = "patient";
@@ -81,7 +82,7 @@ const registerUser = (0, express_async_handler_1.default)((req, res) => __awaite
     else {
         console.log("inside isDoctor block");
         let name = "doctor";
-        const patient = yield doctorModel_js_1.default.create({
+        const doctor = yield doctorModel_js_1.default.create({
             userId,
             name,
             email
@@ -132,7 +133,7 @@ const getUserProfile = (0, express_async_handler_1.default)((req, res) => __awai
             // name: user.name,
             email: user.email,
             // dateofbirth: user.dateofbirth,
-            // gender: user.gender,
+            // gender: user.gender,  
             // phone: user.phone,
             // address: user.address,
             // city: user.address,
@@ -153,6 +154,13 @@ exports.getUserProfile = getUserProfile;
 const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(`User comes to update profile, id: ${req.user._id} and name: ${req.user.name} email ${req.user.email} and password : ${req.user.password}`);
     const user = yield userModel_js_1.default.findById(req.user._id);
+    if ((user === null || user === void 0 ? void 0 : user.type) === 'patient') {
+        console.log(`user type is patient`);
+    }
+    if ((user === null || user === void 0 ? void 0 : user.type) === 'doctor') {
+        console.log(`user type is doctor`);
+    }
+    console.log(`user to update is ${user}`);
     if (user) {
         // user.name = req.body.name || user.name;
         user.email = req.body.email || user.email;
@@ -163,13 +171,12 @@ const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __a
         // user.city = req.body.city || user.city;
         // user.state = req.body.country || user.state;
         // user.zipcode = req.body.zipcode || user.zipcode;
-        user.type = req.body.type || user.type;
         if (req.body.password) {
             user.password = req.body.password;
         }
+        yield user.save();
         const updatedUser = yield user.save();
         res.json({
-            _id: updatedUser._id,
             // name: updatedUser.name,
             email: updatedUser.email,
             // dateofbirth: updatedUser.dateofbirth,
@@ -179,7 +186,6 @@ const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __a
             // city: updatedUser.address,
             // country: updatedUser.state,
             // zipcode: updatedUser.zipcode,
-            type: updatedUser.type,
         });
     }
     else {

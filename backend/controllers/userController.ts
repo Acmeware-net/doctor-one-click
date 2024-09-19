@@ -59,7 +59,7 @@ const registerUser = asyncHandler(async (req: any, res: any) => {
   });
 
   const userId = user.id;
-
+  console.log(`user id is ${user.id}`)
   if (!doctor) {
     console.log("inside isPatient block")
     let name = "patient"
@@ -72,7 +72,7 @@ const registerUser = asyncHandler(async (req: any, res: any) => {
   else {
     console.log("inside isDoctor block")
     let name = "doctor"
-    const patient = await Doctor.create({
+    const doctor = await Doctor.create({
       userId,
       name,
       email
@@ -125,7 +125,7 @@ const getUserProfile = asyncHandler(async (req: any, res: any) => {
       // name: user.name,
       email: user.email,
       // dateofbirth: user.dateofbirth,
-      // gender: user.gender,
+      // gender: user.gender,  
       // phone: user.phone,
       // address: user.address,
       // city: user.address,
@@ -146,7 +146,13 @@ const updateUserProfile = asyncHandler(async (req: any, res: any) => {
   console.log(`User comes to update profile, id: ${req.user._id} and name: ${req.user.name} email ${req.user.email} and password : ${req.user.password}`)
         
   const user = await User.findById(req.user._id);
-
+  if (user?.type === 'patient'){
+      console.log(`user type is patient`)
+  }
+  if (user?.type === 'doctor'){
+    console.log(`user type is doctor`)
+}
+  console.log(`user to update is ${user}`)
   if (user) {
     // user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
@@ -157,16 +163,13 @@ const updateUserProfile = asyncHandler(async (req: any, res: any) => {
     // user.city = req.body.city || user.city;
     // user.state = req.body.country || user.state;
     // user.zipcode = req.body.zipcode || user.zipcode;
-    user.type = req.body.type || user.type;
-
     if (req.body.password) {
       user.password = req.body.password;
     }
-
+    await user.save();
     const updatedUser = await user.save();
 
     res.json({
-      _id: updatedUser._id,
       // name: updatedUser.name,
       email: updatedUser.email,
       // dateofbirth: updatedUser.dateofbirth,
@@ -176,7 +179,6 @@ const updateUserProfile = asyncHandler(async (req: any, res: any) => {
       // city: updatedUser.address,
       // country: updatedUser.state,
       // zipcode: updatedUser.zipcode,
-      type: updatedUser.type,
     });
   } else {
     res.status(404);
