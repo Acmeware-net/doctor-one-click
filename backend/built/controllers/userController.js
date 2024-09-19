@@ -199,7 +199,7 @@ const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __a
                 updatedUser.phone = req.body.phone || updatedUser.phone;
                 updatedUser.address = req.body.address || updatedUser.address;
                 updatedUser.city = req.body.city || updatedUser.city;
-                updatedUser.state = req.body.country || updatedUser.state;
+                updatedUser.state = req.body.state || updatedUser.state;
                 updatedUser.zipcode = req.body.zipcode || updatedUser.zipcode;
                 updatedUser.save();
             }
@@ -216,7 +216,7 @@ const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __a
                 updatedUser.phone = req.body.phone || updatedUser.phone;
                 updatedUser.address = req.body.address || updatedUser.address;
                 updatedUser.city = req.body.city || updatedUser.city;
-                updatedUser.state = req.body.country || updatedUser.state;
+                updatedUser.state = req.body.state || updatedUser.state;
                 updatedUser.zipcode = req.body.zipcode || updatedUser.zipcode;
                 updatedUser.experience = req.body.experience || updatedUser.experience;
                 updatedUser.specialization = req.body.specialization || updatedUser.specialization;
@@ -237,7 +237,7 @@ const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __a
                 phone: updatedUser.phone,
                 address: updatedUser.address,
                 city: updatedUser.address,
-                country: updatedUser.state,
+                state: updatedUser.state,
                 zipcode: updatedUser.zipcode,
             });
         }

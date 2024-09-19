@@ -195,7 +195,7 @@ const updateUserProfile = asyncHandler(async (req: any, res: any) => {
         updatedUser.phone = req.body.phone || updatedUser.phone;
         updatedUser.address = req.body.address || updatedUser.address;
         updatedUser.city = req.body.city || updatedUser.city;
-        updatedUser.state = req.body.country || updatedUser.state;
+        updatedUser.state = req.body.state || updatedUser.state;
         updatedUser.zipcode = req.body.zipcode || updatedUser.zipcode;
         updatedUser.save();
       }
@@ -212,7 +212,7 @@ const updateUserProfile = asyncHandler(async (req: any, res: any) => {
         updatedUser.phone = req.body.phone || updatedUser.phone;
         updatedUser.address = req.body.address || updatedUser.address;
         updatedUser.city = req.body.city || updatedUser.city;
-        updatedUser.state = req.body.country || updatedUser.state;
+        updatedUser.state = req.body.state || updatedUser.state;
         updatedUser.zipcode = req.body.zipcode || updatedUser.zipcode;
         updatedUser.experience = req.body.experience || updatedUser.experience;
         updatedUser.specialization = req.body.specialization || updatedUser.specialization;
@@ -233,7 +233,7 @@ const updateUserProfile = asyncHandler(async (req: any, res: any) => {
       phone: updatedUser.phone,
       address: updatedUser.address,
       city: updatedUser.address,
-      country: updatedUser.state,
+      state: updatedUser.state,
       zipcode: updatedUser.zipcode,
     });
   }else {
