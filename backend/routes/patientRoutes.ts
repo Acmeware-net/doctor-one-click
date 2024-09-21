@@ -6,7 +6,8 @@ import {
   registerPatient,
   logoutPatient,
   getPatientProfile,
-  updatePatientProfile
+  updatePatientProfile,
+  getPatients,
 } from '../controllers/patientController.js';
 
 import { protect, protectPatient } from '../middleware/authMiddleware.js';
@@ -22,6 +23,6 @@ router
   .route('/profile')
   .get(protectPatient, getPatientProfile)
   .put(protectPatient, updatePatientProfile);
-
+  router.route('/').get(protect, getPatients);
 
 export default router;

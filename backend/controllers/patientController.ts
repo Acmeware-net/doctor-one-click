@@ -1,6 +1,9 @@
 import asyncHandler from 'express-async-handler';
 import Patient from '../models/patientModel.js';
 import generateToken from '../utils/generateToken.js';
+import { PatientsResponse, mapper } from '../responses/PatientsResponse.js';
+
+
 
 // @desc    Auth patient & get token
 // @route   POST /api/patients/auth
@@ -29,6 +32,9 @@ const authPatient = asyncHandler(async (req: any, res: any) => {
     throw new Error('Invalid email or password');
   }
 });
+
+
+
 
 // @desc    Register a new patient
 // @route   POST /api/patients
@@ -75,6 +81,9 @@ const registerPatient = asyncHandler(async (req: any, res: any) => {
   }
 });
 
+
+
+
 // @desc    Logout patient / clear cookie
 // @route   POST /api/patients/logout
 // @access  Public
@@ -85,6 +94,10 @@ const logoutPatient = (req: any, res: any) => {
   });
   res.status(200).json({ message: 'Logged out successfully' });
 };
+
+
+
+
 
 // @desc    Get patient profile
 // @route   GET /api/patients/profile
@@ -109,6 +122,28 @@ const getPatientProfile = asyncHandler(async (req: any, res: any) => {
     throw new Error('patient not found');
   }
 });
+
+
+
+
+// @desc    Get patient profile
+// @route   GET /api/patients/
+// @access  Public
+const getPatients = asyncHandler(async (req: any, res: any) => {
+  const patientsList = await Patient.find({});
+  
+  if (patientsList) {
+    var patients: PatientsResponse[] = [];
+    patientsList.map((patient)=>{patients.push(mapper(patient))});
+    res.json({patients});
+  } else {
+    res.status(404);
+    throw new Error('Patients list not found');
+  }
+});
+
+
+
 
 // @desc    Update patient profile
 // @route   PUT /api/patients/profile
@@ -154,4 +189,5 @@ export {
   logoutPatient,
   getPatientProfile,
   updatePatientProfile,
+  getPatients,
 };

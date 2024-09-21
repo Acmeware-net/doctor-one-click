@@ -23,9 +23,9 @@ app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, cookie_parser_1.default)());
 app.use('/api/users', userRoutes_js_1.default);
 app.use('/api/doctors', doctorRoutes_js_1.default);
-app.use('/api/patient', patientRoutes_js_1.default);
-app.use('/api/appointment', appointmentRoutes_js_1.default);
-app.use('/api/checkup', checkupRoutes_js_1.default);
+app.use('/api/patients', patientRoutes_js_1.default);
+app.use('/api/appointments', appointmentRoutes_js_1.default);
+app.use('/api/checkups', checkupRoutes_js_1.default);
 if (process.env.NODE_ENV === 'production') {
     const __dirname = path_1.default.resolve();
     app.use(express_1.default.static(path_1.default.join(__dirname, '/frontend/dist')));

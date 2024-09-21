@@ -140,7 +140,7 @@ const getDoctors = asyncHandler(async (req: any, res: any) => {
   
   if (doctorsList) {
     var doctors: DoctorsResponse[] = [];
-    doctorsList.map((doctor1)=>{doctors.push(mapper(doctor1))});
+    doctorsList.map((doctor)=>{doctors.push(mapper(doctor))});
     res.json({doctors});
   } else {
     res.status(404);

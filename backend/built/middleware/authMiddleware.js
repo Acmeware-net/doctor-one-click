@@ -47,15 +47,12 @@ exports.protect = protect;
 const protectPatient = (0, express_async_handler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let token;
     token = req.cookies.jwt;
-    console.log(`token : ${token}`);
     if (token) {
         try {
             const jwtSecret = process.env.JWT_SECRET;
             const decoded = jsonwebtoken_1.default.verify(token, jwtSecret);
             const userId = decoded.userId;
-            console.log(`userId: ${userId}`);
             req.user = yield userModel_js_1.default.findById(userId).select('-password');
-            console.log(`requested user is ${req.user}`);
             next();
         }
         catch (error) {

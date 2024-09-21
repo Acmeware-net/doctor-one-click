@@ -33,18 +33,16 @@ const protect = asyncHandler(async (req: any, res: any, next: any) => {
 
 
 const protectPatient = asyncHandler(async (req: any, res: any, next: any) => {
+  
   let token;
-
   token = req.cookies.jwt;
-console.log(`token : ${token}`);
+  
   if (token) {
     try {
       const jwtSecret: any = process.env.JWT_SECRET;
       const decoded: any = jwt.verify(token, jwtSecret);
       const userId: any = decoded.userId;
-      console.log(`userId: ${userId}`);
       req.user = await User.findById(userId).select('-password');
-      console.log(`requested user is ${req.user}`);
       next();
     } catch (error) {
       console.error(error);

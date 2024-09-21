@@ -15,4 +15,5 @@ router
     .route('/profile')
     .get(authMiddleware_js_1.protectPatient, patientController_js_1.getPatientProfile)
     .put(authMiddleware_js_1.protectPatient, patientController_js_1.updatePatientProfile);
+router.route('/').get(authMiddleware_js_1.protect, patientController_js_1.getPatients);
 exports.default = router;

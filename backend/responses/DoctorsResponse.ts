@@ -11,7 +11,7 @@ export class DoctorsResponse {
     city: string;
 }
 
-export function mapper(doctor: Doctor){
+export function mapper(doctor: Doctor): DoctorsResponse{
     let doctorTo: DoctorsResponse = new DoctorsResponse();
     doctorTo.name = doctor.name;
     doctorTo.address = doctor.address;

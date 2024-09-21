@@ -24,9 +24,9 @@ app.use(cookieParser());
 
 app.use('/api/users', userRoutes);
 app.use('/api/doctors', doctorRoutes);
-app.use('/api/patient', patientRoutes);
-app.use('/api/appointment', appointmentRoutes);
-app.use('/api/checkup', checkupRoutes);
+app.use('/api/patients', patientRoutes);
+app.use('/api/appointments', appointmentRoutes);
+app.use('/api/checkups', checkupRoutes);
 
 
 if (process.env.NODE_ENV === 'production') {

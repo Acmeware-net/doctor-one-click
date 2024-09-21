@@ -134,7 +134,7 @@ const getDoctors = (0, express_async_handler_1.default)((req, res) => __awaiter(
     const doctorsList = yield doctorModel_js_1.default.find({});
     if (doctorsList) {
         var doctors = [];
-        doctorsList.map((doctor1) => { doctors.push((0, DoctorsResponse_js_1.mapper)(doctor1)); });
+        doctorsList.map((doctor) => { doctors.push((0, DoctorsResponse_js_1.mapper)(doctor)); });
         res.json({ doctors });
     }
     else {
