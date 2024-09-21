@@ -12,10 +12,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateDoctorProfile = exports.getDoctorProfile = exports.logoutDoctor = exports.registerDoctor = exports.authDoctor = void 0;
+exports.updateDoctorProfile = exports.getDoctorProfile = exports.logoutDoctor = exports.registerDoctor = exports.getDoctors = exports.authDoctor = void 0;
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
 const doctorModel_js_1 = __importDefault(require("../models/doctorModel.js"));
 const generateToken_js_1 = __importDefault(require("../utils/generateToken.js"));
+const DoctorsResponse_js_1 = require("../responses/DoctorsResponse.js");
 // @desc    Auth doctor & get token
 // @route   POST /api/doctors/auth
 // @access  Public
@@ -126,6 +127,22 @@ const getDoctorProfile = (0, express_async_handler_1.default)((req, res) => __aw
     }
 }));
 exports.getDoctorProfile = getDoctorProfile;
+// @desc    Get doctor profile
+// @route   GET /api/doctors/
+// @access  Public
+const getDoctors = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const doctorsList = yield doctorModel_js_1.default.find({});
+    if (doctorsList) {
+        var doctors = [];
+        doctorsList.map((doctor1) => { doctors.push((0, DoctorsResponse_js_1.mapper)(doctor1)); });
+        res.json({ doctors });
+    }
+    else {
+        res.status(404);
+        throw new Error('Doctors list not found');
+    }
+}));
+exports.getDoctors = getDoctors;
 // @desc    Update doctor profile
 // @route   PUT /api/doctors/profile
 // @access  Private

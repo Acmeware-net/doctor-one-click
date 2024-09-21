@@ -1,6 +1,10 @@
 import asyncHandler from 'express-async-handler';
 import Doctor from '../models/doctorModel.js';
 import generateToken from '../utils/generateToken.js';
+import { DoctorsResponse, mapper } from '../responses/DoctorsResponse.js';
+
+
+
 
 // @desc    Auth doctor & get token
 // @route   POST /api/doctors/auth
@@ -23,6 +27,9 @@ const authDoctor = asyncHandler(async (req: any, res: any) => {
     throw new Error('Invalid email or password');
   }
 });
+
+
+
 
 // @desc    Register a new doctor
 // @route   POST /api/doctors
@@ -76,6 +83,9 @@ const registerDoctor = asyncHandler(async (req: any, res: any) => {
   }
 });
 
+
+
+
 // @desc    Logout doctor / clear cookie
 // @route   POST /api/doctors/logout
 // @access  Public
@@ -86,6 +96,9 @@ const logoutDoctor = (req: any, res: any) => {
   });
   res.status(200).json({ message: 'Logged out successfully' });
 };
+
+
+
 
 // @desc    Get doctor profile
 // @route   GET /api/doctors/profile
@@ -114,6 +127,29 @@ const getDoctorProfile = asyncHandler(async (req: any, res: any) => {
     throw new Error('Doctor not found');
   }
 });
+
+
+
+
+
+// @desc    Get doctor profile
+// @route   GET /api/doctors/
+// @access  Public
+const getDoctors = asyncHandler(async (req: any, res: any) => {
+  const doctorsList = await Doctor.find({});
+  
+  if (doctorsList) {
+    var doctors: DoctorsResponse[] = [];
+    doctorsList.map((doctor1)=>{doctors.push(mapper(doctor1))});
+    res.json({doctors});
+  } else {
+    res.status(404);
+    throw new Error('Doctors list not found');
+  }
+});
+
+
+
 
 // @desc    Update doctor profile
 // @route   PUT /api/doctors/profile
@@ -160,8 +196,13 @@ const updateDoctorProfile = asyncHandler(async (req: any, res: any) => {
     throw new Error('Doctor not found');
   }
 });
+
+
+
+
 export {
   authDoctor,
+  getDoctors,
   registerDoctor,
   logoutDoctor,
   getDoctorProfile,

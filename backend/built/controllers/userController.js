@@ -29,33 +29,45 @@ const authUser = (0, express_async_handler_1.default)((req, res) => __awaiter(vo
     if (user && (yield user.matchPassword(password))) {
         (0, generateToken_js_1.default)(res, user._id);
         console.log(`user type : ${user.type}`);
-        let userAccount = null;
+        let doctor = null;
+        let patient = null;
         let userId = user._id;
         if ((user === null || user === void 0 ? void 0 : user.type) === 'patient') {
-            userAccount = yield patientModel_js_1.default.findOne({ userId });
+            patient = yield patientModel_js_1.default.findOne({ userId });
         }
         if ((user === null || user === void 0 ? void 0 : user.type) === 'doctor') {
-            userAccount = yield doctorModel_js_1.default.findOne({ userId });
+            doctor = yield doctorModel_js_1.default.findOne({ userId });
         }
-        if (userAccount) {
+        if (doctor) {
             res.json({
-                _id: user._id,
-                name: userAccount.name,
-                email: userAccount.email,
-                dateofbirth: userAccount.dateofbirth,
-                gender: userAccount.gender,
-                phone: userAccount.phone,
-                address: userAccount.address,
-                city: userAccount.city,
-                state: userAccount.state,
-                zipcode: userAccount.zipcode,
+                name: doctor.name,
+                email: doctor.email,
+                dateofbirth: doctor.dateofbirth,
+                gender: doctor.gender,
+                phone: doctor.phone,
+                address: doctor.address,
+                city: doctor.address,
+                state: doctor.state,
+                zipcode: doctor.zipcode,
                 type: user.type,
+                experience: doctor.experience,
+                specialization: doctor.specialization,
+                bio: doctor.bio,
+                headline: doctor.headline,
+                license: doctor.license,
             });
         }
-        else {
+        if (patient) {
             res.json({
-                _id: user._id,
-                email: user.email,
+                name: patient.name,
+                email: patient.email,
+                dateofbirth: patient.dateofbirth,
+                gender: patient.gender,
+                phone: patient.phone,
+                address: patient.address,
+                city: patient.address,
+                state: patient.state,
+                zipcode: patient.zipcode,
                 type: user.type,
             });
         }
@@ -118,7 +130,7 @@ const registerUser = (0, express_async_handler_1.default)((req, res) => __awaite
             gender: newUser.gender,
             phone: newUser.phone,
             address: newUser.address,
-            city: newUser.address,
+            city: newUser.city,
             state: newUser.state,
             zipcode: newUser.zipcode,
             type: user.type,
@@ -175,10 +187,6 @@ const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __a
     console.log('Entering updateUserProfile method in userController...');
     console.log(req.body);
     const { _id, name, email, password, phone, address, gender, dateofbirth, city, state, zipcode, experience, specialization, bio, headline, image, license } = req.body;
-    console.log(`User comes to update profile, id: ${_id} and name: ${name} email ${email} and password : ${password}`);
-    console.log(`User comes to update profile, phone: ${phone} and address: ${address} gender ${gender} and city : ${city}`);
-    console.log(`User comes to update profile, state: ${state} and zipcode: ${zipcode} experience ${experience} and specialization : ${specialization}`);
-    console.log(`User comes to update profile, bio: ${bio} and headline: ${headline} image ${image} and license : ${license}`);
     const user = yield userModel_js_1.default.findById(req.user._id);
     if (user) {
         user.email = req.body.email || user.email;
@@ -187,62 +195,80 @@ const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __a
         }
         yield user.save();
         const userId = req.user._id;
-        let updatedUser = null;
+        let doctor = null;
+        let patient = null;
         if ((user === null || user === void 0 ? void 0 : user.type) === 'patient') {
             console.log(`user type is patient`);
-            updatedUser = yield patientModel_js_1.default.findOne({ userId });
-            if (updatedUser) {
-                updatedUser.name = req.body.name || updatedUser.name;
-                updatedUser.email = req.body.email || updatedUser.email;
-                updatedUser.dateofbirth = req.body.dateofbirth || updatedUser.dateofbirth;
-                updatedUser.gender = req.body.gender || updatedUser.gender;
-                updatedUser.phone = req.body.phone || updatedUser.phone;
-                updatedUser.address = req.body.address || updatedUser.address;
-                updatedUser.city = req.body.city || updatedUser.city;
-                updatedUser.state = req.body.state || updatedUser.state;
-                updatedUser.zipcode = req.body.zipcode || updatedUser.zipcode;
-                updatedUser.save();
+            patient = yield patientModel_js_1.default.findOne({ userId });
+            if (patient) {
+                patient.name = req.body.name || patient.name;
+                patient.email = req.body.email || patient.email;
+                patient.dateofbirth = req.body.dateofbirth || patient.dateofbirth;
+                patient.gender = req.body.gender || patient.gender;
+                patient.phone = req.body.phone || patient.phone;
+                patient.address = req.body.address || patient.address;
+                patient.city = req.body.city || patient.city;
+                patient.state = req.body.state || patient.state;
+                patient.zipcode = req.body.zipcode || patient.zipcode;
+                patient.save();
             }
-            console.log(`updatedUser is patient ${updatedUser}`);
+            console.log(`patient is ${patient}`);
         }
         if ((user === null || user === void 0 ? void 0 : user.type) === 'doctor') {
             console.log(`user type is doctor`);
-            updatedUser = yield doctorModel_js_1.default.findOne({ userId });
-            if (updatedUser) {
-                updatedUser.name = req.body.name || updatedUser.name;
-                updatedUser.email = req.body.email || updatedUser.email;
-                updatedUser.dateofbirth = req.body.dateofbirth || updatedUser.dateofbirth;
-                updatedUser.gender = req.body.gender || updatedUser.gender;
-                updatedUser.phone = req.body.phone || updatedUser.phone;
-                updatedUser.address = req.body.address || updatedUser.address;
-                updatedUser.city = req.body.city || updatedUser.city;
-                updatedUser.state = req.body.state || updatedUser.state;
-                updatedUser.zipcode = req.body.zipcode || updatedUser.zipcode;
-                updatedUser.experience = req.body.experience || updatedUser.experience;
-                updatedUser.specialization = req.body.specialization || updatedUser.specialization;
-                updatedUser.bio = req.body.bio || updatedUser.bio;
-                updatedUser.headline = req.body.headline || updatedUser.headline;
-                updatedUser.license = req.body.license || updatedUser.license;
-                updatedUser.save();
+            doctor = yield doctorModel_js_1.default.findOne({ userId });
+            if (doctor) {
+                doctor.name = req.body.name || doctor.name;
+                doctor.email = req.body.email || doctor.email;
+                doctor.dateofbirth = req.body.dateofbirth || doctor.dateofbirth;
+                doctor.gender = req.body.gender || doctor.gender;
+                doctor.phone = req.body.phone || doctor.phone;
+                doctor.address = req.body.address || doctor.address;
+                doctor.city = req.body.city || doctor.city;
+                doctor.state = req.body.state || doctor.state;
+                doctor.zipcode = req.body.zipcode || doctor.zipcode;
+                doctor.experience = req.body.experience || doctor.experience;
+                doctor.specialization = req.body.specialization || doctor.specialization;
+                doctor.bio = req.body.bio || doctor.bio;
+                doctor.headline = req.body.headline || doctor.headline;
+                doctor.license = req.body.license || doctor.license;
+                doctor.save();
             }
-            console.log(`updatedUser is doctor ${updatedUser}`);
+            console.log(`doctor is ${doctor}`);
         }
         console.log(`user to update is ${user}`);
-        if (updatedUser) {
+        if (doctor) {
             res.json({
-                name: updatedUser.name,
-                email: updatedUser.email,
-                dateofbirth: updatedUser.dateofbirth,
-                gender: updatedUser.gender,
-                phone: updatedUser.phone,
-                address: updatedUser.address,
-                city: updatedUser.address,
-                state: updatedUser.state,
-                zipcode: updatedUser.zipcode,
+                name: doctor.name,
+                email: doctor.email,
+                dateofbirth: doctor.dateofbirth,
+                gender: doctor.gender,
+                phone: doctor.phone,
+                address: doctor.address,
+                city: doctor.address,
+                state: doctor.state,
+                zipcode: doctor.zipcode,
+                type: user.type,
+                experience: doctor.experience,
+                specialization: doctor.specialization,
+                bio: doctor.bio,
+                headline: doctor.headline,
+                license: doctor.license,
             });
         }
-        else {
-            res.json({ message: "User not found." });
+        if (patient) {
+            res.json({
+                name: patient.name,
+                email: patient.email,
+                dateofbirth: patient.dateofbirth,
+                gender: patient.gender,
+                phone: patient.phone,
+                address: patient.address,
+                city: patient.address,
+                state: patient.state,
+                zipcode: patient.zipcode,
+                type: user.type,
+            });
         }
     }
     else {
