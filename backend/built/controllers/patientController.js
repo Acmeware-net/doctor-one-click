@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getPatients = exports.updatePatientProfile = exports.getPatientProfile = exports.logoutPatient = exports.registerPatient = exports.authPatient = void 0;
+exports.getPatientByUserId = exports.getPatientById = exports.getPatients = exports.updatePatientProfile = exports.getPatientProfile = exports.logoutPatient = exports.registerPatient = exports.authPatient = void 0;
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
 const patientModel_js_1 = __importDefault(require("../models/patientModel.js"));
 const generateToken_js_1 = __importDefault(require("../utils/generateToken.js"));
@@ -138,6 +138,62 @@ const getPatients = (0, express_async_handler_1.default)((req, res) => __awaiter
     }
 }));
 exports.getPatients = getPatients;
+// @desc    Get patient by id
+// @route   GET /api/users/patient/:id
+// @access  Public
+const getPatientById = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('inside get a patient by id controller method');
+    const id = req.params.id;
+    console.log(`id: ${id}`);
+    const patient = yield patientModel_js_1.default.findById(id);
+    if (patient) {
+        res.json({
+            id: patient._id,
+            user_id: patient.userId,
+            name: patient.name,
+            email: patient.email,
+            dateofbirth: patient.dateofbirth,
+            gender: patient.gender,
+            phone: patient.phone,
+            address: patient.address,
+            city: patient.city,
+            state: patient.state,
+        });
+    }
+    else {
+        res.status(404);
+        throw new Error('Patient not found');
+    }
+}));
+exports.getPatientById = getPatientById;
+// @desc    Get patient by user id
+// @route   GET /api/users/patient/id/:id
+// @access  Public
+const getPatientByUserId = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('inside a controller method getPatientByUserId');
+    const userId = req.params.id;
+    console.log(`id: ${userId}`);
+    const patient = yield patientModel_js_1.default.findOne({ "userId": userId });
+    if (patient) {
+        res.json({
+            id: patient._id,
+            user_id: patient.userId,
+            name: patient.name,
+            email: patient.email,
+            dateofbirth: patient.dateofbirth,
+            gender: patient.gender,
+            phone: patient.phone,
+            address: patient.address,
+            city: patient.city,
+            state: patient.state,
+        });
+    }
+    else {
+        res.status(404);
+        throw new Error('Patient not found');
+    }
+}));
+exports.getPatientByUserId = getPatientByUserId;
 // @desc    Update patient profile
 // @route   PUT /api/patients/profile
 // @access  Private

@@ -23,10 +23,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use('/api/users', userRoutes);
-app.use('/api/doctors', doctorRoutes);
-app.use('/api/patients', patientRoutes);
-app.use('/api/appointments', appointmentRoutes);
-app.use('/api/checkups', checkupRoutes);
+// app.use('/api/doctors', doctorRoutes);
+// app.use('/api/patients', patientRoutes);
+// app.use('/api/appointments', appointmentRoutes);
+// app.use('/api/checkups', checkupRoutes);
 
 
 if (process.env.NODE_ENV === 'production') {

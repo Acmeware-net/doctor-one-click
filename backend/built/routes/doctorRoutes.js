@@ -4,17 +4,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const doctorController_js_1 = require("../controllers/doctorController.js");
-const authMiddleware_js_1 = require("../middleware/authMiddleware.js");
 const router = express_1.default.Router();
 // doctor routes
-router.post('/register', doctorController_js_1.registerDoctor);
-router.post('/auth', doctorController_js_1.authDoctor);
-router.post('/logout', doctorController_js_1.logoutDoctor);
-router
-    .route('/profile')
-    .get(authMiddleware_js_1.protect, doctorController_js_1.getDoctorProfile)
-    .put(authMiddleware_js_1.protect, doctorController_js_1.updateDoctorProfile);
+// router.post('/register', registerDoctor);
+// router.post('/auth', authDoctor);
+// router.post('/logout', logoutDoctor);
+// router
+//   .route('/profile')
+//   .get(protect, getDoctorProfile)
+//   .put(protect, updateDoctorProfile);
 // router.get('/',getDoctors);
-router.route('/').get(authMiddleware_js_1.protect, doctorController_js_1.getDoctors);
+// router.route('/').get(protect, getDoctors);
+// router.get('/:id', getDoctorById);
 exports.default = router;

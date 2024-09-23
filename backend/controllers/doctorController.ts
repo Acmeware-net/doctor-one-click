@@ -105,6 +105,7 @@ const logoutDoctor = (req: any, res: any) => {
 // @access  Private
 const getDoctorProfile = asyncHandler(async (req: any, res: any) => {
   const doctor = await Doctor.findById(req.doctor._id);
+  console.log(`doctor id: ${req.doctor._id}`)
 
   if (doctor) {
     res.json({
@@ -128,6 +129,68 @@ const getDoctorProfile = asyncHandler(async (req: any, res: any) => {
   }
 });
 
+
+
+// @desc    Get doctor by id
+// @route   GET /api/users/doctor/:id
+// @access  Public
+const getDoctorById = asyncHandler(async (req: any, res: any) => {
+  console.log('inside get a doctor by id controller method')
+  const id = req.params.id;
+  console.log(`id: ${id}`)
+  const doctor = await Doctor.findById(id);
+  if (doctor) {
+    res.json({
+      id: doctor._id,
+      user_id: doctor.userId,
+
+      name: doctor.name,
+      email: doctor.email,
+      dateofbirth: doctor.dateofbirth,
+      gender: doctor.gender,
+      phone: doctor.phone,
+      address: doctor.address,
+      city: doctor.city,
+      state: doctor.state,
+      specialization: doctor.specialization,
+      experience: doctor.experience
+    });
+  } else {
+    res.status(404);
+    throw new Error('Doctor not found');
+  }
+});
+
+
+
+// @desc    Get doctor by user id
+// @route   GET /api/users/doctor/id/:id
+// @access  Public
+const getDoctorByUserId = asyncHandler(async (req: any, res: any) => {
+  console.log('inside a controller method getDoctorByUserId')
+  const userId = req.params.id;
+  console.log(`id: ${userId}`)
+  const doctor = await Doctor.findOne({"userId":userId});
+  if (doctor) {
+    res.json({
+      id: doctor._id,
+      user_id: doctor.userId,
+      name: doctor.name,
+      email: doctor.email,
+      dateofbirth: doctor.dateofbirth,
+      gender: doctor.gender,
+      phone: doctor.phone,
+      address: doctor.address,
+      city: doctor.city,
+      state: doctor.state,
+      specialization: doctor.specialization,
+      experience: doctor.experience
+    });
+  } else {
+    res.status(404);
+    throw new Error('Doctor not found');
+  }
+});
 
 
 
@@ -206,5 +269,7 @@ export {
   registerDoctor,
   logoutDoctor,
   getDoctorProfile,
+  getDoctorById,
+  getDoctorByUserId,
   updateDoctorProfile,
 };

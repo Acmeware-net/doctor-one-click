@@ -145,6 +145,66 @@ const getPatients = asyncHandler(async (req: any, res: any) => {
 
 
 
+// @desc    Get patient by id
+// @route   GET /api/users/patient/:id
+// @access  Public
+const getPatientById = asyncHandler(async (req: any, res: any) => {
+  console.log('inside get a patient by id controller method')
+  const id = req.params.id;
+  console.log(`id: ${id}`)
+  const patient = await Patient.findById(id);
+  if (patient) {
+    res.json({
+      id: patient._id,
+      user_id: patient.userId,
+
+      name: patient.name,
+      email: patient.email,
+      dateofbirth: patient.dateofbirth,
+      gender: patient.gender,
+      phone: patient.phone,
+      address: patient.address,
+      city: patient.city,
+      state: patient.state,
+    });
+  } else {
+    res.status(404);
+    throw new Error('Patient not found');
+  }
+});
+
+
+
+// @desc    Get patient by user id
+// @route   GET /api/users/patient/id/:id
+// @access  Public
+const getPatientByUserId = asyncHandler(async (req: any, res: any) => {
+  console.log('inside a controller method getPatientByUserId')
+  const userId = req.params.id;
+  console.log(`id: ${userId}`)
+  const patient = await Patient.findOne({"userId":userId});
+  if (patient) {
+    res.json({
+      id: patient._id,
+      user_id: patient.userId,
+      name: patient.name,
+      email: patient.email,
+      dateofbirth: patient.dateofbirth,
+      gender: patient.gender,
+      phone: patient.phone,
+      address: patient.address,
+      city: patient.city,
+      state: patient.state,
+    });
+  } else {
+    res.status(404);
+    throw new Error('Patient not found');
+  }
+});
+
+
+
+
 // @desc    Update patient profile
 // @route   PUT /api/patients/profile
 // @access  Private
@@ -190,4 +250,6 @@ export {
   getPatientProfile,
   updatePatientProfile,
   getPatients,
+  getPatientById,
+  getPatientByUserId,
 };

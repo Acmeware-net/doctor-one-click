@@ -8,9 +8,8 @@
     "start": "node backend/built/server.js",
     "server": "nodemon backend/built/server.js",
     "client": "npm run dev --prefix frontend",
-    "ts": "ts-node /backend/",
-    "dev": "concurrently \"npm run server\" \"npm run client\" \"npm run ts\"",
-    "test":"jest"
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
@@ -23,6 +22,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.5.2",
     "nodemon": "^3.1.4",
+    "react-country-state-city": "^1.1.3",
     "react-icons": "^5.3.0",
     "react-router-dom": "^6.26.1",
     "react-toastify": "^10.0.5"

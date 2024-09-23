@@ -6,6 +6,15 @@ import Loader from '../components/Loader';
 import { useUpdateUserMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 
+import {
+  CitySelect,
+  CountrySelect,
+  StateSelect,
+  LanguageSelect,
+} from "react-country-state-city";
+import "react-country-state-city/dist/react-country-state-city.css";
+
+
 const Profile = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -26,6 +35,9 @@ const Profile = () => {
   const [headline, setHeadline] = useState('');
   const [bio, setBio] = useState('');
   const [profileupdated, setProfileUpdated] = useState(false);
+
+  const [cityid, setCityId] = useState(0);
+  const [stateid, setStateId] = useState(0);
 
   const dispatch = useDispatch();
 
@@ -188,7 +200,26 @@ const Profile = () => {
               />
             </div>
 
-            <div className='my-1' id='state'>
+            <div>
+            <h6>State</h6>
+            <StateSelect
+                stateid={stateid}
+                onChange={(e) => {
+                    setStateId(e.id);
+                }}
+                placeHolder="Select State"
+            />
+            <h6>City</h6>
+            <CitySelect
+                cityid={cityid}
+                stateid={stateid}
+                onChange={(e) => {
+                    setCityId(e);
+                }}
+                placeHolder="Select City"
+            />
+        </div>
+            {/* <div className='my-1' id='state'>
               <label className='block mb-2 text-gray-600 font-medium'>State</label>
               <input
                 type='text'
@@ -197,7 +228,7 @@ const Profile = () => {
                 onChange={(e) => setState(e.target.value)}
                 className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
               />
-            </div>
+            </div> */}
 
             <div className='my-1' id='zipcode'>
               <label className='block mb-2 text-gray-600 font-medium'>Zip Code</label>
