@@ -42,8 +42,8 @@ import Loader from '../components/Loader';
     }
   };
   return (
-     <div className="flex justify-around font-poppins bg-green-babypowder">
-      <div className= "mt-10 w-full bg-gray-100 p-10">
+     <div className="flex justify-around font-poppins bg-green-babypowder items-center">
+      <div className= "mt-10 w-full bg-gray-100 p-10 align-middle">
         <h1 className="text-2xl text-gray-800 text-center mb-5">Sign In</h1>
 
         <form

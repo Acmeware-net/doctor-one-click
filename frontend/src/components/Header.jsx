@@ -77,7 +77,6 @@ const Header = () => {
                   <span className='rounded-lg p-2 '>Sign Up</span>
                 </Link>
               </div>
-              <div className='p-2'>Doctors</div>
             </>
           )}
         </div>

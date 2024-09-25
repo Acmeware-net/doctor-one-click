@@ -62,7 +62,7 @@ const Register = () => {
   };
 
   return (
-    <div className='flex justify-around font-poppins '>
+    <div className='flex justify-around font-poppins items-center'>
       <div className=" mt-10 max-w-6xl  bg-gray-100 p-10 w-full md:w-auto" >
         <h1 className='text-2xl text-gray-800 text-center mb-5'>Sign up</h1>
         <form onSubmit={submitHandler}
@@ -168,7 +168,7 @@ const Register = () => {
           </div>
         </div>
       </div>
-      <div><img src='doctor-arms.jpg' alt='doctor holding arms' className='w-full p-8' /></div>
+      <div><img src='doctor-arms.jpg' alt='doctor holding arms' className='w-full p-5' /></div>
     </div>
 
   );

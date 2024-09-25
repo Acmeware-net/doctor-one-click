@@ -2,12 +2,12 @@ import asyncHandler from 'express-async-handler';
 import Appointment from '../models/appointmentModel';
 import _Prescription from '../models/prescriptionModel';
 
-// Create a new appointment document
 
+
+// Create a new appointment document
 const createAppointment = asyncHandler(async (req: any, res: any) => {
     console.log(`inside create appointment method...`)
-    const { doctorId, patientId, status } = req.body;
-    const datetime = new Date();
+    const { doctorId, patientId, status, datetime } = req.body;
     console.log(`doctor: ${doctorId}, patient: ${patientId}, date-time: ${datetime}, status: ${status}`)
     const appointment = await Appointment.create({
         doctorId,
@@ -18,7 +18,7 @@ const createAppointment = asyncHandler(async (req: any, res: any) => {
 
     if (appointment) {
         res.status(201).json({
-            message: 'Appointment created successfully',
+            message: 'Appointment created successfully', appointment:appointment
         })
     } else {
         res.status(400).json({ message: 'Unable to create appointment' });
@@ -27,8 +27,27 @@ const createAppointment = asyncHandler(async (req: any, res: any) => {
 });
 
 // Get a appointment document by id
-
 const findAppointment = asyncHandler(async (req: any, res: any) => {
+    const { id } = req.params.id;
+    console.log(`id is ${id}`);
+    const appointment = await Appointment.findOne({ _id:id });
+
+    if (appointment) {
+        res.status(200).json({
+            doctor_id: appointment.doctorId,
+            patient_id: appointment.patientId,
+            date_time: appointment.datetime,
+            status: appointment.status,
+        })
+    } else {
+        res.status(404).json({ message: 'Appointment not found' });
+        throw new Error('Unable to find appointment');
+    }
+});
+
+// Get a appointment document by id
+
+const findAppointments = asyncHandler(async (req: any, res: any) => {
     const { id } = req.body;
     console.log(`id is ${id}`);
     const appointment = await Appointment.findOne({ id });
@@ -77,5 +96,6 @@ const updateAppointment = asyncHandler(async (req: any, res: any) => {
 export {
     createAppointment,
     findAppointment,
+    findAppointments,
     updateAppointment,
 }

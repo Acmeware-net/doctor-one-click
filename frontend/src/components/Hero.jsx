@@ -3,7 +3,7 @@ const Hero = () => {
   return (
     <>
 
-      <div className="from-green-sage to-green-nyanzalight bg-gradient-to-b ">
+      <div className="bg-green-nyanzalight">
         <div className="relative isolate px-6 pt-14 lg:px-8">
           <div className="text-9xl text-center font-sans font-semibold font-black text-cyan-600 antialiased pt-20 ">AppOintment</div>
           <div className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
@@ -86,11 +86,21 @@ const Hero = () => {
       <div className="h-96 justify-evenly basis-1/2 p-5 text-5xl p-5 text-center bg-gray-battleship content-center">
          
         <div className='h-64 p-4  grid grid-flow-col justify-stretch'>
-          <div className='p-5 '>column 01</div>
-          <div className='p-5 '>column 02</div>
-          <div className='p-5 '>column 03</div>
+          <div className='p-5 '>Acmeware</div>
+          <div className='p-5 '>
+            <div>About us</div>
+            <div>Contact us</div>
+            <div>Terms of Service</div>
+            <div>Privacy Policy</div>
+          </div>
+          <div className='p-5 '>Follow us on social
+          <div>LinkedIn</div>
+          <div>Facebook</div>
+          <div>Twitter</div>
+
+          </div>
         </div>
-        <div className="text-center text-xl">&copy; 2024 <span className="">AppOintment by <a href="https://www.acmeware.net" target="_blank">www.Acmeware.net</a></span> All rights reserved.</div>
+        <div className="text-center text-xl">&copy; 2024 <span className="">AppOintment by <a href="https://www.acmeware.net" target="_blank">www.acmeware.net</a></span> All rights reserved.</div>
       </div>
     </>
   );

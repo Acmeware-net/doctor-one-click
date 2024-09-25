@@ -12,14 +12,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateAppointment = exports.findAppointment = exports.createAppointment = void 0;
+exports.updateAppointment = exports.findAppointments = exports.findAppointment = exports.createAppointment = void 0;
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
 const appointmentModel_1 = __importDefault(require("../models/appointmentModel"));
 // Create a new appointment document
 const createAppointment = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(`inside create appointment method...`);
-    const { doctorId, patientId, status } = req.body;
-    const datetime = new Date();
+    const { doctorId, patientId, status, datetime } = req.body;
     console.log(`doctor: ${doctorId}, patient: ${patientId}, date-time: ${datetime}, status: ${status}`);
     const appointment = yield appointmentModel_1.default.create({
         doctorId,
@@ -29,7 +28,7 @@ const createAppointment = (0, express_async_handler_1.default)((req, res) => __a
     });
     if (appointment) {
         res.status(201).json({
-            message: 'Appointment created successfully',
+            message: 'Appointment created successfully', appointment: appointment
         });
     }
     else {
@@ -40,6 +39,25 @@ const createAppointment = (0, express_async_handler_1.default)((req, res) => __a
 exports.createAppointment = createAppointment;
 // Get a appointment document by id
 const findAppointment = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params.id;
+    console.log(`id is ${id}`);
+    const appointment = yield appointmentModel_1.default.findOne({ _id: id });
+    if (appointment) {
+        res.status(200).json({
+            doctor_id: appointment.doctorId,
+            patient_id: appointment.patientId,
+            date_time: appointment.datetime,
+            status: appointment.status,
+        });
+    }
+    else {
+        res.status(404).json({ message: 'Appointment not found' });
+        throw new Error('Unable to find appointment');
+    }
+}));
+exports.findAppointment = findAppointment;
+// Get a appointment document by id
+const findAppointments = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.body;
     console.log(`id is ${id}`);
     const appointment = yield appointmentModel_1.default.findOne({ id });
@@ -56,7 +74,7 @@ const findAppointment = (0, express_async_handler_1.default)((req, res) => __awa
         throw new Error('Unable to find appointment');
     }
 }));
-exports.findAppointment = findAppointment;
+exports.findAppointments = findAppointments;
 // Update a appointment document by id
 const updateAppointment = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.body;

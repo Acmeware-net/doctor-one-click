@@ -19,7 +19,7 @@ const createCheckup = asyncHandler(async (req: any, res: any) => {
 
     if (checkup) {
         res.status(201).json({
-            message: 'Checkup created successfully',
+            message: 'Checkup created successfully', checkup:checkup
         })
     } else {
         res.status(400).json({ message: 'Unable to create checkup' });
@@ -48,6 +48,31 @@ const findCheckup = asyncHandler(async (req: any, res: any) => {
         throw new Error('Unable to find checkup');
     }
 });
+
+
+// Get a checkup document by id
+
+const findCheckups = asyncHandler(async (req: any, res: any) => {
+    const { id } = req.body;
+    console.log(`id is ${id}`);
+    const checkup = await Checkup.findOne({ id });
+
+    if (checkup) {
+        res.status(200).json({
+            doctor_id: checkup.doctorId,
+            patient_id: checkup.patientId,
+            date_time: checkup.datetime,
+            notes: checkup.notes,
+            prescription: checkup.prescription,
+            images: checkup.images,
+        })
+    } else {
+        res.status(404).json({ message: 'Checkup not found' });
+        throw new Error('Unable to find checkup');
+    }
+});
+
+
 
 // Update a checkup document by id
 
@@ -84,5 +109,6 @@ const updateCheckup = asyncHandler(async (req: any, res: any) => {
 export {
     createCheckup,
     findCheckup,
+    findCheckups,
     updateCheckup,
 }
