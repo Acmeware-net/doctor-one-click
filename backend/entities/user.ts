@@ -12,6 +12,7 @@ interface User{
     // zipcode: string;
     // admin | doctor | patient (case sensitive)
     type: string;
+    enabled: boolean;
   }
 
 export default User;

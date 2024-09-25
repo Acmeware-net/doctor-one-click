@@ -42,8 +42,8 @@ import Loader from '../components/Loader';
     }
   };
   return (
-     <div className="flex justify-center font-poppins bg-green-babypowder">
-      <div className= "mt-10  bg-gray-100 p-10">
+     <div className="flex justify-around font-poppins bg-green-babypowder">
+      <div className= "mt-10 w-full bg-gray-100 p-10">
         <h1 className="text-2xl text-gray-800 text-center mb-5">Sign In</h1>
 
         <form
@@ -89,6 +89,7 @@ import Loader from '../components/Loader';
           </div>
         </div>
       </div>
+      <div><img src='doctor-patient-heart-sign.webp' alt='doctor patient heart symbol' className='w-full p-5' /></div>
     </div>
   );
 };

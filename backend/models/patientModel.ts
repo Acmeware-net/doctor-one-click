@@ -16,6 +16,8 @@ const schema = new Schema<Patient>({
   zipcode: { type: String, required: false },
   checkups: { type: [], required: false },
   appointments: { type: [], required: false },
+  enabled: { type: Boolean, required: false, default: true },
+
 },
 {
   timestamps: true,

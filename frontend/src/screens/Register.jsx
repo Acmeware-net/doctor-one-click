@@ -62,8 +62,8 @@ const Register = () => {
   };
 
   return (
-    <div className='flex justify-center font-poppins bg-green-sage'>
-      <div className=" mt-10 max-w-6xl  bg-gray-100 p-10" >
+    <div className='flex justify-around font-poppins '>
+      <div className=" mt-10 max-w-6xl  bg-gray-100 p-10 w-full md:w-auto" >
         <h1 className='text-2xl text-gray-800 text-center mb-5'>Sign up</h1>
         <form onSubmit={submitHandler}
           className='bg-white p-10 rounded-lg  shadow-md   animate-fadeIn'>
@@ -168,6 +168,7 @@ const Register = () => {
           </div>
         </div>
       </div>
+      <div><img src='doctor-arms.jpg' alt='doctor holding arms' className='w-full p-8' /></div>
     </div>
 
   );

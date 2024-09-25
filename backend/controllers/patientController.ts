@@ -2,6 +2,7 @@ import asyncHandler from 'express-async-handler';
 import Patient from '../models/patientModel.js';
 import generateToken from '../utils/generateToken.js';
 import { PatientsResponse, mapper } from '../responses/PatientsResponse.js';
+import User from '../models/userModel.js';
 
 
 
@@ -172,6 +173,7 @@ const getPatientById = asyncHandler(async (req: any, res: any) => {
     throw new Error('Patient not found');
   }
 });
+
 
 
 

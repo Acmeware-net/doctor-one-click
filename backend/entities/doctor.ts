@@ -20,6 +20,7 @@ interface Doctor{
     zipcode: string;
     checkups: string[];
     appointments: string[];
+    enabled: boolean;
   }
 
 export default Doctor;

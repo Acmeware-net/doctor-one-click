@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateUserProfile = exports.getUserProfile = exports.logoutUser = exports.registerUser = exports.authUser = void 0;
+exports.disableUser = exports.updateUserProfile = exports.getUserProfile = exports.logoutUser = exports.registerUser = exports.authUser = void 0;
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
 const userModel_js_1 = __importDefault(require("../models/userModel.js"));
 const doctorModel_js_1 = __importDefault(require("../models/doctorModel.js"));
@@ -277,3 +277,35 @@ const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __a
     }
 }));
 exports.updateUserProfile = updateUserProfile;
+// @desc    Delete/Disable user by id
+// @route   DELETE /api/users/:id
+// @access  Private
+const disableUser = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('inside disable/delete a user by id controller method');
+    const id = req.user._id;
+    console.log(`user id: ${id}`);
+    const user = yield userModel_js_1.default.findById(id);
+    console.log(`user : ${user}`);
+    if (user) {
+        user.enabled = false;
+        user.save();
+        if (user.type === 'doctor') {
+            const doctor = yield doctorModel_js_1.default.findOne({ userId: id });
+            console.log(`doctor : ${doctor}`);
+            // @ts-ignore
+            doctor === null || doctor === void 0 ? void 0 : doctor.enabled = false;
+        }
+        else {
+            const patient = yield patientModel_js_1.default.findOne({ userId: id });
+            console.log(`patient : ${patient}`);
+            // @ts-ignore
+            patient === null || patient === void 0 ? void 0 : patient.enabled = false;
+        }
+        res.status(200).json({ "message": "Patient record pending for deletion." });
+    }
+    else {
+        res.status(404);
+        throw new Error('Patient not found');
+    }
+}));
+exports.disableUser = disableUser;

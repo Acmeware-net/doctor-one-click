@@ -28,6 +28,7 @@ const schema = new mongoose_1.Schema({
     zipcode: { type: String, required: false },
     checkups: { type: [], required: false },
     appointments: { type: [], required: false },
+    enabled: { type: Boolean, required: false, default: true },
 }, {
     timestamps: true,
 });

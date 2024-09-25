@@ -1,5 +1,3 @@
-import Appointment from "./appointment";
-import Checkup from "./checkup";
 
 export default interface Patient{
     userId: string;
@@ -16,4 +14,5 @@ export default interface Patient{
     city: string;
     state: string;
     zipcode: string;
+    enabled: boolean;
 }
