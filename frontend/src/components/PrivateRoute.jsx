@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 const PrivateRoute = () => {
   const { userInfo } = useSelector((state) => state.auth);
 
+  setTimeout(()=>{console.log(`checking authenication`)},5000);
   if (userInfo === undefined) {
     // Optionally, you could show a loading spinner or a message here if needed
     return (
@@ -13,7 +14,6 @@ const PrivateRoute = () => {
       </div>
     );
   }
-
   return userInfo ? <Outlet /> : <Navigate to='/login' replace />;
 };
 
