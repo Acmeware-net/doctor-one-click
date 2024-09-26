@@ -15,6 +15,7 @@ import PrivateRoute from './components/PrivateRoute';
 import Patients from './components/Patients';
 import Doctors from './components/Doctors';
 import Checkups from './components/Checkups';
+import Messages from './components/Messages';
 import Appointments from './components/Appointments';
 import Settings from './components/Settings';
 import ErrorElement from './components/ErrorElement'
@@ -38,6 +39,7 @@ const router = createBrowserRouter(
           <Route path="patients" element={<Patients />} />
           <Route path="checkups" element={<Checkups />} />
           <Route path="appointments" element={<Appointments />} />
+          <Route path="messages" element={<Messages />} />
           <Route path="profile" element={<Profile />} />
           <Route path="settings" element={<Settings />} />
         </ Route>

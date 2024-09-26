@@ -1,37 +1,42 @@
 import React, { useState, useEffect } from 'react'
 import { useGetDoctorsQuery } from '../slices/usersApiSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addDoctor } from '../slices/doctorSlice';
 
 const Doctors = () => {
-  console.log('component loaded')
-let  { data } = useGetDoctorsQuery();
-const [doctors, setDoctors] = useState('');
+  console.log('Doctors component loaded')
+  const [doctors, setDoctors] = useState([]);
+  let  { data } = useGetDoctorsQuery();
+  const dispatch = useDispatch();
+
   // const doctors = data().unwrap();
   // data = data.length-1;
   // let doctorsList = null;
   if(data !== undefined){
-    console.log('data:', data); // Log the entire data object
     if (Array.isArray(data.doctors)) {
-      console.log('data.doctors:', data.doctors); // Log the doctors array
+      console.log('data.doctors[0]:', data.doctors); // Log the doctors array
     } else {
       console.error('data.doctors is not an array:', data.doctors);
   }
-
 }
-console.log('doctors ', doctors)
-  
-  useEffect(() => {
-    console.log('useEffect runs')
-    if(data !== undefined){
+if(data === undefined){
+  console.log('data is undefined')
+}
+useEffect(() => {
+  console.log('useEffect runs')
+  if(data !== undefined){
+    console.log('data is defined')
+    dispatch(addDoctor(data.doctors));
     setDoctors(data.doctors)
     }
-  }, [data]);
+  }, [data, dispatch]);
   
   return (
     <>
     <div className='text-xl'> Available Doctors</div>
-    <div>{doctors && doctors.map((doctor)=>{
-      <li>{doctor.name}</li>
-    })}</div>
+    <div>{doctors && doctors.map((doctor)=>
+      (<li key={doctor.email}>{doctor.name}</li>)
+    )}</div>
     </>
   )
 }

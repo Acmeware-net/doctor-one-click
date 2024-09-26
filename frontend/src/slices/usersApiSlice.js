@@ -31,7 +31,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     getDoctors: build.query({
-      query: () => `${USERS_URL}/doctors`,
+      query: () => `${USERS_URL}/users/doctors`,
       method:'GET',
       keepUnusedDataFor: 5,
     }),
