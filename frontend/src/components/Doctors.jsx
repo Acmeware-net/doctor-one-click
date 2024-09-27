@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useGetDoctorsQuery } from '../slices/usersApiSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { addDoctor } from '../slices/doctorSlice';
+import Table from './Table';
 
 const Doctors = () => {
   console.log('Doctors component loaded')
@@ -31,14 +32,25 @@ useEffect(() => {
     }
   }, [data, dispatch]);
   
+
+  const columns = [
+    { Header: 'Name', accessor: 'name' },
+    { Header: 'Experience', accessor: 'experience' },
+    { Header: 'Specialization', accessor: 'specialization' },
+    { Header: 'Address', accessor: 'address' },
+    { Header: 'Status', accessor: 'status' },
+  ];
+
+
   return (
     <>
-    <div className='text-xl'> Available Doctors</div>
-    <div>{doctors && doctors.map((doctor)=>
-      (<li key={doctor.email}>{doctor.name}</li>)
-    )}</div>
+    <div className='text-xl m-4'>Doctors Nearby</div>
+
+    <div id='map' className='p-5'></div>
+    <Table columns={columns} data={doctors}/>
     </>
   )
 }
+
 
 export default Doctors
