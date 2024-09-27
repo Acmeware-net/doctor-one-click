@@ -7,7 +7,7 @@ import { logout } from '../slices/authSlice';
 // import { addDoctor } from '../slices/doctorSlice';
 
 const Dashboard = () => {
-  console.log('Dashboard component loaded')
+  // console.log('Dashboard component loaded')
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
@@ -19,7 +19,7 @@ const Dashboard = () => {
   const { userInfo } = useSelector((state) => state.auth);
   // Getting all doctor's list state from doctor reducer
   const { doctorsInfo } = useSelector((store) => store.doctor);
-  console.log(`Dashboard component and doctorsInfo are ${doctorsInfo}`)
+  // console.log(`Dashboard component and doctorsInfo are ${doctorsInfo}`)
   // Saving doctor's list new state to addDoctor reducer method
   // dispatch(addDoctor(doctors));
   // Handle logout request
