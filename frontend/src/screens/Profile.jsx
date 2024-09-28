@@ -35,7 +35,7 @@ const Profile = () => {
   const [headline, setHeadline] = useState('');
   const [bio, setBio] = useState('');
   const [profileupdated, setProfileUpdated] = useState(false);
-
+  const [status, setStatus] = useState('');
   const [cityid, setCityId] = useState(0);
   const [stateid, setStateId] = useState(0);
 
@@ -62,6 +62,7 @@ const Profile = () => {
     setHeadline(userInfo.headline);
     setBio(userInfo.bio);
     setLicense(userInfo.license);
+    setStatus(userInfo.status);
   }, [userInfo.email, userInfo.name]);
 
   const submitHandler = async (e) => {
@@ -95,6 +96,7 @@ const Profile = () => {
           headline,
           image,
           license,
+          status,
         }).unwrap();
         if (res) {
           console.log(res);
@@ -219,16 +221,6 @@ const Profile = () => {
                 placeHolder="Select City"
             />
         </div>
-            {/* <div className='my-1' id='state'>
-              <label className='block mb-2 text-gray-600 font-medium'>State</label>
-              <input
-                type='text'
-                placeholder='e.g. California'
-                value={state}
-                onChange={(e) => setState(e.target.value)}
-                className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
-              />
-            </div> */}
 
             <div className='my-1' id='zipcode'>
               <label className='block mb-2 text-gray-600 font-medium'>Zip Code</label>
@@ -244,6 +236,7 @@ const Profile = () => {
               
             </div>
             {/* Personal details block finishes */}
+            
             {(userInfo.type === 'doctor') &&
             <div>
               <div>Professional details</div>
@@ -308,8 +301,19 @@ const Profile = () => {
             {/* Professional details end here */}
             
 
+
             <div>
               <div>Profile details</div>
+              <div className='my-1' id='status'>
+                <label className='block mb-2 text-gray-600 font-medium'>Status</label>
+                <input
+                  type='input'
+                  value={status}
+                  onChange={(e) => setStatus(e.target.value)}
+                  className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
+                />
+              </div>
+
               <div className='my-1' id='image'>
                 <label className='block mb-2 text-gray-600 font-medium'>Upload Image</label>
                 <input

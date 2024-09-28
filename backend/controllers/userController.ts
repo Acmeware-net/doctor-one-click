@@ -181,7 +181,7 @@ const getUserProfile = asyncHandler(async (req: any, res: any) => {
 const updateUserProfile = asyncHandler(async (req: any, res: any) => {
   console.log('Entering updateUserProfile method in userController...')
   console.log(req.body)
-  const { _id, name, email, password, phone, address, gender, dateofbirth, city, state, zipcode, experience, specialization, bio, headline, image, license } = req.body;
+  const { _id, name, email, password, phone, address, gender, dateofbirth, city, state, zipcode, experience, specialization, bio, headline, status, image, license } = req.body;
 
   const user = await User.findById(req.user._id);
 
@@ -211,6 +211,7 @@ const updateUserProfile = asyncHandler(async (req: any, res: any) => {
         patient.city = req.body.city || patient.city;
         patient.state = req.body.state || patient.state;
         patient.zipcode = req.body.zipcode || patient.zipcode;
+        patient.status = req.body.status || patient.status;
         patient.save();
       }
       console.log(`patient is ${patient}`);
@@ -228,6 +229,7 @@ const updateUserProfile = asyncHandler(async (req: any, res: any) => {
         doctor.city = req.body.city || doctor.city;
         doctor.state = req.body.state || doctor.state;
         doctor.zipcode = req.body.zipcode || doctor.zipcode;
+        doctor.status = req.body.status || doctor.status;
         doctor.experience = req.body.experience || doctor.experience;
         doctor.specialization = req.body.specialization || doctor.specialization;
         doctor.bio = req.body.bio || doctor.bio;
@@ -257,6 +259,7 @@ const updateUserProfile = asyncHandler(async (req: any, res: any) => {
         bio: doctor.bio,
         headline: doctor.headline,
         license: doctor.license,
+        status: doctor.status,
       });
     }
 
@@ -272,6 +275,7 @@ const updateUserProfile = asyncHandler(async (req: any, res: any) => {
         city: patient.city,
         state: patient.state,
         zipcode: patient.zipcode,
+        status: patient.status,
         type: user.type,
       });
     }

@@ -186,7 +186,7 @@ exports.getUserProfile = getUserProfile;
 const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('Entering updateUserProfile method in userController...');
     console.log(req.body);
-    const { _id, name, email, password, phone, address, gender, dateofbirth, city, state, zipcode, experience, specialization, bio, headline, image, license } = req.body;
+    const { _id, name, email, password, phone, address, gender, dateofbirth, city, state, zipcode, experience, specialization, bio, headline, status, image, license } = req.body;
     const user = yield userModel_js_1.default.findById(req.user._id);
     if (user) {
         user.email = req.body.email || user.email;
@@ -210,6 +210,7 @@ const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __a
                 patient.city = req.body.city || patient.city;
                 patient.state = req.body.state || patient.state;
                 patient.zipcode = req.body.zipcode || patient.zipcode;
+                patient.status = req.body.status || patient.status;
                 patient.save();
             }
             console.log(`patient is ${patient}`);
@@ -227,6 +228,7 @@ const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __a
                 doctor.city = req.body.city || doctor.city;
                 doctor.state = req.body.state || doctor.state;
                 doctor.zipcode = req.body.zipcode || doctor.zipcode;
+                doctor.status = req.body.status || doctor.status;
                 doctor.experience = req.body.experience || doctor.experience;
                 doctor.specialization = req.body.specialization || doctor.specialization;
                 doctor.bio = req.body.bio || doctor.bio;
@@ -254,6 +256,7 @@ const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __a
                 bio: doctor.bio,
                 headline: doctor.headline,
                 license: doctor.license,
+                status: doctor.status,
             });
         }
         if (patient) {
@@ -267,6 +270,7 @@ const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __a
                 city: patient.city,
                 state: patient.state,
                 zipcode: patient.zipcode,
+                status: patient.status,
                 type: user.type,
             });
         }
