@@ -1,3 +1,22 @@
+
+import React from 'react'
+import { useGetDoctorsQuery } from './slices/usersApiSlice';
+
+const index = () => {
+  let  { data } = useGetDoctorsQuery();
+  if(data === undefined){
+    console.log('inside index.jsx and data is undefined')
+  }else{
+    console.log('inside index.jsx and data is defined')
+    console.log(data.doctors)
+  }
+  return (
+    <div>index</div>
+  )
+}
+
+export default index
+
 async function initMap() {
     // Request needed libraries.
     const { Map } = await google.maps.importLibrary("maps");
@@ -66,7 +85,7 @@ async function initMap() {
     `;
     return content;
     }
-    
+
     const properties = [
     {
     address: "215 Emily St, MountainView, CA",

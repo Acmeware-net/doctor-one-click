@@ -142,6 +142,7 @@ const registerUser = asyncHandler(async (req: any, res: any) => {
 // @route   POST /api/users/logout
 // @access  Public
 const logoutUser = (req: any, res: any) => {
+  console.log(`logout runs, request is ${req.body}`)
   res.cookie('jwt', '', {
     httpOnly: true,
     expires: new Date(0),
@@ -296,31 +297,35 @@ const disableUser = asyncHandler(async (req: any, res: any) => {
   const id = req.user._id;
   console.log(`user id: ${id}`)
   const user = await User.findById(id);
-  console.log(`user : ${user}`)
 
   if (user) {
     user.enabled = false;
     user.save();
-    if (user.type === 'doctor') {
-
-      const doctor = await Doctor.findOne({ userId: id });
-      console.log(`doctor : ${doctor}`)
-
-      // @ts-ignore
-      doctor?.enabled = false;
-      doctor?.save();
-    } else {
-      const patient = await Patient.findOne({ userId: id });
-      console.log(`patient : ${patient}`)
-
-      // @ts-ignore
-      patient?.enabled = false;
-      patient?.save();
-    }
-    res.status(200).json({ "message": "Patient record pending for deletion." });
+    res.status(200).json({ "message": "User account pending for deletion." });
   } else {
     res.status(404);
-    throw new Error('Patient not found');
+    throw new Error('User not found');
+  }
+});
+
+
+
+// @desc    Restore user by id
+// @route   POST /api/users/:id
+// @access  Private
+const restoreUser = asyncHandler(async (req: any, res: any) => {
+  console.log('inside restore a user by id controller method')
+  const id = req.user._id;
+  console.log(`user id: ${id}`)
+  const user = await User.findById(id);
+
+  if (user) {
+    user.enabled = true;
+    user.save();
+    res.status(200).json({ "message": "User account is restored.", user:user });
+  } else {
+    res.status(404);
+    throw new Error('User not found');
   }
 });
 
@@ -333,4 +338,5 @@ export {
   getUserProfile,
   updateUserProfile,
   disableUser,
+  restoreUser,
 };

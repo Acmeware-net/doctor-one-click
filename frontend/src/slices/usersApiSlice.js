@@ -30,6 +30,20 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    disableUser: build.mutation({
+      query: (data) => ({
+        url: `${USERS_URL}/users/profile`,
+        method: 'DELETE',
+        body: data,
+      }),
+    }),
+    restoreUser: build.mutation({
+      query: (data) => ({
+        url: `${USERS_URL}/users/profile`,
+        method: 'POST',
+        body: data,
+      }),
+    }),
     getDoctors: build.query({
       query: () => `${USERS_URL}/users/doctors`,
       method:'GET',
@@ -43,5 +57,7 @@ export const {
   useLogoutMutation,
   useRegisterMutation,
   useUpdateUserMutation,
+  useDisableUserMutation,
+  useRestoreUserMutation,
   useGetDoctorsQuery,
 } = userApiSlice;

@@ -50,6 +50,7 @@ const Dashboard = () => {
         </div>
         <div className='p-5 rounded-lg col-span-5 row-span-12'>
           <Outlet />
+          
         </div>
 
 

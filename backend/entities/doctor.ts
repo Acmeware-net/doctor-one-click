@@ -27,8 +27,6 @@ interface Doctor{
     checkups: string[];
     // List of appointments from all doctors past or present
     appointments: string[];
-    // On delete account request don't delete it immediately, instead turn it false after e.g. 30 days remove user's account
-    enabled: boolean;
     // online | offline | away | out of office for a period | currently in meeting etc.
     status: string;
   }

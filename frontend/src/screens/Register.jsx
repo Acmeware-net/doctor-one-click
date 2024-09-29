@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRegisterMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
+import { useToast } from "@/hooks/use-toast"
 
 
 const Register = () => {
@@ -25,7 +26,7 @@ const Register = () => {
   const [register, { isLoading }] = useRegisterMutation();
   
   const { userInfo } = useSelector((state) => state.auth);
-
+  const { toast } = useToast()
   useEffect(() => {
     if (userInfo) {
       navigate('/dashboard');
@@ -48,7 +49,11 @@ const Register = () => {
 
 
     if (password !== confirmPassword) {
-      toast.error('Passwords do not match');
+      toast({
+        title: "Passwords do not match",
+        description: "Both password and confirm password should be the same at least 8 characters mix of letters, numbers and special characters.",
+      })
+      // toast.error('Passwords do not match');
     } else {
       try {
         const res = await register({ email, password, doctor }).unwrap();
@@ -78,7 +83,7 @@ const Register = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 onClick={() => { setError(''); }}
-                className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
+                className=' p-2 w-[200px] rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
               /><br />
               {(email === '') && <span className='text-red-700'>Email address cannot be empty</span>}
             </div>
@@ -115,7 +120,7 @@ const Register = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 onClick={() => { setError(''); }}
-                className='p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
+                className='p-2 w-[200px] rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
               />
               <br />
               {(password === '') && <span className='text-red-700'>Password cannot be empty</span>}
@@ -129,15 +134,12 @@ const Register = () => {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 onClick={() => { setError(''); }}
-                className='p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
+                className='p-2 w-[200px] rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
               />
-              <br />
-              {(password !== confirmPassword) && <span className='text-red-700'>Passwords do not match</span>}
             </div>
 
-
-
           </div>
+             <div className='text-center'> {(password !== confirmPassword) && <span className=' text-red-700'>Passwords do not match</span>}</div>
           <div className=''><div className='text-lg py-2'>Consent and Privacy</div>
             <input
               type='checkbox'

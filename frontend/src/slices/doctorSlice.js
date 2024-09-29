@@ -9,10 +9,10 @@ const doctorSlice = createSlice({
   initialState,
   reducers: {
     addDoctor: (state, action) => {
-      console.log('addDoctor called')
-      console.log(`action.payload is ${action.payload[0]}`)
+      // console.log('addDoctor called')
+      // console.log(`action.payload is ${action.payload[0]}`)
       state.value.push("safdgsf")
-      console.log(`state is ${state}`)
+      // console.log(`state is ${state}`)
     },
 
   },

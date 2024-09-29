@@ -23,7 +23,6 @@ const doctorSchema = new Schema<Doctor>({
   status: { type: String, required: false },
   checkups: { type: [], required: false },
   appointments: { type: [], required: false },
-  enabled: { type: Boolean, required: false, default: true },
 },
 {
   timestamps: true,

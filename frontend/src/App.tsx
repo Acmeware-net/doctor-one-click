@@ -1,5 +1,6 @@
 import Header from './components/Header';
 import { Outlet } from 'react-router-dom';
+import { Toaster } from "@/components/ui/toaster"
 
 function App() {
 
@@ -9,6 +10,7 @@ function App() {
       <main>
         <Outlet />
       </main>
+      <Toaster />
     </>
   )
 }

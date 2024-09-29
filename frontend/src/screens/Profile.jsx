@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import Loader from '../components/Loader';
-import { useUpdateUserMutation } from '../slices/usersApiSlice';
+import { useUpdateUserMutation, useDisableUserMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 
 import {
@@ -38,13 +38,18 @@ const Profile = () => {
   const [status, setStatus] = useState('');
   const [cityid, setCityId] = useState(0);
   const [stateid, setStateId] = useState(0);
-
+  const [deleteAccount, setDeleteAccount ] = useState(false);
   const dispatch = useDispatch();
 
   const { userInfo } = useSelector((state) => state.auth);
   console.log(``)
   const [updateProfile, { isLoading }] = useUpdateUserMutation();
-
+  const [disableProfile] = useDisableUserMutation();
+  
+  const disableAccount = () => {
+    console.log('delete account clicked')
+    disableProfile(userInfo);
+  }
   useEffect(() => {
     console.log(`useEffect runs`);
     setProfileUpdated(false);
@@ -63,10 +68,11 @@ const Profile = () => {
     setBio(userInfo.bio);
     setLicense(userInfo.license);
     setStatus(userInfo.status);
-  }, [userInfo.email, userInfo.name]);
+  }, [userInfo]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    setDeleteAccount(false);
     if (password !== confirmPassword ) {
       toast.error('Passwords do not match');
       setPasswordError('Passwords do not match')
@@ -366,8 +372,11 @@ const Profile = () => {
             {/* Profile details end here */}
             </div>
             <div className='text-center'>
-            <button type='submit' variant='primary' className='text-center w-96 p-2 rounded-md font-semibold text-lg bg-blue-400 text-white font-medium hover:bg-green-500 transition-all mt-3'>
+            <button type='submit' className='text-center w-96 p-2 m-2 rounded-md font-semibold text-lg bg-blue-400 text-white font-medium hover:bg-blue-300 transition-all mt-3'>
               Update
+            </button>
+            <button onClick={(disableAccount)} className='text-center w-96 p-2 m-2 rounded-md font-semibold text-lg bg-red-400 text-white font-medium hover:bg-red-300 transition-all mt-3'>
+              Delete My Account
             </button><br/>
             {profileupdated && <span className='text-teal-500 text-bold my-3'>Profile updated successfully</span>}
             {passwordError && <span className='text-red-700 text-bold my-3'>{passwordError.toString()}</span>}

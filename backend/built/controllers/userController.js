@@ -146,6 +146,7 @@ exports.registerUser = registerUser;
 // @route   POST /api/users/logout
 // @access  Public
 const logoutUser = (req, res) => {
+    console.log(`logout runs, request is ${req.body}`);
     res.cookie('jwt', '', {
         httpOnly: true,
         expires: new Date(0),
@@ -293,20 +294,6 @@ const disableUser = (0, express_async_handler_1.default)((req, res) => __awaiter
     if (user) {
         user.enabled = false;
         user.save();
-        if (user.type === 'doctor') {
-            const doctor = yield doctorModel_js_1.default.findOne({ userId: id });
-            console.log(`doctor : ${doctor}`);
-            // @ts-ignore
-            doctor === null || doctor === void 0 ? void 0 : doctor.enabled = false;
-            doctor === null || doctor === void 0 ? void 0 : doctor.save();
-        }
-        else {
-            const patient = yield patientModel_js_1.default.findOne({ userId: id });
-            console.log(`patient : ${patient}`);
-            // @ts-ignore
-            patient === null || patient === void 0 ? void 0 : patient.enabled = false;
-            patient === null || patient === void 0 ? void 0 : patient.save();
-        }
         res.status(200).json({ "message": "Patient record pending for deletion." });
     }
     else {
