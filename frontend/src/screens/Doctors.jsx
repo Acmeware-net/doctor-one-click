@@ -41,7 +41,7 @@ useEffect(() => {
     <div id='map' className='m-5 p-5'></div>
 
     <Table>
-  <TableCaption>A list of your recent invoices.</TableCaption>
+  <TableCaption>A list of nearby available doctors.</TableCaption>
   <TableHeader>
     <TableRow>
       <TableHead className="w-[200px]">Name</TableHead>

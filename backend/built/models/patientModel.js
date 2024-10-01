@@ -29,6 +29,7 @@ const schema = new mongoose_1.Schema({
     checkups: { type: [], required: false },
     appointments: { type: [], required: false },
     status: { type: String, required: false },
+    image: { type: String, required: false },
 }, {
     timestamps: true,
 });

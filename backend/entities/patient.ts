@@ -18,4 +18,5 @@ export default interface Patient{
     zipcode: string;
     // online | offline | away | out of office for a period | currently in meeting etc.
     status: string;
+    image: string;
 }

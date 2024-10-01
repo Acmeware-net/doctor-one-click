@@ -95,22 +95,25 @@ const registerUser = asyncHandler(async (req: any, res: any) => {
 
   const userId = user.id;
   let newUser = null;
+  let name = email.split('@')[0]
+  console.log(`New user has come to register with name: ${name}`)
   console.log(`New user registered with id ${user.id}`)
+  let status = 'Online';
   if (!doctor) {
     console.log("inside isPatient block")
-    let name = "patient"
     newUser = await Patient.create({
       userId,
       name,
-      email
+      email,
+      status,
     });
   }
   else {
     console.log("inside isDoctor block")
-    let name = "doctor"
     newUser = await Doctor.create({
       userId,
       name,
+      status,
       email
     });
   }
@@ -213,6 +216,7 @@ const updateUserProfile = asyncHandler(async (req: any, res: any) => {
         patient.state = req.body.state || patient.state;
         patient.zipcode = req.body.zipcode || patient.zipcode;
         patient.status = req.body.status || patient.status;
+        patient.image = req.body.image || patient.image;
         patient.save();
       }
       console.log(`patient is ${patient}`);
@@ -236,6 +240,7 @@ const updateUserProfile = asyncHandler(async (req: any, res: any) => {
         doctor.bio = req.body.bio || doctor.bio;
         doctor.headline = req.body.headline || doctor.headline;
         doctor.license = req.body.license || doctor.license;
+        doctor.image = req.body.image || doctor.image;
         doctor.save();
       }
       console.log(`doctor is ${doctor}`);
@@ -261,6 +266,7 @@ const updateUserProfile = asyncHandler(async (req: any, res: any) => {
         headline: doctor.headline,
         license: doctor.license,
         status: doctor.status,
+        image: doctor.image,
       });
     }
 
@@ -278,6 +284,8 @@ const updateUserProfile = asyncHandler(async (req: any, res: any) => {
         zipcode: patient.zipcode,
         status: patient.status,
         type: user.type,
+        image: patient.image,
+
       });
     }
 

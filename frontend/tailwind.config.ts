@@ -24,6 +24,9 @@ export default {
   			'2xl': '1400px'
   		}
   	},
+	variants: {
+		backgroundColor: ['responsive', 'hover', 'focus', 'active']
+	},
   	extend: {
   		colors: {
   			green: {

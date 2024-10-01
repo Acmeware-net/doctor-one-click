@@ -16,7 +16,8 @@ router.post('/logout', userController_js_1.logoutUser);
 router.route('/profile')
     .get(authMiddleware_js_1.protect, userController_js_1.getUserProfile)
     .put(authMiddleware_js_1.protect, userController_js_1.updateUserProfile)
-    .delete(authMiddleware_js_1.protect, userController_js_1.disableUser);
+    .delete(authMiddleware_js_1.protect, userController_js_1.disableUser)
+    .post(authMiddleware_js_1.protect, userController_js_1.restoreUser);
 // Doctor routes
 router.route('/doctors').get(authMiddleware_js_1.protect, doctorController_js_1.getDoctors);
 router.route('/doctor/:id').get(authMiddleware_js_1.protect, doctorController_js_1.getDoctorById);

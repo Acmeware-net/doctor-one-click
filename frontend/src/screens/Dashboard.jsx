@@ -40,7 +40,7 @@ const Dashboard = () => {
         <div className=' p-5 row-span-10 grid-rows-5 font-bold tracking-widest'>
           <Link to="/dashboard"><div className='border-b-4 hover:opacity-50 p-5 my-3 font-sans rounded-md'>Dashboard</div></Link>
           { (userInfo.type === 'doctor') ? <Link to="/dashboard/patients"><div className=' border-b-4 p-5 my-3 font-sans rounded-md'>Patients</div></Link> : 
-          <Link to="/dashboard/doctors"><div className='hover:opacity-50 border-b-4 p-5 my-3 font-sans rounded-md'>Doctors</div></Link>}
+          <Link to="/dashboard/doctors"><div className='hover:opacity-50 active:bg-indigo-400 border-b-4 p-5 my-3 font-sans rounded-md'>Doctors</div></Link>}
           <Link to="/dashboard/checkups"><div className='hover:opacity-50 border-b-4 p-5 my-3 font-sans rounded-md'>Checkups</div></Link>
           <Link to="/dashboard/appointments"><div className='hover:opacity-50 border-b-4 p-5 my-3 font-sans rounded-md'>Appointments</div></Link>
           <Link to="/dashboard/messages"><div className='hover:opacity-50 border-b-4 p-5 my-3 font-sans rounded-md'>Messages</div></Link>

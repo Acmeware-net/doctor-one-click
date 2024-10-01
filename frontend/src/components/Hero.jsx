@@ -19,12 +19,12 @@ const Hero = () => {
               <p className="mt-6 text-lg leading-8 text-gray-600"> We connect patients with top healthcare providers at convenience </p>
               <p><svg class="animate-bounce w-6 h-6 "></svg></p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
-                <a href="/login/patient">
+                <a href="/login">
                   <button className="bg-blue-500  text-white font-bold py-2 px-4 rounded drop-shadow-xl hover:drop-shadow-2xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 ">
                     Sign In
                   </button>
                 </a>
-                <a href="/register/patient">
+                <a href="/register">
                   <button className="bg-green-sage  text-white font-bold py-2 px-4 rounded drop-shadow-xl hover:drop-shadow-2xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 ">
                     Sign Up
                   </button>
