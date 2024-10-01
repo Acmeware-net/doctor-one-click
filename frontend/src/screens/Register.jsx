@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRegisterMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
+import { useToast } from "@/hooks/use-toast"
 
 
 const Register = () => {
@@ -17,7 +18,6 @@ const Register = () => {
   const [terms, setTerms] = useState(false);
   const [privacy, setPrivacy] = useState(false);
 
-  const [doctor, setDoctor] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState('');
@@ -25,7 +25,7 @@ const Register = () => {
   const [register, { isLoading }] = useRegisterMutation();
   
   const { userInfo } = useSelector((state) => state.auth);
-
+  const { toast } = useToast()
   useEffect(() => {
     if (userInfo) {
       navigate('/dashboard');
@@ -34,12 +34,13 @@ const Register = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log(`email: ${email} password: ${password} isDoctor: ${doctor} terms: ${terms} privacy: ${privacy}`);
-    if (doctor) {
-      console.log(`user is doctor`)
-    } else {
-      console.log(`user is patient`)
-    }
+    const doctor = document.getElementById("doctor").checked;
+    console.log(`email: ${email} password: ${password} doctor: ${doctor} terms: ${terms} privacy: ${privacy}`);
+    // if (doctor) {
+    //   console.log(`user is doctor`)
+    // } else {
+    //   console.log(`user is patient`)
+    // }
 
     if (((password !== confirmPassword) || !terms || !privacy || (email === ''))) {
       setError('Cannot submit incomplete form');
@@ -48,7 +49,11 @@ const Register = () => {
 
 
     if (password !== confirmPassword) {
-      toast.error('Passwords do not match');
+      toast({
+        title: "Passwords do not match",
+        description: "Both password and confirm password should be the same at least 8 characters mix of letters, numbers and special characters.",
+      })
+      // toast.error('Passwords do not match');
     } else {
       try {
         const res = await register({ email, password, doctor }).unwrap();
@@ -62,11 +67,10 @@ const Register = () => {
   };
 
   return (
-    <div className='flex justify-around font-poppins items-center'>
-      <div className=" mt-10 max-w-6xl  bg-gray-100 p-10 w-full md:w-auto" >
-        <h1 className='text-2xl text-gray-800 text-center mb-5'>Sign up</h1>
-        <form onSubmit={submitHandler}
-          className='bg-white p-10 rounded-lg  shadow-md   animate-fadeIn'>
+    <div className='flex justify-around font-poppins items-center bg-gray-100 h-screen'>
+      <div className="p-3 mt-10 max-w-6xl  bg-gray-100 p-10 w-full md:w-auto" >
+        <h1 className='text-2xl text-center mb-5'>Sign up</h1>
+        <form onSubmit={submitHandler} className=' text-gray-800 p-5 rounded-lg  shadow-md animate-fadeIn'>
           <div className="grid grid-cols-2 gap-8">
 
 
@@ -78,22 +82,19 @@ const Register = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 onClick={() => { setError(''); }}
-                className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
+                className=' p-2 w-[250px] rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
               /><br />
               {(email === '') && <span className='text-red-700'>Email address cannot be empty</span>}
             </div>
 
             <div className='my-1' id='usertype'>
-              <label htmlFor='usertype'>Account Type</label><br />
+              <label htmlFor='usertype'>Account Type</label><br /><br />
               <input
                 type='radio'
                 id='doctor'
                 value='doctor'
                 name='usertype'
                 className='p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200 border-2'
-                onChange={(e) => setDoctor(!e.target.checked)}
-                checked
-
               />
               <label htmlFor='doctor'> Doctor   </label>
 
@@ -102,11 +103,11 @@ const Register = () => {
                 id='patient'
                 value='patient'
                 name='usertype'
-                onChange={(e) => setDoctor(e.target.checked)}
                 className='p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
               />
               <label htmlFor='patient'>   Patient</label>
             </div>
+
             <div className='my-1' id='password'>
               <label className='block mb-2 text-gray-600 font-medium'>Password</label>
               <input
@@ -115,7 +116,7 @@ const Register = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 onClick={() => { setError(''); }}
-                className='p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
+                className='p-2 w-[200px] rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
               />
               <br />
               {(password === '') && <span className='text-red-700'>Password cannot be empty</span>}
@@ -129,15 +130,12 @@ const Register = () => {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 onClick={() => { setError(''); }}
-                className='p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
+                className='p-2 w-[200px] rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
               />
-              <br />
-              {(password !== confirmPassword) && <span className='text-red-700'>Passwords do not match</span>}
             </div>
 
-
-
           </div>
+             <div className='text-center'> {(password !== confirmPassword) && <span className=' text-red-700'>Passwords do not match</span>}</div>
           <div className=''><div className='text-lg py-2'>Consent and Privacy</div>
             <input
               type='checkbox'
@@ -168,7 +166,7 @@ const Register = () => {
           </div>
         </div>
       </div>
-      <div><img src='doctor-arms.jpg' alt='doctor holding arms' className='w-full p-5' /></div>
+      <div className='w-1/2'><img src='doctor-arms.jpg' alt='doctor holding arms' className='w-full p-2' /></div>
     </div>
 
   );

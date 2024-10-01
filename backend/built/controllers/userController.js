@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.disableUser = exports.updateUserProfile = exports.getUserProfile = exports.logoutUser = exports.registerUser = exports.authUser = void 0;
+exports.restoreUser = exports.disableUser = exports.updateUserProfile = exports.getUserProfile = exports.logoutUser = exports.registerUser = exports.authUser = void 0;
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
 const userModel_js_1 = __importDefault(require("../models/userModel.js"));
 const doctorModel_js_1 = __importDefault(require("../models/doctorModel.js"));
@@ -100,10 +100,11 @@ const registerUser = (0, express_async_handler_1.default)((req, res) => __awaite
     });
     const userId = user.id;
     let newUser = null;
+    let name = email.split('@')[0];
+    console.log(`New user has come to register with name: ${name}`);
     console.log(`New user registered with id ${user.id}`);
     if (!doctor) {
         console.log("inside isPatient block");
-        let name = "patient";
         newUser = yield patientModel_js_1.default.create({
             userId,
             name,
@@ -112,7 +113,6 @@ const registerUser = (0, express_async_handler_1.default)((req, res) => __awaite
     }
     else {
         console.log("inside isDoctor block");
-        let name = "doctor";
         newUser = yield doctorModel_js_1.default.create({
             userId,
             name,
@@ -146,6 +146,7 @@ exports.registerUser = registerUser;
 // @route   POST /api/users/logout
 // @access  Public
 const logoutUser = (req, res) => {
+    console.log(`logout runs, request is ${req.body}`);
     res.cookie('jwt', '', {
         httpOnly: true,
         expires: new Date(0),
@@ -186,7 +187,7 @@ exports.getUserProfile = getUserProfile;
 const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('Entering updateUserProfile method in userController...');
     console.log(req.body);
-    const { _id, name, email, password, phone, address, gender, dateofbirth, city, state, zipcode, experience, specialization, bio, headline, image, license } = req.body;
+    const { _id, name, email, password, phone, address, gender, dateofbirth, city, state, zipcode, experience, specialization, bio, headline, status, image, license } = req.body;
     const user = yield userModel_js_1.default.findById(req.user._id);
     if (user) {
         user.email = req.body.email || user.email;
@@ -210,6 +211,8 @@ const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __a
                 patient.city = req.body.city || patient.city;
                 patient.state = req.body.state || patient.state;
                 patient.zipcode = req.body.zipcode || patient.zipcode;
+                patient.status = req.body.status || patient.status;
+                patient.image = req.body.image || patient.image;
                 patient.save();
             }
             console.log(`patient is ${patient}`);
@@ -227,11 +230,13 @@ const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __a
                 doctor.city = req.body.city || doctor.city;
                 doctor.state = req.body.state || doctor.state;
                 doctor.zipcode = req.body.zipcode || doctor.zipcode;
+                doctor.status = req.body.status || doctor.status;
                 doctor.experience = req.body.experience || doctor.experience;
                 doctor.specialization = req.body.specialization || doctor.specialization;
                 doctor.bio = req.body.bio || doctor.bio;
                 doctor.headline = req.body.headline || doctor.headline;
                 doctor.license = req.body.license || doctor.license;
+                doctor.image = req.body.image || doctor.image;
                 doctor.save();
             }
             console.log(`doctor is ${doctor}`);
@@ -254,6 +259,8 @@ const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __a
                 bio: doctor.bio,
                 headline: doctor.headline,
                 license: doctor.license,
+                status: doctor.status,
+                image: doctor.image,
             });
         }
         if (patient) {
@@ -267,7 +274,9 @@ const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __a
                 city: patient.city,
                 state: patient.state,
                 zipcode: patient.zipcode,
+                status: patient.status,
                 type: user.type,
+                image: patient.image,
             });
         }
     }
@@ -285,29 +294,33 @@ const disableUser = (0, express_async_handler_1.default)((req, res) => __awaiter
     const id = req.user._id;
     console.log(`user id: ${id}`);
     const user = yield userModel_js_1.default.findById(id);
-    console.log(`user : ${user}`);
     if (user) {
         user.enabled = false;
         user.save();
-        if (user.type === 'doctor') {
-            const doctor = yield doctorModel_js_1.default.findOne({ userId: id });
-            console.log(`doctor : ${doctor}`);
-            // @ts-ignore
-            doctor === null || doctor === void 0 ? void 0 : doctor.enabled = false;
-            doctor === null || doctor === void 0 ? void 0 : doctor.save();
-        }
-        else {
-            const patient = yield patientModel_js_1.default.findOne({ userId: id });
-            console.log(`patient : ${patient}`);
-            // @ts-ignore
-            patient === null || patient === void 0 ? void 0 : patient.enabled = false;
-            patient === null || patient === void 0 ? void 0 : patient.save();
-        }
-        res.status(200).json({ "message": "Patient record pending for deletion." });
+        res.status(200).json({ "message": "User account pending for deletion." });
     }
     else {
         res.status(404);
-        throw new Error('Patient not found');
+        throw new Error('User not found');
     }
 }));
 exports.disableUser = disableUser;
+// @desc    Restore user by id
+// @route   POST /api/users/:id
+// @access  Private
+const restoreUser = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('inside restore a user by id controller method');
+    const id = req.user._id;
+    console.log(`user id: ${id}`);
+    const user = yield userModel_js_1.default.findById(id);
+    if (user) {
+        user.enabled = true;
+        user.save();
+        res.status(200).json({ "message": "User account is restored.", user: user });
+    }
+    else {
+        res.status(404);
+        throw new Error('User not found');
+    }
+}));
+exports.restoreUser = restoreUser;

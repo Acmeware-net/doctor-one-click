@@ -9,14 +9,15 @@ import Login from './screens/Login';
 import PatientLogin from './screens/PatientLogin';
 import Register from './screens/Register';
 import RegisterPatient from './screens/RegisterPatient';
-import Profile from './screens/Profile';
+import Profile from './screens/Settings';
 import Dashboard from './screens/Dashboard';
 import PrivateRoute from './components/PrivateRoute';
-import Patients from './components/Patients';
-import Doctors from './components/Doctors';
-import Checkups from './components/Checkups';
-import Appointments from './components/Appointments';
-import Settings from './components/Settings';
+import Patients from './screens/Patients';
+import Doctors from './screens/Doctors';
+import Checkups from './screens/Checkups';
+import Messages from './screens/Messages';
+import Appointments from './screens/Appointments';
+import Settings from './screens/Profile';
 import ErrorElement from './components/ErrorElement'
 import Privacy from './screens/Privacy';
 import Terms from './screens/Terms';
@@ -38,6 +39,7 @@ const router = createBrowserRouter(
           <Route path="patients" element={<Patients />} />
           <Route path="checkups" element={<Checkups />} />
           <Route path="appointments" element={<Appointments />} />
+          <Route path="messages" element={<Messages />} />
           <Route path="profile" element={<Profile />} />
           <Route path="settings" element={<Settings />} />
         </ Route>

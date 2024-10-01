@@ -12,5 +12,6 @@ function mapper(doctor) {
     doctorTo.email = doctor.email;
     doctorTo.experience = doctor.experience;
     doctorTo.specialization = doctor.specialization;
+    doctorTo.status = doctor.status;
     return doctorTo;
 }

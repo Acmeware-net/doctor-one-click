@@ -7,6 +7,7 @@ import {
   getUserProfile,
   updateUserProfile,
   disableUser,
+  restoreUser,
 } from '../controllers/userController.js';
 
 import {
@@ -33,7 +34,8 @@ router.post('/logout', logoutUser);
 router.route('/profile')
   .get(protect, getUserProfile)
   .put(protect, updateUserProfile)
-  .delete(protect, disableUser);
+  .delete(protect, disableUser)
+  .post(protect, restoreUser);
 
 // Doctor routes
 router.route('/doctors').get(protect, getDoctors);

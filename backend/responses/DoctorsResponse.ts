@@ -9,6 +9,7 @@ export class DoctorsResponse {
     address: string;
     state: string;
     city: string;
+    status: string;
 }
 
 export function mapper(doctor: Doctor): DoctorsResponse{
@@ -18,5 +19,6 @@ export function mapper(doctor: Doctor): DoctorsResponse{
     doctorTo.email = doctor.email;
     doctorTo.experience = doctor.experience;
     doctorTo.specialization = doctor.specialization;
+    doctorTo.status = doctor.status;
     return doctorTo;
 }

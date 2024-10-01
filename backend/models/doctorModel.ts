@@ -20,9 +20,9 @@ const doctorSchema = new Schema<Doctor>({
   city: { type: String, required: false },
   state: { type: String, required: false },
   zipcode: { type: String, required: false },
+  status: { type: String, required: false },
   checkups: { type: [], required: false },
   appointments: { type: [], required: false },
-  enabled: { type: Boolean, required: false, default: true },
 },
 {
   timestamps: true,

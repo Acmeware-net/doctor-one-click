@@ -42,13 +42,13 @@ import Loader from '../components/Loader';
     }
   };
   return (
-     <div className="flex justify-around font-poppins bg-green-babypowder items-center">
-      <div className= "mt-10 w-full bg-gray-100 p-10 align-middle">
+     <div className="flex font-poppins bg-green-babypowder items-center h-screen ">
+      <div className= "mt-10 w-1/2 bg-gray-100 p-10  justify-items-end">
         <h1 className="text-2xl text-gray-800 text-center mb-5">Sign In</h1>
-
+        <div className='flex justify-center'>
         <form
           onSubmit={submitHandler}
-          className="bg-white p-10 rounded-lg shadow-lg w-full max-w-sm"
+          className="bg-white p-10 rounded-lg shadow-lg w-auto max-w-sm "
         >
           <div className="mb-5">
             <label className="block mb-2 text-gray-600 font-medium">Email Address</label>
@@ -80,7 +80,7 @@ import Loader from '../components/Loader';
             Sign In
           </button>
         </form>
-
+        </div>
         {isLoading && <Loader />}
 
         <div className="py-2 text-center">
@@ -89,7 +89,7 @@ import Loader from '../components/Loader';
           </div>
         </div>
       </div>
-      <div><img src='doctor-patient-heart-sign.webp' alt='doctor patient heart symbol' className='w-full p-5' /></div>
+      <div className='w-1/2 rounded-xl'><img src='doctor-patient-heart-sign.webp' alt='doctor patient heart symbol' className='w-full p-5 rounded-xl' /></div>
     </div>
   );
 };
