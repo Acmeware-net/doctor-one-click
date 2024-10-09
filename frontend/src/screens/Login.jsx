@@ -42,7 +42,7 @@ import Loader from '../components/Loader';
     }
   };
   return (
-     <div className="flex font-poppins bg-green-babypowder items-center h-screen ">
+     <div className="flex font-poppins bg-green-babypowder items-center sm:justify-center h-screen ">
       <div className= "mt-10 w-1/2 bg-gray-100 p-10  justify-items-end">
         <h1 className="text-2xl text-gray-800 text-center mb-5">Sign In</h1>
         <div className='flex justify-center'>
@@ -89,7 +89,7 @@ import Loader from '../components/Loader';
           </div>
         </div>
       </div>
-      <div className='w-1/2 rounded-xl'><img src='doctor-patient-heart-sign.webp' alt='doctor patient heart symbol' className='w-full p-5 rounded-xl' /></div>
+      <div className='w-1/2 rounded-xl invisible md:visible'><img src='doctor-patient-heart-sign.webp' alt='doctor patient heart symbol' className='w-full p-5 rounded-xl ' /></div>
     </div>
   );
 };

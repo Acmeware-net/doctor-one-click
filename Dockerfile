@@ -1,13 +1,18 @@
 FROM node:lts-alpine
 ENV NODE_ENV=production
-WORKDIR /
-COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
+WORKDIR /app
+# COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
 # --production --silent && mv node_modules ../
 COPY . .
 
 RUN npm install 
-RUN npm install --prefix /frontend
-EXPOSE 3000
+WORKDIR /app/frontend
+
+RUN npm install 
+
+
+WORKDIR /app
 # RUN chown -R node /usr/src/app
 # USER node
+EXPOSE 3000
 CMD ["npm", "run", "dev"]
