@@ -26,12 +26,12 @@ const Header = () => {
   return (
     <header className="bg-gray-battleship text-white z-100">
       <nav className="container mx-auto px-4 py-2 flex justify-between items-center">
-        <div className=" font-bold font-sans text-2xl drop-shadow-xl">
+        <div className=" font-bold font-sans text-2xl drop-shadow-xl invisible md:visible">
           <Link to="/">
             AppOintment
           </Link>
         </div>
-        <div className='flex gap-4'>
+        <div className='flex gap-4 justify-items-center'>
           <div>
             <input
               id="q"
@@ -69,12 +69,12 @@ const Header = () => {
               </div>
             </>
           ) : (
-            <><div className="bg-gray-battleship p-2 rounded-lg hover:bg-green-sage drop-shadow-lg transition duration-300">
+            <><div className="bg-gray-battleship p-2 invisible md:visible rounded-lg hover:bg-green-sage drop-shadow-lg transition duration-300">
               <Link to="/login" >
                 <span className='p-2'>Sign In</span>
               </Link>
             </div>
-              <div className='bg-gray-battleship p-2 rounded-lg hover:bg-green-sage drop-shadow-lg transition duration-300'>
+              <div className='bg-gray-battleship p-2 invisible md:visible rounded-lg hover:bg-green-sage drop-shadow-lg transition duration-300'>
                 <Link to="/register" className="">
                   <span className='rounded-lg p-2 '>Sign Up</span>
                 </Link>
