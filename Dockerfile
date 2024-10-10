@@ -12,7 +12,16 @@ FROM node:${NODE_VERSION}-alpine
 
 # Use production node environment by default.
 ENV NODE_ENV production
+ENV MONGO_URI mongodb+srv://test:0w5rVT2O5pjDe0dF@appointment.6x2be.mongodb.net/?retryWrites=true&w=majority&appName=appointment
+ENV PORT 5000
+ENV JWT_SECRET 3tjo4witqjyA^$EW%^%WEYetkw90tja04tjwe$AYT
 
+WORKDIR /usr/src/app/frontend
+
+RUN --mount=type=bind,source=package.json,target=package.json \
+    --mount=type=bind,source=package-lock.json,target=package-lock.json \
+    --mount=type=cache,target=/root/.npm \
+    npm ci --omit=dev
 
 WORKDIR /usr/src/app
 
@@ -25,6 +34,8 @@ RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=cache,target=/root/.npm \
     npm ci --omit=dev
 
+
+
 # Run the application as a non-root user.
 USER node
 
@@ -35,4 +46,4 @@ COPY . .
 EXPOSE 3000
 
 # Run the application.
-CMD npm run dev
+CMD npx concurrently "npm run server" "npm run client"
