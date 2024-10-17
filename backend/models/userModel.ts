@@ -4,6 +4,7 @@ import User from '../entities/user';
 
 // Create a Schema corresponding to the document interface.
 const userSchema = new Schema<User>({
+  username: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
   type: { type: String, required: true },

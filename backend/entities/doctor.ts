@@ -5,7 +5,6 @@ interface Doctor{
     // User id, different than doctor's id
     userId: string;
     name: string;
-    username: string;
     email: string;
     phone: string;
     address: string;

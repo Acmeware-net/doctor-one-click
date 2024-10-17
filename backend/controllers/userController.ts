@@ -38,6 +38,7 @@ const authUser = asyncHandler(async (req: any, res: any) => {
         city: doctor.city,
         state: doctor.state,
         zipcode: doctor.zipcode,
+        username: user.username,
         type: user.type,
         experience: doctor.experience,
         specialization: doctor.specialization,
@@ -51,6 +52,7 @@ const authUser = asyncHandler(async (req: any, res: any) => {
 
       res.json({
         name: patient.name,
+        username: user.username,
         email: patient.email,
         dateofbirth: patient.dateofbirth,
         gender: patient.gender,
@@ -73,13 +75,15 @@ const authUser = asyncHandler(async (req: any, res: any) => {
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req: any, res: any) => {
-  const { email, password, doctor } = req.body;
+  const { email, password, doctor, username } = req.body;
   // const { name, email, password, dateofbirth, gender, phone, address, city, state, zipcode, type,} = req.body;
-  console.log(`User comes to register with email ${email} and password: ${password} and doctor ${doctor} `)
+  console.log(`User comes to register with username: ${username} and email ${email} and password: ${password} and doctor ${doctor} `)
   const userExists = await User.findOne({ email });
-  console.log(`user exists? ${userExists}`)
+  console.log(`user exists? ${userExists}`);
+  const usernameExists = await User.findOne({ username });
+  console.log(`username exists? ${usernameExists}`);
 
-  if (userExists) {
+  if (userExists || usernameExists) {
     res.status(400);
     throw new Error('User already exists');
   }
@@ -88,6 +92,7 @@ const registerUser = asyncHandler(async (req: any, res: any) => {
   doctor ? type = "doctor" : type = "patient";
 
   const user = await User.create({
+    username,
     email,
     password,
     type,
@@ -124,6 +129,7 @@ const registerUser = asyncHandler(async (req: any, res: any) => {
 
     res.status(201).json({
       _id: user._id,
+      username: user.username,
       name: newUser.name,
       email: user.email,
       dateofbirth: newUser.dateofbirth,
@@ -185,13 +191,22 @@ const getUserProfile = asyncHandler(async (req: any, res: any) => {
 const updateUserProfile = asyncHandler(async (req: any, res: any) => {
   console.log('Entering updateUserProfile method in userController...')
   console.log(req.body)
-  const { _id, name, email, password, phone, address, gender, dateofbirth, city, state, zipcode, experience, specialization, bio, headline, status, image, license } = req.body;
+  const { _id, username, name, email, password, phone, address, gender, dateofbirth, city, state, zipcode, experience, specialization, bio, headline, status, image, license } = req.body;
+  
+  const usernameExists = await User.findOne({ username });
+  console.log(`username exists? ${usernameExists}`);
+
+  if (usernameExists) {
+    res.status(400);
+    throw new Error('Username already exists. Please choose another username.');
+  }
 
   const user = await User.findById(req.user._id);
 
 
   if (user) {
     user.email = req.body.email || user.email;
+    user.username = req.body.username || user.username;
 
     if (req.body.password) {
       user.password = req.body.password;
@@ -251,6 +266,7 @@ const updateUserProfile = asyncHandler(async (req: any, res: any) => {
 
       res.json({
         name: doctor.name,
+        username: user.username,
         email: doctor.email,
         dateofbirth: doctor.dateofbirth,
         gender: doctor.gender,
@@ -274,6 +290,7 @@ const updateUserProfile = asyncHandler(async (req: any, res: any) => {
 
       res.json({
         name: patient.name,
+        username: user.username,
         email: patient.email,
         dateofbirth: patient.dateofbirth,
         gender: patient.gender,
