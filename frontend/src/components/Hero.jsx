@@ -3,7 +3,7 @@ const Hero = () => {
   return (
     <>
 
-      <div className="bg-green-nyanzalight">
+      <div className="bg-white">
         <div className="relative isolate px-6 pt-14 lg:px-8">
           <div className="text-9xl text-center font-sans font-semibold font-black text-cyan-600 antialiased pt-20 ">AppOintment</div>
           <div className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
@@ -39,7 +39,7 @@ const Hero = () => {
       </div>
 
 
-      <div className='bg-green-nyanzalight flex flex-row justify-center justify-items-stretch content-evenly'>
+      <div className='bg-white flex flex-row justify-center justify-items-stretch content-evenly'>
         <div className="justify-evenly basis-1/2 p-5 text-5xl p-5  content-center">
         <div className='m-10 p-6 font-poppins text-center leading-normal '>
           No need to wait in lines, just in a few clicks your appointment with your doctor is set
@@ -49,7 +49,7 @@ const Hero = () => {
       </div>
 
 
-      <div className='bg-green-nyanzalight flex flex-row justify-evenly justify-items-stretch content-evenly gap-4'>
+      <div className='bg-white flex flex-row justify-evenly justify-items-stretch content-evenly gap-4'>
         <div className=" basis-1/2"><img className="w-600" src="/doctors.jpg" alt='Doctor is checking bp of patient' /></div>
         <div className=" basis-1/2 p-10 text-5xl font-poppins text-center content-center leading-normal ">
          We keep record of all your checkups from all your doctors in one place
@@ -57,7 +57,7 @@ const Hero = () => {
       </div>
 
 
-      <div className='bg-green-nyanzalight flex flex-row justify-center justify-items-stretch content-evenly'>
+      <div className='bg-white flex flex-row justify-center justify-items-stretch content-evenly'>
         <div className="justify-evenly basis-1/2 p-5 text-5xl p-5  content-center">
         <div className='m-10 p-10 font-poppins text-center leading-normal '>
           You only need to go to the doctor when physical checkup is necessary
@@ -67,14 +67,14 @@ const Hero = () => {
       </div>
 
 
-      <div className='bg-green-nyanzalight flex flex-row justify-evenly justify-items-stretch content-evenly'>
+      <div className='bg-white flex flex-row justify-evenly justify-items-stretch content-evenly'>
         <div className=" basis-1/2"><img src="/AdobeStock_136041571.jpeg" alt='Doctor is checking bp of patient' /></div>
         <div className=" basis-1/2 text-5xl p-10 font-poppins text-center content-center leading-normal">
           We build trust between patients and doctors
         </div>
       </div>
 
-      <div className='bg-green-nyanzalight flex flex-row justify-center justify-items-stretch content-evenly '>
+      <div className='bg-white flex flex-row justify-center justify-items-stretch content-evenly '>
         <div className="justify-evenly basis-1/2 p-5 text-5xl p-5  content-center">
         <div className='m-10 p-10 font-poppins text-center '>
           Video calling with your doctor

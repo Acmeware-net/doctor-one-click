@@ -5,6 +5,7 @@ interface Doctor{
     // User id, different than doctor's id
     userId: string;
     name: string;
+    username: string;
     email: string;
     phone: string;
     address: string;
@@ -29,6 +30,7 @@ interface Doctor{
     appointments: string[];
     // online | offline | away | out of office for a period | currently in meeting etc.
     status: string;
+    timing: Timing;
   }
 
 export default Doctor;
