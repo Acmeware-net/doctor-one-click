@@ -37,7 +37,7 @@ const Dashboard = () => {
     <div>
       {/* <div className='text-center font-mono text-5xl antialiased hover:subpixel-antialiased font-semibold text-green-nyanzadark py-7'>Dashboard</div> */}
       <div className="grid grid-cols-6 gap-4">
-        <div className=' p-5 row-span-10 grid-rows-5 font-bold tracking-widest'>
+        <div className='bg-gray-100  p-5 row-span-10 grid-rows-5 font-bold tracking-widest'>
           <Link to="/dashboard"><div className='border-b-4 hover:opacity-50 p-5 my-3 font-sans rounded-md'>Dashboard</div></Link>
           { (userInfo.type === 'doctor') ? <Link to="/dashboard/patients"><div className=' border-b-4 p-5 my-3 font-sans rounded-md'>Patients</div></Link> : 
           <Link to="/dashboard/doctors"><div className='hover:opacity-50 active:bg-indigo-400 border-b-4 p-5 my-3 font-sans rounded-md'>Doctors</div></Link>}

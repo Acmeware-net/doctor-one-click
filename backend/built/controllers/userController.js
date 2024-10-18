@@ -49,6 +49,7 @@ const authUser = (0, express_async_handler_1.default)((req, res) => __awaiter(vo
                 city: doctor.city,
                 state: doctor.state,
                 zipcode: doctor.zipcode,
+                username: user.username,
                 type: user.type,
                 experience: doctor.experience,
                 specialization: doctor.specialization,
@@ -60,6 +61,7 @@ const authUser = (0, express_async_handler_1.default)((req, res) => __awaiter(vo
         if (patient) {
             res.json({
                 name: patient.name,
+                username: user.username,
                 email: patient.email,
                 dateofbirth: patient.dateofbirth,
                 gender: patient.gender,
@@ -82,18 +84,25 @@ exports.authUser = authUser;
 // @route   POST /api/users
 // @access  Public
 const registerUser = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email, password, doctor } = req.body;
+    const { email, password, doctor, username } = req.body;
     // const { name, email, password, dateofbirth, gender, phone, address, city, state, zipcode, type,} = req.body;
-    console.log(`User comes to register with email ${email} and password: ${password} and doctor ${doctor} `);
+    console.log(`User comes to register with username: ${username} and email ${email} and password: ${password} and doctor ${doctor} `);
     const userExists = yield userModel_js_1.default.findOne({ email });
     console.log(`user exists? ${userExists}`);
     if (userExists) {
-        res.status(400);
-        throw new Error('User already exists');
+        res.status(400).json({ message: 'User already exists with this email.' });
+        // throw new Error('User already exists with this email.');
+    }
+    const usernameExists = yield userModel_js_1.default.findOne({ username });
+    console.log(`username exists? ${usernameExists}`);
+    if (usernameExists) {
+        res.status(400).json({ message: 'User already exists with this email.' });
+        // throw new Error('User already exists with this username.');
     }
     let type = "";
     doctor ? type = "doctor" : type = "patient";
     const user = yield userModel_js_1.default.create({
+        username,
         email,
         password,
         type,
@@ -101,21 +110,24 @@ const registerUser = (0, express_async_handler_1.default)((req, res) => __awaite
     const userId = user.id;
     let newUser = null;
     let name = email.split('@')[0];
-    console.log(`New user has come to register with name: ${name}`);
+    console.log(`New user has come to register with username: ${username}`);
     console.log(`New user registered with id ${user.id}`);
+    let status = 'Online';
     if (!doctor) {
-        console.log("inside isPatient block");
+        console.log("inside Patient block");
         newUser = yield patientModel_js_1.default.create({
             userId,
             name,
-            email
+            email,
+            status,
         });
     }
     else {
-        console.log("inside isDoctor block");
+        console.log("inside Doctor block");
         newUser = yield doctorModel_js_1.default.create({
             userId,
             name,
+            status,
             email
         });
     }
@@ -124,6 +136,7 @@ const registerUser = (0, express_async_handler_1.default)((req, res) => __awaite
         (0, generateToken_js_1.default)(res, user._id);
         res.status(201).json({
             _id: user._id,
+            username: user.username,
             name: newUser.name,
             email: user.email,
             dateofbirth: newUser.dateofbirth,
@@ -187,10 +200,17 @@ exports.getUserProfile = getUserProfile;
 const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('Entering updateUserProfile method in userController...');
     console.log(req.body);
-    const { _id, name, email, password, phone, address, gender, dateofbirth, city, state, zipcode, experience, specialization, bio, headline, status, image, license } = req.body;
+    const { _id, username, name, email, password, phone, address, gender, dateofbirth, city, state, zipcode, experience, specialization, bio, headline, status, image, license } = req.body;
+    const usernameExists = yield userModel_js_1.default.findOne({ username });
+    console.log(`username exists? ${usernameExists}`);
+    if (usernameExists) {
+        res.status(400);
+        throw new Error('Username already exists. Please choose another username.');
+    }
     const user = yield userModel_js_1.default.findById(req.user._id);
     if (user) {
         user.email = req.body.email || user.email;
+        user.username = req.body.username || user.username;
         if (req.body.password) {
             user.password = req.body.password;
         }
@@ -245,6 +265,7 @@ const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __a
         if (doctor) {
             res.json({
                 name: doctor.name,
+                username: user.username,
                 email: doctor.email,
                 dateofbirth: doctor.dateofbirth,
                 gender: doctor.gender,
@@ -266,6 +287,7 @@ const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __a
         if (patient) {
             res.json({
                 name: patient.name,
+                username: user.username,
                 email: patient.email,
                 dateofbirth: patient.dateofbirth,
                 gender: patient.gender,

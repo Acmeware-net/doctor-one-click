@@ -12,6 +12,8 @@ import { useToast } from "@/hooks/use-toast"
 
 const Register = () => {
   const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [usernameError, setUsernameError] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -35,14 +37,14 @@ const Register = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     const doctor = document.getElementById("doctor").checked;
-    console.log(`email: ${email} password: ${password} doctor: ${doctor} terms: ${terms} privacy: ${privacy}`);
+    console.log(`username: ${username} email: ${email} password: ${password} doctor: ${doctor} terms: ${terms} privacy: ${privacy}`);
     // if (doctor) {
     //   console.log(`user is doctor`)
     // } else {
     //   console.log(`user is patient`)
     // }
 
-    if (((password !== confirmPassword) || !terms || !privacy || (email === ''))) {
+    if (((password !== confirmPassword) || !terms || !privacy || (email === '') || (username === ''))) {
       setError('Cannot submit incomplete form');
       return;
     }
@@ -56,12 +58,13 @@ const Register = () => {
       // toast.error('Passwords do not match');
     } else {
       try {
-        const res = await register({ email, password, doctor }).unwrap();
+        const res = await register({ username, email, password, doctor }).unwrap();
         console.log(`res is ${res}`)
         dispatch(setCredentials({ ...res }));
         navigate('/dashboard');
-      } catch (err) {
-        toast.error(err?.data?.message || err.error);
+      } catch ({name, message}) {
+        console.log(`error -> ${message}`)
+        // toast.error(err?.data?.message || err.error);
       }
     }
   };
@@ -87,6 +90,20 @@ const Register = () => {
               {(email === '') && <span className='text-red-700'>Email address cannot be empty</span>}
             </div>
 
+            <div className='my-1' id='username'>
+              <label className='block mb-2 text-gray-600 font-medium'>Username</label>
+              <input
+                type='username'
+                placeholder='e.g. johndoe'
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                // onClick={() => { setError(''); }}
+                className=' p-2 w-[250px] rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
+              /><br />
+              {(username === '') && <span className='text-red-700'>Username cannot be empty</span>}
+            </div>
+
+<br/>
             <div className='my-1' id='usertype'>
               <label htmlFor='usertype'>Account Type</label><br /><br />
               <input

@@ -80,12 +80,18 @@ const registerUser = asyncHandler(async (req: any, res: any) => {
   console.log(`User comes to register with username: ${username} and email ${email} and password: ${password} and doctor ${doctor} `)
   const userExists = await User.findOne({ email });
   console.log(`user exists? ${userExists}`);
+  
+  if (userExists ) {
+    res.status(400).json({message:'User already exists with this email.'});
+    // throw new Error('User already exists with this email.');
+  }
+  
   const usernameExists = await User.findOne({ username });
   console.log(`username exists? ${usernameExists}`);
 
-  if (userExists || usernameExists) {
-    res.status(400);
-    throw new Error('User already exists');
+  if ( usernameExists) {
+    res.status(400).json({message:'User already exists with this email.'});
+    // throw new Error('User already exists with this username.');
   }
 
   let type: string = "";
@@ -101,11 +107,11 @@ const registerUser = asyncHandler(async (req: any, res: any) => {
   const userId = user.id;
   let newUser = null;
   let name = email.split('@')[0]
-  console.log(`New user has come to register with name: ${name}`)
+  console.log(`New user has come to register with username: ${username}`)
   console.log(`New user registered with id ${user.id}`)
   let status = 'Online';
   if (!doctor) {
-    console.log("inside isPatient block")
+    console.log("inside Patient block")
     newUser = await Patient.create({
       userId,
       name,
@@ -114,7 +120,7 @@ const registerUser = asyncHandler(async (req: any, res: any) => {
     });
   }
   else {
-    console.log("inside isDoctor block")
+    console.log("inside Doctor block")
     newUser = await Doctor.create({
       userId,
       name,
