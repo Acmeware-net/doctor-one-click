@@ -45,25 +45,39 @@ const findAppointment = asyncHandler(async (req: any, res: any) => {
     }
 });
 
-// Get a appointment document by id
+// Get a appointments document by patient id
 
-const findAppointments = asyncHandler(async (req: any, res: any) => {
+const findAppointmentsByPatient = asyncHandler(async (req: any, res: any) => {
     const { id } = req.body;
     console.log(`id is ${id}`);
-    const appointment = await Appointment.findOne({ id });
+    const appointments = await Appointment.find({ id });
 
-    if (appointment) {
-        res.status(200).json({
-            doctor_id: appointment.doctorId,
-            patient_id: appointment.patientId,
-            date_time: appointment.datetime,
-            status: appointment.status,
+    if (appointments) {
+        res.status(200).json({appointments
         })
     } else {
-        res.status(404).json({ message: 'Appointment not found' });
-        throw new Error('Unable to find appointment');
+        res.status(404).json({ message: 'Appointments not found' });
+        throw new Error('Unable to find appointments');
     }
 });
+
+
+// Get appointments documents by doctor id
+
+const findAppointmentsByDoctor = asyncHandler(async (req: any, res: any) => {
+    const { id } = req.body;
+    console.log(`id is ${id}`);
+    const appointments = await Appointment.find({ id });
+
+    if (appointments) {
+        res.status(200).json({appointments
+        })
+    } else {
+        res.status(404).json({ message: 'Appointments not found' });
+        throw new Error('Unable to find appointments');
+    }
+});
+
 
 // Update a appointment document by id
 
@@ -96,6 +110,8 @@ const updateAppointment = asyncHandler(async (req: any, res: any) => {
 export {
     createAppointment,
     findAppointment,
-    findAppointments,
+    // findAppointments,
+    findAppointmentsByPatient,
+    findAppointmentsByDoctor,
     updateAppointment,
 }

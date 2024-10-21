@@ -24,6 +24,7 @@ const Doctors = () => {
 if(data === undefined){
   console.log('Doctor component and data is undefined')
 }
+
 useEffect(() => {
   // console.log('useEffect runs')
   if(data !== undefined){

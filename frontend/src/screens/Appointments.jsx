@@ -16,6 +16,10 @@ const Appointments = () => {
       <input type="time" id="appt" name="appt" min="09:00" max="18:00" defaultValue="13:30" required />
 
       <small>Office hours are 9am to 6pm</small>
+
+      <div className=''>
+      Appoinments list
+      </div>
     </>
   )
 }

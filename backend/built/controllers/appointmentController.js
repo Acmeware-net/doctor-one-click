@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateAppointment = exports.findAppointments = exports.findAppointment = exports.createAppointment = void 0;
+exports.updateAppointment = exports.findAppointmentsByDoctor = exports.findAppointmentsByPatient = exports.findAppointment = exports.createAppointment = void 0;
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
 const appointmentModel_1 = __importDefault(require("../models/appointmentModel"));
 // Create a new appointment document
@@ -56,25 +56,36 @@ const findAppointment = (0, express_async_handler_1.default)((req, res) => __awa
     }
 }));
 exports.findAppointment = findAppointment;
-// Get a appointment document by id
-const findAppointments = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+// Get a appointments document by patient id
+const findAppointmentsByPatient = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.body;
     console.log(`id is ${id}`);
-    const appointment = yield appointmentModel_1.default.findOne({ id });
-    if (appointment) {
-        res.status(200).json({
-            doctor_id: appointment.doctorId,
-            patient_id: appointment.patientId,
-            date_time: appointment.datetime,
-            status: appointment.status,
+    const appointments = yield appointmentModel_1.default.find({ id });
+    if (appointments) {
+        res.status(200).json({ appointments
         });
     }
     else {
-        res.status(404).json({ message: 'Appointment not found' });
-        throw new Error('Unable to find appointment');
+        res.status(404).json({ message: 'Appointments not found' });
+        throw new Error('Unable to find appointments');
     }
 }));
-exports.findAppointments = findAppointments;
+exports.findAppointmentsByPatient = findAppointmentsByPatient;
+// Get a appointments document by doctor id
+const findAppointmentsByDoctor = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.body;
+    console.log(`id is ${id}`);
+    const appointments = yield appointmentModel_1.default.find({ id });
+    if (appointments) {
+        res.status(200).json({ appointments
+        });
+    }
+    else {
+        res.status(404).json({ message: 'Appointments not found' });
+        throw new Error('Unable to find appointments');
+    }
+}));
+exports.findAppointmentsByDoctor = findAppointmentsByDoctor;
 // Update a appointment document by id
 const updateAppointment = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.body;
