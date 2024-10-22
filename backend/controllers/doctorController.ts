@@ -199,11 +199,11 @@ const getDoctorByUserId = asyncHandler(async (req: any, res: any) => {
 // @route   GET /api/doctors/
 // @access  Public
 const getDoctors = asyncHandler(async (req: any, res: any) => {
-  const doctorsList = await Doctor.find({});
+  const doctors = await Doctor.find({});
   
-  if (doctorsList) {
-    var doctors: DoctorsResponse[] = [];
-    doctorsList.map((doctor)=>{doctors.push(mapper(doctor))});
+  if (doctors) {
+    // var doctors: DoctorsResponse[] = [];
+    // doctors.map((doctor)=>{doctors.push(mapper(doctor))});
     res.json({doctors});
   } else {
     res.status(404);

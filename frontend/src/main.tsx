@@ -14,6 +14,7 @@ import Dashboard from './screens/Dashboard';
 import PrivateRoute from './components/PrivateRoute';
 import Patients from './screens/Patients';
 import Doctors from './screens/Doctors';
+import FindDoctor,{ loader as findDoctorLoader } from './components/FindDoctor';
 import Checkups from './screens/Checkups';
 import Messages from './screens/Messages';
 import Appointments from './screens/Appointments';
@@ -23,29 +24,91 @@ import Privacy from './screens/Privacy';
 import Terms from './screens/Terms';
 import './index.css';
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path='/' element={<App />}>
-      <Route index={true} element={<Home />} />
-      <Route path='/login' element={<Login />} />
-      <Route path='/login/patient' element={<PatientLogin />} />
-      <Route path='/register' element={<Register />} />
-      <Route path='/register/patient' element={<RegisterPatient />} />
-      <Route path='/terms' element={<Terms />}/>
-      <Route path='/privacy' element={<Privacy />}/>
-      <Route path='' element={<PrivateRoute />} errorElement={<ErrorElement />} >
-        <Route path='/dashboard' element={<Dashboard />} >
-          <Route path="doctors" element={<Doctors />} />
-          <Route path="patients" element={<Patients />} />
-          <Route path="checkups" element={<Checkups />} />
-          <Route path="appointments" element={<Appointments />} />
-          <Route path="messages" element={<Messages />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="settings" element={<Settings />} />
-        </ Route>
-      </Route>
-    </Route>
-  )
+const router = createBrowserRouter([
+  {
+    path:'/',
+    element: <App />,
+    children:[
+      {
+        index:true,
+        element: <Home />,
+      },
+      {
+        path:'/login',
+        element: <Login />,
+      },
+      {
+        path:'/login/patient',
+        element: <PatientLogin />,
+      },
+      {
+        path:'/register',
+        element: <Register />,
+      },
+      {
+        path:'/register/patient',
+        element: <RegisterPatient />,
+      },
+      {
+        path:'/terms',
+        element: <Terms />,
+      },
+      {
+        path:'/privacy',
+        element: <Privacy />,
+      },
+      {
+        path:'',
+        element: <PrivateRoute />,
+        errorElement: <ErrorElement />,
+        children:[
+          {
+            path: '/dashboard',
+            element: <Dashboard />,
+            children:[
+              {
+                path:'doctors',
+                element: <Doctors />,
+                children:[
+                  {
+                    path:"id/:id",
+                    element: <FindDoctor />,
+
+                  }
+                ]
+              },
+              {
+                path:'patients',
+                element: <Patients />,
+              },
+              {
+                path:'checkups',
+                element: <Checkups />,
+              },
+              {
+                path:'appointments',
+                element: <Appointments />,
+              },
+              {
+                path:'messages',
+                element: <Messages />,
+              },
+              {
+                path:'profile',
+                element: <Profile />,
+              },
+              {
+                path:'settings',
+                element: <Settings />,
+              },
+            ]
+          },
+        ]
+      },
+    ]
+  }
+]
+
 );
 
 createRoot(document.getElementById('root')!).render(

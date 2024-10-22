@@ -39,7 +39,11 @@ router.route('/profile')
 
 // Doctor routes
 router.route('/doctors').get(protect, getDoctors);
+if(process.env.NODE_ENV === 'development'){
+  router.get('/doctor/:id',getDoctorById);
+}else{
 router.route('/doctor/:id').get(protect, getDoctorById);
+}
 router.route('/doctor/id/:id').get(protect, getDoctorByUserId);
 
 // Patient routes

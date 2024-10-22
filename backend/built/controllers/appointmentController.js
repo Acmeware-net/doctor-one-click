@@ -71,7 +71,7 @@ const findAppointmentsByPatient = (0, express_async_handler_1.default)((req, res
     }
 }));
 exports.findAppointmentsByPatient = findAppointmentsByPatient;
-// Get a appointments document by doctor id
+// Get appointments documents by doctor id
 const findAppointmentsByDoctor = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.body;
     console.log(`id is ${id}`);

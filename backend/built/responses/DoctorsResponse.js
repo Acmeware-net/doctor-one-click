@@ -7,6 +7,7 @@ class DoctorsResponse {
 exports.DoctorsResponse = DoctorsResponse;
 function mapper(doctor) {
     let doctorTo = new DoctorsResponse();
+    doctorTo.userid = doctor.userId;
     doctorTo.name = doctor.name;
     doctorTo.address = doctor.address;
     doctorTo.email = doctor.email;

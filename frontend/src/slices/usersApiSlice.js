@@ -49,6 +49,11 @@ export const userApiSlice = apiSlice.injectEndpoints({
       method:'GET',
       keepUnusedDataFor: 5,
     }),
+    getDoctorById: build.query({
+      query: (id) => `${USERS_URL}/users/doctors/${id}`,
+      method:'GET',
+      keepUnusedDataFor: 5,
+    }),
   }),
 });
 
@@ -60,4 +65,5 @@ export const {
   useDisableUserMutation,
   useRestoreUserMutation,
   useGetDoctorsQuery,
+  useGetDoctorByIdQuery,
 } = userApiSlice;

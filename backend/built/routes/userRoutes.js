@@ -20,7 +20,12 @@ router.route('/profile')
     .post(authMiddleware_js_1.protect, userController_js_1.restoreUser);
 // Doctor routes
 router.route('/doctors').get(authMiddleware_js_1.protect, doctorController_js_1.getDoctors);
-router.route('/doctor/:id').get(authMiddleware_js_1.protect, doctorController_js_1.getDoctorById);
+if (process.env.NODE_ENV === 'development') {
+    router.get('/doctor/:id', doctorController_js_1.getDoctorById);
+}
+else {
+    router.route('/doctor/:id').get(authMiddleware_js_1.protect, doctorController_js_1.getDoctorById);
+}
 router.route('/doctor/id/:id').get(authMiddleware_js_1.protect, doctorController_js_1.getDoctorByUserId);
 // Patient routes
 router.route('/patients').get(authMiddleware_js_1.protect, patientController_js_1.getPatients);

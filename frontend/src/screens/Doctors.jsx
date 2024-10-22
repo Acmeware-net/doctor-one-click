@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useGetDoctorsQuery } from '../slices/usersApiSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { addDoctor } from '../slices/doctorSlice';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, Link, useLoaderData } from 'react-router-dom';
 import {
   Table,
   TableBody,
@@ -12,17 +12,26 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-
+import {Button} from "@/components/ui/button"
+// export async function loader(){
+//   const data = await useGetDoctorsQuery();
+//   console.log(`inside loader() data -> ${data}`)
+//   return {data};
+// }
 
 const Doctors = () => {
   // console.log('Doctors component loaded')
   const [doctors, setDoctors] = useState([]);
   let  { data } = useGetDoctorsQuery();
+  console.log(`inside Doctors() data -> ${data}`)
+
   const dispatch = useDispatch();
 
  
 if(data === undefined){
   console.log('Doctor component and data is undefined')
+}else {
+  console.log(`doctors -> ${data.doctors[0]._id}`)
 }
 
 useEffect(() => {
@@ -55,14 +64,15 @@ useEffect(() => {
   <TableBody>
     {doctors && doctors.map((doctor)=>(
       <TableRow key={doctor.email}>
-       {/* <Link to={'/'+doctor.email}> */}
-          <TableCell className="font-medium">{doctor.name}</TableCell>
-          <TableCell>{doctor.specialization}</TableCell>
-          <TableCell>{doctor.address}</TableCell>
-          <TableCell className="text-left">{doctor.experience}</TableCell>
-          <TableCell>{doctor.status}</TableCell>
-        {/* </Link>  */}
-      </TableRow>
+              <TableCell className="font-medium">{doctor.name}</TableCell>
+              <TableCell>{doctor.specialization}</TableCell>
+              <TableCell>{doctor.address}</TableCell>
+              <TableCell className="text-left">{doctor.experience}</TableCell>
+              <TableCell>{doctor.status}</TableCell>
+              <Link to={'id/'+doctor._id}>
+               <TableCell><Button>Appointment</Button></TableCell>
+              </Link> 
+          </TableRow>
     ))}
     
   </TableBody>

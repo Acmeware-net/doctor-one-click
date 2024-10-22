@@ -16,7 +16,6 @@ exports.updateDoctorProfile = exports.getDoctorByUserId = exports.getDoctorById 
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
 const doctorModel_js_1 = __importDefault(require("../models/doctorModel.js"));
 const generateToken_js_1 = __importDefault(require("../utils/generateToken.js"));
-const DoctorsResponse_js_1 = require("../responses/DoctorsResponse.js");
 // @desc    Auth doctor & get token
 // @route   POST /api/doctors/auth
 // @access  Public
@@ -192,10 +191,10 @@ exports.getDoctorByUserId = getDoctorByUserId;
 // @route   GET /api/doctors/
 // @access  Public
 const getDoctors = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const doctorsList = yield doctorModel_js_1.default.find({});
-    if (doctorsList) {
-        var doctors = [];
-        doctorsList.map((doctor) => { doctors.push((0, DoctorsResponse_js_1.mapper)(doctor)); });
+    const doctors = yield doctorModel_js_1.default.find({});
+    if (doctors) {
+        // var doctors: DoctorsResponse[] = [];
+        // doctors.map((doctor)=>{doctors.push(mapper(doctor))});
         res.json({ doctors });
     }
     else {

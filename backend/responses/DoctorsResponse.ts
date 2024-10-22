@@ -1,6 +1,7 @@
 import Doctor from "../entities/doctor";
 
 export class DoctorsResponse {
+    userid:string;
     name: string;
     email: string;
     gender: string;
@@ -14,6 +15,7 @@ export class DoctorsResponse {
 
 export function mapper(doctor: Doctor): DoctorsResponse{
     let doctorTo: DoctorsResponse = new DoctorsResponse();
+    doctorTo.userid = doctor.userId;
     doctorTo.name = doctor.name;
     doctorTo.address = doctor.address;
     doctorTo.email = doctor.email;
