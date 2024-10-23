@@ -13,13 +13,13 @@ import Profile from './screens/Settings';
 import Dashboard from './screens/Dashboard';
 import PrivateRoute from './components/PrivateRoute';
 import Patients from './screens/Patients';
-import Doctors from './screens/Doctors';
+import Doctors, { loader as doctorsLoader } from './screens/Doctors';
 import FindDoctor,{ loader as findDoctorLoader } from './components/FindDoctor';
 import Checkups from './screens/Checkups';
 import Messages from './screens/Messages';
 import Appointments from './screens/Appointments';
 import Settings from './screens/Profile';
-import ErrorElement from './components/ErrorElement'
+import ErrorElement from './components/ErrorElement';
 import Privacy from './screens/Privacy';
 import Terms from './screens/Terms';
 import './index.css';
@@ -69,6 +69,7 @@ const router = createBrowserRouter([
               {
                 path:'doctors',
                 element: <Doctors />,
+                // loader: doctorsLoader,
                 children:[
                   {
                     path:"id/:id",

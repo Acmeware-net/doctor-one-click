@@ -15,4 +15,7 @@ const Card = (props:any) => {
 const calculatePendingAppointments = () => {
 
 };
+
+
+export {calculatePendingAppointments};
 export default Card;

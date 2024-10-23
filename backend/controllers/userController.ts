@@ -3,6 +3,7 @@ import User from '../models/userModel.js';
 import Doctor from '../models/doctorModel.js';
 import Patient from '../models/patientModel.js';
 import generateToken from '../utils/generateToken.js';
+import Position from '../entities/position.js';
 
 // @desc    Auth user & get token
 // @route   POST /api/users/auth
@@ -219,7 +220,16 @@ const updateUserProfile = asyncHandler(async (req: any, res: any) => {
     }
 
     await user.save();
-
+    const geoCode = async (address: string): Promise<Position> => {
+      address.replace(" ","+");
+      const result = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyCa-3eZA4d89v6NFi8C7j3Vx7VFZbu0bcE`);
+      console.log(`result -> ${result}`);
+      //@ts-ignore
+      let position: Position = result;
+      // position.lat = result.geometry.location.lat;
+      // position.lng = result.geometry.location.lng;
+      return position;
+    }
     const userId = req.user._id;
     let doctor = null;
     let patient = null;
@@ -238,6 +248,8 @@ const updateUserProfile = asyncHandler(async (req: any, res: any) => {
         patient.zipcode = req.body.zipcode || patient.zipcode;
         patient.status = req.body.status || patient.status;
         patient.image = req.body.image || patient.image;
+        //@ts-ignore
+        const position: Position = geoCode(patient.address);
         patient.save();
       }
       console.log(`patient is ${patient}`);

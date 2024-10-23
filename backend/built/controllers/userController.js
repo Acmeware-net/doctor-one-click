@@ -215,6 +215,16 @@ const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __a
             user.password = req.body.password;
         }
         yield user.save();
+        const geoCode = (address) => __awaiter(void 0, void 0, void 0, function* () {
+            address.replace(" ", "+");
+            const result = yield fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyCa-3eZA4d89v6NFi8C7j3Vx7VFZbu0bcE`);
+            console.log(`result -> ${result}`);
+            //@ts-ignore
+            let position = result;
+            // position.lat = result.geometry.location.lat;
+            // position.lng = result.geometry.location.lng;
+            return position;
+        });
         const userId = req.user._id;
         let doctor = null;
         let patient = null;
@@ -233,6 +243,8 @@ const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __a
                 patient.zipcode = req.body.zipcode || patient.zipcode;
                 patient.status = req.body.status || patient.status;
                 patient.image = req.body.image || patient.image;
+                //@ts-ignore
+                const position = geoCode(patient.address);
                 patient.save();
             }
             console.log(`patient is ${patient}`);
