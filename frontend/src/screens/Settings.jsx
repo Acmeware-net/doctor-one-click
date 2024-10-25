@@ -19,6 +19,7 @@ import "react-country-state-city/dist/react-country-state-city.css";
 
 const Settings = () => {
   const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -80,6 +81,7 @@ const Settings = () => {
     console.log(`useEffect runs`);
     setProfileUpdated(false);
     setName(userInfo.name);
+    setUsername(userInfo.username);
     setEmail(userInfo.email);
     setPhone(userInfo.phone);
     setAddress(userInfo.address);
@@ -114,6 +116,7 @@ const Settings = () => {
         const res = await updateProfile({
           _id: userInfo._id,
           name,
+          username,
           email,
           password,
           gender,
@@ -184,6 +187,8 @@ const Settings = () => {
                   onChange={(e) => setAddress(e.target.value)}
                   className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
                 ></input>
+                <br/>
+                 {(userInfo.type === 'doctor') && (address === '') && <span className='text-red-700 mb-2'>Your location on the map will not be shown unless you set your address</span>}
               </div>
 
               <div className='my-2' >
@@ -336,7 +341,18 @@ const Settings = () => {
 
 
             <div>
-              <div>Profile details</div>
+              <div>Account details</div>
+              
+              <div className='my-1' id='username'>
+                <label className='block mb-2 text-gray-600 font-medium'>Username</label>
+                <input
+                  type='input'
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
+                />
+              </div>
+              
               <div className='my-1' id='status'>
                 <label className='block mb-2 text-gray-600 font-medium'>Status</label>
                 <input

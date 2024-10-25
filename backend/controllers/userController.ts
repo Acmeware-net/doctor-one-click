@@ -46,6 +46,7 @@ const authUser = asyncHandler(async (req: any, res: any) => {
         bio: doctor.bio,
         headline: doctor.headline,
         license: doctor.license,
+        location: doctor.position,
       });
     }
 
@@ -63,6 +64,7 @@ const authUser = asyncHandler(async (req: any, res: any) => {
         state: patient.state,
         zipcode: patient.zipcode,
         type: user.type,
+        location: patient.position,
       });
     }
 
@@ -76,9 +78,9 @@ const authUser = asyncHandler(async (req: any, res: any) => {
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req: any, res: any) => {
-  const { email, password, doctor, username } = req.body;
+  const { username, email, password, doctor, address } = req.body;
   // const { name, email, password, dateofbirth, gender, phone, address, city, state, zipcode, type,} = req.body;
-  console.log(`User comes to register with username: ${username} and email ${email} and password: ${password} and doctor ${doctor} `)
+  console.log(`User comes to register with username: ${username} and email ${email} and password: ${password} and doctor ${doctor} and address ${address} `)
   const userExists = await User.findOne({ email });
   console.log(`user exists? ${userExists}`);
   
@@ -105,6 +107,33 @@ const registerUser = asyncHandler(async (req: any, res: any) => {
     type,
   });
 
+  // const geoCode = async (address: string): Promise<Position> => {
+    var position: Position= {
+      lat:0,
+      lng:0
+    };
+    var location: any = null;
+    const VITE_MAP_API_KEY="AIzaSyCa-3eZA4d89v6NFi8C7j3Vx7VFZbu0bcE"
+    //@ts-ignore
+    const replacedAddress = address.replaceAll(" ","+");
+    console.log(`replacedAddress -> ${replacedAddress}`)
+    try {
+    const res = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${VITE_MAP_API_KEY}`)
+    .then((response) => response.json());
+    location = JSON.stringify(res.results[0].geometry.location);
+    console.log(`location -> ${location}`)
+    }catch({name, message}:any){
+      console.log({type:name, message:message})
+    }
+    if(location){
+      position = location as Position;
+      // position.lat = location.lat;
+      // position.lng = location.lng;
+    }
+    console.log(`position -> ${position}`)
+    // return position;
+  // }
+
   const userId = user.id;
   let newUser = null;
   let name = email.split('@')[0]
@@ -118,6 +147,8 @@ const registerUser = asyncHandler(async (req: any, res: any) => {
       name,
       email,
       status,
+      address,
+      position,
     });
   }
   else {
@@ -126,7 +157,9 @@ const registerUser = asyncHandler(async (req: any, res: any) => {
       userId,
       name,
       status,
-      email
+      email,
+      address,
+      position,
     });
   }
   console.log(`newUser is ${newUser}`);
@@ -197,9 +230,9 @@ const getUserProfile = asyncHandler(async (req: any, res: any) => {
 // @access  Private
 const updateUserProfile = asyncHandler(async (req: any, res: any) => {
   console.log('Entering updateUserProfile method in userController...')
-  console.log(req.body)
+  console.log(`request body -> ${req.body}`);
   const { _id, username, name, email, password, phone, address, gender, dateofbirth, city, state, zipcode, experience, specialization, bio, headline, status, image, license } = req.body;
-  
+  if(process.env.NODE_ENV === 'production'){
   const usernameExists = await User.findOne({ username });
   console.log(`username exists? ${usernameExists}`);
 
@@ -207,7 +240,7 @@ const updateUserProfile = asyncHandler(async (req: any, res: any) => {
     res.status(400);
     throw new Error('Username already exists. Please choose another username.');
   }
-
+  }
   const user = await User.findById(req.user._id);
 
 
@@ -220,16 +253,32 @@ const updateUserProfile = asyncHandler(async (req: any, res: any) => {
     }
 
     await user.save();
-    const geoCode = async (address: string): Promise<Position> => {
-      address.replace(" ","+");
-      const result = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyCa-3eZA4d89v6NFi8C7j3Vx7VFZbu0bcE`);
-      console.log(`result -> ${result}`);
+    // const geoCode = async (address: string): Promise<Position> => {
+      var position: Position= {
+        lat:0,
+        lng:0
+      };
+      var location: any = null;
+      const VITE_MAP_API_KEY="AIzaSyCa-3eZA4d89v6NFi8C7j3Vx7VFZbu0bcE"
       //@ts-ignore
-      let position: Position = result;
-      // position.lat = result.geometry.location.lat;
-      // position.lng = result.geometry.location.lng;
-      return position;
-    }
+      const replacedAddress = address.replaceAll(" ","+");
+      console.log(`replacedAddress -> ${replacedAddress}`)
+      try {
+      const res = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${VITE_MAP_API_KEY}`)
+      .then((response) => response.json());
+      location = JSON.stringify(res.results[0].geometry.location);
+      console.log(`location -> ${location}`)
+      }catch({name, message}:any){
+        console.log({type:name, message:message})
+      }
+      if(location){
+        position = location as Position;
+        // position.lat = location.lat;
+        // position.lng = location.lng;
+      }
+      console.log(`position -> ${position}`)
+      // return position;
+    // }
     const userId = req.user._id;
     let doctor = null;
     let patient = null;
@@ -248,11 +297,13 @@ const updateUserProfile = asyncHandler(async (req: any, res: any) => {
         patient.zipcode = req.body.zipcode || patient.zipcode;
         patient.status = req.body.status || patient.status;
         patient.image = req.body.image || patient.image;
-        //@ts-ignore
-        const position: Position = geoCode(patient.address);
-        patient.save();
+        patient.position = position;
+        console.log(`position -> ${position}`)
+        console.log(`patient.position -> ${patient.position}`)
+
+        patient = await patient.save();
       }
-      console.log(`patient is ${patient}`);
+      // console.log(`patient is ${patient}`);
     }
     if (user?.type === 'doctor') {
       console.log(`user type is doctor`)
@@ -274,11 +325,14 @@ const updateUserProfile = asyncHandler(async (req: any, res: any) => {
         doctor.headline = req.body.headline || doctor.headline;
         doctor.license = req.body.license || doctor.license;
         doctor.image = req.body.image || doctor.image;
-        doctor.save();
+        doctor.position = position;
+        console.log(`position -> ${position}`)
+        console.log(`doctor.position -> ${doctor.position}`)
+        doctor = await doctor.save();
       }
       console.log(`doctor is ${doctor}`);
     }
-    console.log(`user to update is ${user}`)
+    // console.log(`user to update is ${user}`)
 
     if (doctor) {
 
@@ -300,12 +354,13 @@ const updateUserProfile = asyncHandler(async (req: any, res: any) => {
         headline: doctor.headline,
         license: doctor.license,
         status: doctor.status,
-        image: doctor.image,
+        // image: doctor.image,
+        position: doctor.position,
       });
     }
 
     if (patient) {
-
+      console.log(`patient location in response -> ${patient.position}`)
       res.json({
         name: patient.name,
         username: user.username,
@@ -319,8 +374,8 @@ const updateUserProfile = asyncHandler(async (req: any, res: any) => {
         zipcode: patient.zipcode,
         status: patient.status,
         type: user.type,
-        image: patient.image,
-
+        // image: patient.image,
+        position: patient.position,
       });
     }
 

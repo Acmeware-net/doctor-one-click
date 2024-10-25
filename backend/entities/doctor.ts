@@ -1,6 +1,7 @@
 import Appointment from "./appointment";
 import Checkup from "./checkup";
 import Position from '../entities/position';
+import Patient from '../entities/patient';
 
 interface Doctor{
     // User id, different than doctor's id
@@ -44,6 +45,7 @@ interface Doctor{
 
     // Position on the map, i.e. lat and long
     position: Position;
+    patient: Patient;
   }
 
 export default Doctor;

@@ -13,7 +13,7 @@ import { useToast } from "@/hooks/use-toast"
 const Register = () => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
-  const [usernameError, setUsernameError] = useState('');
+  const [address, setAddress] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -58,7 +58,7 @@ const Register = () => {
       // toast.error('Passwords do not match');
     } else {
       try {
-        const res = await register({ username, email, password, doctor }).unwrap();
+        const res = await register({ username, email, address, password, doctor }).unwrap();
         console.log(`res is ${res}`)
         dispatch(setCredentials({ ...res }));
         navigate('/dashboard');
@@ -103,7 +103,19 @@ const Register = () => {
               {(username === '') && <span className='text-red-700'>Username cannot be empty</span>}
             </div>
 
-<br/>
+            <div className='my-1' id='address'>
+              <label className='block mb-2 text-gray-600 font-medium'>Address</label>
+              <input
+                type='address'
+                placeholder='e.g. #1 House 123 street'
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                // onClick={() => { setError(''); }}
+                className=' p-2 w-[250px] rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
+              /><br />
+              {(address === '') && <span className='text-red-700'>Address is required for map purpose</span>}
+            </div>
+
             <div className='my-1' id='usertype'>
               <label htmlFor='usertype'>Account Type</label><br /><br />
               <input

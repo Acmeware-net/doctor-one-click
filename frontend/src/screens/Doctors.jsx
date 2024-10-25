@@ -13,6 +13,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { GiConsoleController } from 'react-icons/gi';
 
 
 
@@ -20,8 +21,8 @@ const Doctors = () => {
   // console.log('Doctors component loaded')
   const [doctors, setDoctors] = useState([]);
   let { data } = useGetDoctorsQuery();
-  console.log(`inside Doctors() data -> ${data}`)
-
+  console.log(`inside Doctors() data -> ${data}`);
+  const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
 
@@ -45,15 +46,19 @@ const Doctors = () => {
     // Request needed libraries.
     const { Map } = await google.maps.importLibrary("maps");
     const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+    const lat = userInfo.position.lat;
+    const lng = userInfo.position.lng;
+    console.log(`lat -> ${lat} lng -> ${lng}`)
     const center = { lat: 37.43238031167444, lng: -122.16795397128632 };
+    console.log(`lat -> ${lat}`)
     const map = new Map(document.getElementById("map"), {
-    zoom: 10,
+    zoom: 11,
     center,
     mapId: "4504f8b37365c3d0",
     });
     console.log(` doctor inside initMap -> ${data.doctors}`)
     
-    for (const doctor of doctors) {
+    for (const doctor of properties) {
     const AdvancedMarkerElement = new google.maps.marker.AdvancedMarkerElement({
     map,
     content: buildContent(doctor),
@@ -249,8 +254,7 @@ const Doctors = () => {
   return (
     <>
       <div className='text-xl m-4'>Doctors Nearby</div>
-      <div id='map' className='m-8 p-5 mr-11 w-auto'></div>
-
+      <div>
       <Table className={"w-2/3"}>
         <TableCaption>A list of nearby available doctors.</TableCaption>
         <TableHeader>
@@ -278,7 +282,13 @@ const Doctors = () => {
 
         </TableBody>
       </Table>
-      <Outlet />
+      </div>
+      <div id='map' className='m-8 p-5 ml-11 w-auto'></div>
+          <div>
+            <Outlet />
+
+
+          </div>
     </>
   )
 }

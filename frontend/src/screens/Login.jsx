@@ -28,12 +28,7 @@ import Loader from '../components/Loader';
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      // console.log(`email: ${email} password: ${password} isDoctor: ${isDoctor} isPatient: ${isPatient}`)
-      // if(isPatient){
-      //   console.log(`user is patient`)
-      // }else{
-      //   console.log(`user is doctor`)
-      // }
+    
       const res = await login({ email, password }).unwrap();
       dispatch(setCredentials({ ...res }));
       navigate('/');
