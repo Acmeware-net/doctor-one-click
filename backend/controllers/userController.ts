@@ -3,7 +3,7 @@ import User from '../models/userModel.js';
 import Doctor from '../models/doctorModel.js';
 import Patient from '../models/patientModel.js';
 import generateToken from '../utils/generateToken.js';
-import Position from '../entities/position.js';
+import Location from '../entities/location.js';
 
 // @desc    Auth user & get token
 // @route   POST /api/users/auth
@@ -46,7 +46,7 @@ const authUser = asyncHandler(async (req: any, res: any) => {
         bio: doctor.bio,
         headline: doctor.headline,
         license: doctor.license,
-        location: doctor.position,
+        location: doctor.location,
       });
     }
 
@@ -64,7 +64,7 @@ const authUser = asyncHandler(async (req: any, res: any) => {
         state: patient.state,
         zipcode: patient.zipcode,
         type: user.type,
-        location: patient.position,
+        location: patient.location,
       });
     }
 
@@ -107,12 +107,12 @@ const registerUser = asyncHandler(async (req: any, res: any) => {
     type,
   });
 
-  // const geoCode = async (address: string): Promise<Position> => {
-    var position: Position= {
+  // const geoCode = async (address: string): Promise<Location> => {
+    var location: Location= {
       lat:0,
       lng:0
     };
-    var location: any = null;
+    var _location: any = null;
     const VITE_MAP_API_KEY="AIzaSyCa-3eZA4d89v6NFi8C7j3Vx7VFZbu0bcE"
     //@ts-ignore
     const replacedAddress = address.replaceAll(" ","+");
@@ -120,18 +120,18 @@ const registerUser = asyncHandler(async (req: any, res: any) => {
     try {
     const res = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${VITE_MAP_API_KEY}`)
     .then((response) => response.json());
-    location = JSON.stringify(res.results[0].geometry.location);
+    _location = JSON.stringify(res.results[0].geometry.location);
     console.log(`location -> ${location}`)
     }catch({name, message}:any){
       console.log({type:name, message:message})
     }
-    if(location){
-      position = location as Position;
-      // position.lat = location.lat;
-      // position.lng = location.lng;
+    if(_location){
+      location = _location as Location;
+      // location.lat = location.lat;
+      // location.lng = location.lng;
     }
-    console.log(`position -> ${position}`)
-    // return position;
+    console.log(`location -> ${location}`)
+    // return location;
   // }
 
   const userId = user.id;
@@ -148,7 +148,7 @@ const registerUser = asyncHandler(async (req: any, res: any) => {
       email,
       status,
       address,
-      position,
+      location,
     });
   }
   else {
@@ -159,7 +159,7 @@ const registerUser = asyncHandler(async (req: any, res: any) => {
       status,
       email,
       address,
-      position,
+      location,
     });
   }
   console.log(`newUser is ${newUser}`);
@@ -253,12 +253,12 @@ const updateUserProfile = asyncHandler(async (req: any, res: any) => {
     }
 
     await user.save();
-    // const geoCode = async (address: string): Promise<Position> => {
-      var position: Position= {
+    // const geoCode = async (address: string): Promise<Location> => {
+      var location: Location= {
         lat:0,
         lng:0
       };
-      var location: any = null;
+      var _location: any = null;
       const VITE_MAP_API_KEY="AIzaSyCa-3eZA4d89v6NFi8C7j3Vx7VFZbu0bcE"
       //@ts-ignore
       const replacedAddress = address.replaceAll(" ","+");
@@ -266,18 +266,18 @@ const updateUserProfile = asyncHandler(async (req: any, res: any) => {
       try {
       const res = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${VITE_MAP_API_KEY}`)
       .then((response) => response.json());
-      location = JSON.stringify(res.results[0].geometry.location);
+      _location = JSON.stringify(res.results[0].geometry.location);
       console.log(`location -> ${location}`)
       }catch({name, message}:any){
         console.log({type:name, message:message})
       }
-      if(location){
-        position = location as Position;
-        // position.lat = location.lat;
-        // position.lng = location.lng;
+      if(_location){
+        location = _location as Location;
+        // location.lat = location.lat;
+        // location.lng = location.lng;
       }
-      console.log(`position -> ${position}`)
-      // return position;
+      console.log(`location -> ${location}`)
+      // return location;
     // }
     const userId = req.user._id;
     let doctor = null;
@@ -297,9 +297,9 @@ const updateUserProfile = asyncHandler(async (req: any, res: any) => {
         patient.zipcode = req.body.zipcode || patient.zipcode;
         patient.status = req.body.status || patient.status;
         patient.image = req.body.image || patient.image;
-        patient.position = position;
-        console.log(`position -> ${position}`)
-        console.log(`patient.position -> ${patient.position}`)
+        patient.location = location;
+        console.log(`location -> ${location}`)
+        console.log(`patient.location -> ${patient.location}`)
 
         patient = await patient.save();
       }
@@ -325,9 +325,9 @@ const updateUserProfile = asyncHandler(async (req: any, res: any) => {
         doctor.headline = req.body.headline || doctor.headline;
         doctor.license = req.body.license || doctor.license;
         doctor.image = req.body.image || doctor.image;
-        doctor.position = position;
-        console.log(`position -> ${position}`)
-        console.log(`doctor.position -> ${doctor.position}`)
+        doctor.location = location;
+        console.log(`location -> ${location}`)
+        console.log(`doctor.location -> ${doctor.location}`)
         doctor = await doctor.save();
       }
       console.log(`doctor is ${doctor}`);
@@ -355,12 +355,12 @@ const updateUserProfile = asyncHandler(async (req: any, res: any) => {
         license: doctor.license,
         status: doctor.status,
         // image: doctor.image,
-        position: doctor.position,
+        location: doctor.location,
       });
     }
 
     if (patient) {
-      console.log(`patient location in response -> ${patient.position}`)
+      console.log(`patient location in response -> ${patient.location}`)
       res.json({
         name: patient.name,
         username: user.username,
@@ -375,7 +375,7 @@ const updateUserProfile = asyncHandler(async (req: any, res: any) => {
         status: patient.status,
         type: user.type,
         // image: patient.image,
-        position: patient.position,
+        location: patient.location,
       });
     }
 

@@ -1,7 +1,4 @@
-import Appointment from "./appointment";
-import Checkup from "./checkup";
-import Position from '../entities/position';
-import Patient from '../entities/patient';
+import Location from './location';
 
 interface Doctor{
     // User id, different than doctor's id
@@ -13,7 +10,7 @@ interface Doctor{
     address: string;
     specialization: string;
     
-    // Medical license or medical prationer certificate etc.
+    // Medical license or medical prationer certifficate etc.
     license: string;
     
     // Doctor's description (optional)
@@ -43,9 +40,8 @@ interface Doctor{
     
     timing: Timing;
 
-    // Position on the map, i.e. lat and long
-    position: Position;
-    patient: Patient;
+    // Location on the map, i.e. lat and long
+    location: Location;
   }
 
 export default Doctor;

@@ -1,4 +1,4 @@
-import Position from '../entities/position';
+import Location from './location';
 
 export default interface Patient{
     // User id, different than doctor's id
@@ -20,6 +20,6 @@ export default interface Patient{
     // online | offline | away | out of office for a period | currently in meeting etc.
     status: string;
     image: string;
-    // Position on the map, i.e. lat and long
-    position: Position;
+    // Location on the map, i.e. lat and long
+    location: Location;
 }

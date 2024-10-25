@@ -56,7 +56,7 @@ const authUser = (0, express_async_handler_1.default)((req, res) => __awaiter(vo
                 bio: doctor.bio,
                 headline: doctor.headline,
                 license: doctor.license,
-                location: doctor.position,
+                location: doctor.location,
             });
         }
         if (patient) {
@@ -72,7 +72,7 @@ const authUser = (0, express_async_handler_1.default)((req, res) => __awaiter(vo
                 state: patient.state,
                 zipcode: patient.zipcode,
                 type: user.type,
-                location: patient.position,
+                location: patient.location,
             });
         }
     }
@@ -109,12 +109,12 @@ const registerUser = (0, express_async_handler_1.default)((req, res) => __awaite
         password,
         type,
     });
-    // const geoCode = async (address: string): Promise<Position> => {
-    var position = {
+    // const geoCode = async (address: string): Promise<Location> => {
+    var location = {
         lat: 0,
         lng: 0
     };
-    var location = null;
+    var _location = null;
     const VITE_MAP_API_KEY = "AIzaSyCa-3eZA4d89v6NFi8C7j3Vx7VFZbu0bcE";
     //@ts-ignore
     const replacedAddress = address.replaceAll(" ", "+");
@@ -122,19 +122,19 @@ const registerUser = (0, express_async_handler_1.default)((req, res) => __awaite
     try {
         const res = yield fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${VITE_MAP_API_KEY}`)
             .then((response) => response.json());
-        location = JSON.stringify(res.results[0].geometry.location);
+        _location = JSON.stringify(res.results[0].geometry.location);
         console.log(`location -> ${location}`);
     }
     catch ({ name, message }) {
         console.log({ type: name, message: message });
     }
-    if (location) {
-        position = location;
-        // position.lat = location.lat;
-        // position.lng = location.lng;
+    if (_location) {
+        location = _location;
+        // location.lat = location.lat;
+        // location.lng = location.lng;
     }
-    console.log(`position -> ${position}`);
-    // return position;
+    console.log(`location -> ${location}`);
+    // return location;
     // }
     const userId = user.id;
     let newUser = null;
@@ -150,7 +150,7 @@ const registerUser = (0, express_async_handler_1.default)((req, res) => __awaite
             email,
             status,
             address,
-            position,
+            location,
         });
     }
     else {
@@ -161,7 +161,7 @@ const registerUser = (0, express_async_handler_1.default)((req, res) => __awaite
             status,
             email,
             address,
-            position,
+            location,
         });
     }
     console.log(`newUser is ${newUser}`);
@@ -250,12 +250,12 @@ const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __a
             user.password = req.body.password;
         }
         yield user.save();
-        // const geoCode = async (address: string): Promise<Position> => {
-        var position = {
+        // const geoCode = async (address: string): Promise<Location> => {
+        var location = {
             lat: 0,
             lng: 0
         };
-        var location = null;
+        var _location = null;
         const VITE_MAP_API_KEY = "AIzaSyCa-3eZA4d89v6NFi8C7j3Vx7VFZbu0bcE";
         //@ts-ignore
         const replacedAddress = address.replaceAll(" ", "+");
@@ -263,19 +263,19 @@ const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __a
         try {
             const res = yield fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${VITE_MAP_API_KEY}`)
                 .then((response) => response.json());
-            location = JSON.stringify(res.results[0].geometry.location);
+            _location = JSON.stringify(res.results[0].geometry.location);
             console.log(`location -> ${location}`);
         }
         catch ({ name, message }) {
             console.log({ type: name, message: message });
         }
-        if (location) {
-            position = location;
-            // position.lat = location.lat;
-            // position.lng = location.lng;
+        if (_location) {
+            location = _location;
+            // location.lat = location.lat;
+            // location.lng = location.lng;
         }
-        console.log(`position -> ${position}`);
-        // return position;
+        console.log(`location -> ${location}`);
+        // return location;
         // }
         const userId = req.user._id;
         let doctor = null;
@@ -295,9 +295,9 @@ const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __a
                 patient.zipcode = req.body.zipcode || patient.zipcode;
                 patient.status = req.body.status || patient.status;
                 patient.image = req.body.image || patient.image;
-                patient.position = position;
-                console.log(`position -> ${position}`);
-                console.log(`patient.position -> ${patient.position}`);
+                patient.location = location;
+                console.log(`location -> ${location}`);
+                console.log(`patient.location -> ${patient.location}`);
                 patient = yield patient.save();
             }
             // console.log(`patient is ${patient}`);
@@ -322,9 +322,9 @@ const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __a
                 doctor.headline = req.body.headline || doctor.headline;
                 doctor.license = req.body.license || doctor.license;
                 doctor.image = req.body.image || doctor.image;
-                doctor.position = position;
-                console.log(`position -> ${position}`);
-                console.log(`doctor.position -> ${doctor.position}`);
+                doctor.location = location;
+                console.log(`location -> ${location}`);
+                console.log(`doctor.location -> ${doctor.location}`);
                 doctor = yield doctor.save();
             }
             console.log(`doctor is ${doctor}`);
@@ -350,11 +350,11 @@ const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __a
                 license: doctor.license,
                 status: doctor.status,
                 // image: doctor.image,
-                position: doctor.position,
+                location: doctor.location,
             });
         }
         if (patient) {
-            console.log(`patient location in response -> ${patient.position}`);
+            console.log(`patient location in response -> ${patient.location}`);
             res.json({
                 name: patient.name,
                 username: user.username,
@@ -369,7 +369,7 @@ const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __a
                 status: patient.status,
                 type: user.type,
                 // image: patient.image,
-                position: patient.position,
+                location: patient.location,
             });
         }
     }
