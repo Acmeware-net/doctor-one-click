@@ -30,7 +30,7 @@ const schema = new mongoose_1.Schema({
     appointments: { type: [], required: false },
     status: { type: String, required: false },
     image: { type: String, required: false },
-    location: { type: Location, required: false },
+    location: { type: Object, required: false },
 }, {
     timestamps: true,
 });

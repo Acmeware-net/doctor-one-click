@@ -35,7 +35,7 @@ const doctorSchema = new mongoose_1.Schema({
     status: { type: String, required: false },
     checkups: { type: [], required: false },
     appointments: { type: [], required: false },
-    location: { type: Location, required: false },
+    location: Object,
 }, {
     timestamps: true,
 });

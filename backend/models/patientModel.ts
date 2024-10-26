@@ -18,7 +18,7 @@ const schema = new Schema<Patient>({
   appointments: { type: [], required: false },
   status: { type: String, required: false },
   image: { type: String, required: false },
-  location: {type: Location , required: false},
+  location: {type: Object , required: false},
 },
 {
   timestamps: true,

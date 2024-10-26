@@ -21,7 +21,7 @@ const Doctors = () => {
   // console.log('Doctors component loaded')
   const [doctors, setDoctors] = useState([]);
   let { data } = useGetDoctorsQuery();
-  console.log(`inside Doctors() data -> ${data}`);
+  console.log(`inside Doctors() data -> ${data}`)
   const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -46,11 +46,10 @@ const Doctors = () => {
     // Request needed libraries.
     const { Map } = await google.maps.importLibrary("maps");
     const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
-    const lat = userInfo.position.lat;
-    const lng = userInfo.position.lng;
+    const lat = userInfo.location !== undefined || null ? userInfo.location.lat : 37.43238031167444;
+    const lng = userInfo.location !== undefined || null ? userInfo.location.lng : -122.16795397128632;
     console.log(`lat -> ${lat} lng -> ${lng}`)
-    const center = { lat: 37.43238031167444, lng: -122.16795397128632 };
-    console.log(`lat -> ${lat}`)
+    const center = { lat: lat, lng: lng };
     const map = new Map(document.getElementById("map"), {
     zoom: 11,
     center,

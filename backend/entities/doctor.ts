@@ -1,4 +1,3 @@
-import Location from './location';
 
 interface Doctor{
     // User id, different than doctor's id
@@ -41,7 +40,7 @@ interface Doctor{
     timing: Timing;
 
     // Location on the map, i.e. lat and long
-    location: Location;
+    location: object;
   }
 
 export default Doctor;

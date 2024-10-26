@@ -109,33 +109,18 @@ const registerUser = (0, express_async_handler_1.default)((req, res) => __awaite
         password,
         type,
     });
-    // const geoCode = async (address: string): Promise<Location> => {
-    var location = {
-        lat: 0,
-        lng: 0
-    };
-    var _location = null;
     const VITE_MAP_API_KEY = "AIzaSyCa-3eZA4d89v6NFi8C7j3Vx7VFZbu0bcE";
-    //@ts-ignore
     const replacedAddress = address.replaceAll(" ", "+");
     console.log(`replacedAddress -> ${replacedAddress}`);
     try {
         const res = yield fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${VITE_MAP_API_KEY}`)
             .then((response) => response.json());
-        _location = JSON.stringify(res.results[0].geometry.location);
+        let location = JSON.stringify(res.results[0].geometry.location);
         console.log(`location -> ${location}`);
     }
     catch ({ name, message }) {
         console.log({ type: name, message: message });
     }
-    if (_location) {
-        location = _location;
-        // location.lat = location.lat;
-        // location.lng = location.lng;
-    }
-    console.log(`location -> ${location}`);
-    // return location;
-    // }
     const userId = user.id;
     let newUser = null;
     let name = email.split('@')[0];
@@ -232,7 +217,7 @@ exports.getUserProfile = getUserProfile;
 // @access  Private
 const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('Entering updateUserProfile method in userController...');
-    console.log(`request body -> ${req.body}`);
+    // console.log(`request body -> ${req.body}`);
     const { _id, username, name, email, password, phone, address, gender, dateofbirth, city, state, zipcode, experience, specialization, bio, headline, status, image, license } = req.body;
     if (process.env.NODE_ENV === 'production') {
         const usernameExists = yield userModel_js_1.default.findOne({ username });
@@ -250,33 +235,20 @@ const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __a
             user.password = req.body.password;
         }
         yield user.save();
-        // const geoCode = async (address: string): Promise<Location> => {
-        var location = {
-            lat: 0,
-            lng: 0
-        };
-        var _location = null;
         const VITE_MAP_API_KEY = "AIzaSyCa-3eZA4d89v6NFi8C7j3Vx7VFZbu0bcE";
         //@ts-ignore
         const replacedAddress = address.replaceAll(" ", "+");
-        console.log(`replacedAddress -> ${replacedAddress}`);
+        // console.log(`replacedAddress -> ${replacedAddress}`)
+        let location;
         try {
             const res = yield fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${VITE_MAP_API_KEY}`)
                 .then((response) => response.json());
-            _location = JSON.stringify(res.results[0].geometry.location);
-            console.log(`location -> ${location}`);
+            location = res.results[0].geometry.location;
+            console.log(`location after stringify-> ${JSON.stringify(location)}`);
         }
         catch ({ name, message }) {
             console.log({ type: name, message: message });
         }
-        if (_location) {
-            location = _location;
-            // location.lat = location.lat;
-            // location.lng = location.lng;
-        }
-        console.log(`location -> ${location}`);
-        // return location;
-        // }
         const userId = req.user._id;
         let doctor = null;
         let patient = null;
@@ -296,8 +268,8 @@ const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __a
                 patient.status = req.body.status || patient.status;
                 patient.image = req.body.image || patient.image;
                 patient.location = location;
-                console.log(`location -> ${location}`);
-                console.log(`patient.location -> ${patient.location}`);
+                // console.log(`location -> ${location}`)
+                // console.log(`patient.location -> ${patient.location}`)
                 patient = yield patient.save();
             }
             // console.log(`patient is ${patient}`);
@@ -323,14 +295,15 @@ const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __a
                 doctor.license = req.body.license || doctor.license;
                 doctor.image = req.body.image || doctor.image;
                 doctor.location = location;
-                console.log(`location -> ${location}`);
-                console.log(`doctor.location -> ${doctor.location}`);
+                // console.log(`location -> ${location}`)
+                // console.log(`doctor.location -> ${doctor.location}`)
                 doctor = yield doctor.save();
             }
             console.log(`doctor is ${doctor}`);
         }
         // console.log(`user to update is ${user}`)
         if (doctor) {
+            // console.log(`doctor location in response -> ${location}`)
             res.json({
                 name: doctor.name,
                 username: user.username,
@@ -354,7 +327,7 @@ const updateUserProfile = (0, express_async_handler_1.default)((req, res) => __a
             });
         }
         if (patient) {
-            console.log(`patient location in response -> ${patient.location}`);
+            // console.log(`patient location in response -> ${location}`)
             res.json({
                 name: patient.name,
                 username: user.username,

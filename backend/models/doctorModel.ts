@@ -2,7 +2,6 @@ import { Schema, model } from 'mongoose';
 import bcrypt from 'bcryptjs';
 import Doctor from '../entities/doctor';
 
-
 // Create a Schema corresponding to the document interface.
 const doctorSchema = new Schema<Doctor>({
   userId: { type: String, required: true },
@@ -24,7 +23,7 @@ const doctorSchema = new Schema<Doctor>({
   status: { type: String, required: false },
   checkups: { type: [], required: false },
   appointments: { type: [], required: false },
-  location: {type: Location , required: false},
+  location: Object, 
 },
 {
   timestamps: true,

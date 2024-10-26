@@ -1,4 +1,3 @@
-import Location from './location';
 
 export default interface Patient{
     // User id, different than doctor's id
@@ -21,5 +20,5 @@ export default interface Patient{
     status: string;
     image: string;
     // Location on the map, i.e. lat and long
-    location: Location;
+    location: object;
 }
