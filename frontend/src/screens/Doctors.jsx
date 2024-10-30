@@ -6,14 +6,13 @@ import { Outlet, Link, useLoaderData } from 'react-router-dom';
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
-  TableHeader,
   TableRow,
-} from "@/components/ui/table"
+  Button, 
+  Typography
+} from "@mui/material/"
 import { GiConsoleController } from 'react-icons/gi';
-import { Button, Typography } from '@mui/material/';
 
 
 const Doctors = () => {
@@ -126,17 +125,17 @@ const Doctors = () => {
       <div id='map' className='m-8 p-5 ml-11 w-auto'></div>
 
       <div>
+        
       <Table className={"w-2/3"}>
-        <TableCaption>A list of nearby available doctors.</TableCaption>
-        <TableHeader>
+        <TableHead>
           <TableRow>
-            <TableHead className="w-[100px]">Name</TableHead>
-            <TableHead className="w-[150px]">Specialization</TableHead>
-            <TableHead className="w-[250px]">Address</TableHead>
-            <TableHead className="text-left w-[100px]">Experience</TableHead>
-            <TableHead className="w-[100px]">Status</TableHead>
+            <TableCell className="w-[100px]">Name</TableCell>
+            <TableCell className="w-[150px]">Specialization</TableCell>
+            <TableCell className="w-[250px]">Address</TableCell>
+            <TableCell className="text-left w-[100px]">Experience</TableCell>
+            <TableCell className="w-[100px]">Status</TableCell>
           </TableRow>
-        </TableHeader>
+        </TableHead>
         <TableBody>
           {doctors && doctors.map((doctor) => (
             <TableRow key={doctor.email}>
