@@ -12,8 +12,6 @@ import {
   Button, 
   Typography
 } from "@mui/material/"
-import { GiConsoleController } from 'react-icons/gi';
-
 
 const Doctors = () => {
   // console.log('Doctors component loaded')
@@ -78,40 +76,7 @@ const Doctors = () => {
     }
     }
     
-    function buildContent(doctor) {
-    const content = document.createElement("div");
-    console.log(`doctor -> ${doctor.email}`)
-    
-    content.classList.add("doctor");
-    content.innerHTML = `
-    <div class="icon">
-    <i aria-hidden="true" class="fa fa-icon fa-${doctor._id}" title="${doctor.name}"></i>
-    <span class="fa-sr-only">${doctor.gender}</span>
-    </div>
-    <div class="details">
-    <div class="price">${doctor.license}</div>
-    <div class="address">${doctor.address}</div>
-    <div class="features">
-    <div>
-      <i aria-hidden="true" class="fa fa-check fa-lg bed" title="bedroom"></i>
-      <span class="fa-sr-only">bedroom</span>
-      <span>${doctor.email}</span>
-    </div>
-    <div>
-      <i aria-hidden="true" class="fa fa-status fa-lg bath" title="bathroom"></i>
-      <span class="fa-sr-only">bathroom</span>
-      <span>${doctor.specialization}</span>
-    </div>
-    <div>
-      <i aria-hidden="true" class="fa fa-dollar fa-lg size" title="size"></i>
-      <span class="fa-sr-only">size</span>
-      <span>${doctor.experience} </span>
-    </div>
-    </div>
-    </div>
-    `;
-    return content;
-    }
+ 
 
  
     
