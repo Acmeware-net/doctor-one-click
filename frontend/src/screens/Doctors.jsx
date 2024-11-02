@@ -51,13 +51,17 @@ const Doctors = () => {
     center,
     mapId: "4504f8b37365c3d0",
     });
-    console.log(` doctor inside initMap -> ${data.doctors}`)
+    console.log(` doctors inside initMap -> ${doctors}`)
     
     for (const doctor of doctors) {
+    console.log(` doctor inside for loop -> ${JSON.stringify(doctor)}`)
+    console.log(` doctor location lat inside for loop -> ${doctor.location.lat}`)
+    console.log(` doctor location lng inside for loop -> ${doctor.location.lng}`)
+
     const AdvancedMarkerElement = new google.maps.marker.AdvancedMarkerElement({
     map,
     content: buildContent(doctor),
-    position: doctor.position,
+    position: doctor.location,
     title: doctor.status,
     });
     
@@ -76,7 +80,40 @@ const Doctors = () => {
     }
     }
     
- 
+    function buildContent(property) {
+      const content = document.createElement("div");
+    
+      content.classList.add("property");
+      content.innerHTML = `
+        <div class="icon">
+            <i aria-hidden="true" class="fa fa-icon fa-${property.type}" title="${property.type}"></i>
+            <span class="fa-sr-only">${property.name}</span>
+        </div>
+        <div class="details">
+            <div class="price">${property.email}</div>
+            <div class="address">${property.address}</div>
+            <div class="features">
+            <div>
+                <i aria-hidden="true" class="fa fa-bed fa-lg bed" title="bedroom"></i>
+                <span class="fa-sr-only">bedroom</span>
+                <span>${property.experience}</span>
+            </div>
+            <div>
+                <i aria-hidden="true" class="fa fa-bath fa-lg bath" title="bathroom"></i>
+                <span class="fa-sr-only">bathroom</span>
+                <span>${property.license}</span>
+            </div>
+            <div>
+                <i aria-hidden="true" class="fa fa-ruler fa-lg size" title="size"></i>
+                <span class="fa-sr-only">size</span>
+                <span>${property.status} ft<sup>2</sup></span>
+            </div>
+            </div>
+        </div>
+        `;
+      return content;
+    }
+    
 
  
     
@@ -87,7 +124,7 @@ const Doctors = () => {
       <Typography variant="h3" component="h2" color="primary" align="center">
         Doctors Nearby
       </Typography>
-      <div id='map' className='m-8 p-5 ml-11 w-auto'></div>
+      <div id='map' className='m-5 p-5 w-3/4'></div>
 
       <div>
         
