@@ -35,6 +35,8 @@ const doctorSchema = new mongoose_1.Schema({
     status: { type: String, required: false },
     checkups: { type: [], required: false },
     appointments: { type: [], required: false },
+    tenantid: { type: String, required: false },
+    tenanttype: { type: String, required: false, default: 'buliding' },
     location: Object,
 }, {
     timestamps: true,

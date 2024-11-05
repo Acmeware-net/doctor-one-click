@@ -80,33 +80,33 @@ const Doctors = () => {
     }
     }
     
-    function buildContent(property) {
+    function buildContent(doctor) {
       const content = document.createElement("div");
-    
+      console.log(`tenant type -> ${doctor.tenanttype}`)
       content.classList.add("property");
       content.innerHTML = `
         <div class="icon">
-            <i aria-hidden="true" class="fa fa-icon fa-${property.type}" title="${property.type}"></i>
-            <span class="fa-sr-only">${property.name}</span>
+            <i aria-hidden="true" class="fa fa-icon fa-${doctor.tenanttype}" title="${doctor.tenanttype}"></i>
+            <span class="fa-sr-only">${doctor.email}</span>
         </div>
         <div class="details">
-            <div class="price">${property.email}</div>
-            <div class="address">${property.address}</div>
+            <div class="price">Dr. ${doctor.name}</div>
+            <div class="address">${doctor.address}</div>
             <div class="features">
             <div>
-                <i aria-hidden="true" class="fa fa-bed fa-lg bed" title="bedroom"></i>
+                <i aria-hidden="true" class="fa fa-briefcase fa-lg briefcase" title="bedroom"></i>
                 <span class="fa-sr-only">bedroom</span>
-                <span>${property.experience}</span>
+                <span>${doctor.experience}</span>
             </div>
             <div>
-                <i aria-hidden="true" class="fa fa-bath fa-lg bath" title="bathroom"></i>
+                <i aria-hidden="true" class="fa fa-stethoscope fa-lg stethoscope" title="bathroom"></i>
                 <span class="fa-sr-only">bathroom</span>
-                <span>${property.license}</span>
+                <span>${doctor.specialization }</span>
             </div>
             <div>
-                <i aria-hidden="true" class="fa fa-ruler fa-lg size" title="size"></i>
+                <i aria-hidden="true" class="fa fa-dollar fa-lg size" title="size"></i>
                 <span class="fa-sr-only">size</span>
-                <span>${property.status} ft<sup>2</sup></span>
+                <span>${doctor.fee} USD</span>
             </div>
             </div>
         </div>
@@ -131,7 +131,7 @@ const Doctors = () => {
       <Table className={"w-2/3"}>
         <TableHead>
           <TableRow>
-            <TableCell className="w-[100px]">Name</TableCell>
+            <TableCell className="w-[150px]">Name</TableCell>
             <TableCell className="w-[150px]">Specialization</TableCell>
             <TableCell className="w-[250px]">Address</TableCell>
             <TableCell className="text-left w-[100px]">Experience</TableCell>
@@ -141,7 +141,7 @@ const Doctors = () => {
         <TableBody>
           {doctors && doctors.map((doctor) => (
             <TableRow key={doctor.email}>
-              <TableCell className="font-medium">{doctor.name}</TableCell>
+              <TableCell className="font-medium">Dr. {doctor.name}</TableCell>
               <TableCell>{doctor.specialization}</TableCell>
               <TableCell>{doctor.address}</TableCell>
               <TableCell className="text-left">{doctor.experience}</TableCell>

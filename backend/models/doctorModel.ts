@@ -23,6 +23,9 @@ const doctorSchema = new Schema<Doctor>({
   status: { type: String, required: false },
   checkups: { type: [], required: false },
   appointments: { type: [], required: false },
+  tenantid: {type: String, required: false},
+  tenanttype: {type: String, required: false, default:'buliding'},
+  fee: {type: String, required: false},
   location: Object, 
 },
 {
