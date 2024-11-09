@@ -32,6 +32,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import FactCheckIcon from '@mui/icons-material/FactCheck';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import EventIcon from '@mui/icons-material/Event';
+import CirclePointer from '../components/CirclePointer';
 
 
 const drawerWidth = 240;
@@ -590,6 +591,7 @@ const Dashboard = () => {
         <Typography sx={{ marginBottom: 2 }}>
           Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
         </Typography> */}
+        <CirclePointer />
         <Outlet />
       </Box>
     </Box>
