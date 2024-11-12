@@ -17,24 +17,23 @@ const Doctors = () => {
   // console.log('Doctors component loaded')
   const [doctors, setDoctors] = useState([]);
   let { data } = useGetDoctorsQuery();
-  console.log(`inside Doctors() data -> ${data}`)
+  // console.log(`inside Doctors() data -> ${data}`)
   const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-
-
-  if (data === undefined) {
-    console.log('Doctor component and data is undefined')
-  } else {
-    console.log(`First doctor id -> ${data.doctors[0]._id}`)
-  }
+  console.log(`window.location -> ${window.location}`)
+  // if (data === undefined) {
+  //   console.log('Doctor component and data is undefined')
+  // } else {
+  //   console.log(`First doctor id -> ${data.doctors[0]._id}`)
+  // }
 
   useEffect(() => {
     // console.log('useEffect runs')
     if (data !== undefined) {
-      console.log('data is defined')
+      // console.log('data is defined')
       dispatch(addDoctor(data.doctors));
       setDoctors(data.doctors)
-      console.log(doctors)
+      // console.log(doctors)
     }
   }, [data, dispatch]);
 
@@ -42,21 +41,43 @@ const Doctors = () => {
     // Request needed libraries.
     const { Map } = await google.maps.importLibrary("maps");
     const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
-    const lat = userInfo.location !== undefined || null ? userInfo.location.lat : 37.43238031167444;
-    const lng = userInfo.location !== undefined || null ? userInfo.location.lng : -122.16795397128632;
-    console.log(`lat -> ${lat} lng -> ${lng}`)
+    // default lat lng
+    // var lat = 37.43238031167444;
+    // var lng = -122.16795397128632;
+
+    if ("geolocation" in navigator) {
+      /* geolocation is available */
+      console.log('geolocation is available')
+      var lat;
+      var lng;
+      navigator.geolocation.getCurrentPosition((position) => {
+        return position.coords;
+      }).then((data) => {
+
+        console.log(`location -> ${data}`)
+      }).catch((error) => console.log(`error -> ${error}`))
+      
+    } else {
+      /* geolocation IS NOT available */
+      console.log('geolocation is not available')
+       var lat = userInfo.location !== undefined || null ? userInfo.location.lat : lat;
+       var lng = userInfo.location !== undefined || null ? userInfo.location.lng : lng;
+    console.log(`line: 47, lat -> ${lat} lng -> ${lng}`)
+    }
+    console.log(`line: 62, lat -> ${lat} lng -> ${lng}`)
+    
     const center = { lat: lat, lng: lng };
     const map = new Map(document.getElementById("map"), {
     zoom: 11,
     center,
     mapId: "4504f8b37365c3d0",
     });
-    console.log(` doctors inside initMap -> ${doctors}`)
+    // console.log(` doctors inside initMap -> ${doctors}`)
     
     for (const doctor of doctors) {
-    console.log(` doctor inside for loop -> ${JSON.stringify(doctor)}`)
-    console.log(` doctor location lat inside for loop -> ${doctor.location.lat}`)
-    console.log(` doctor location lng inside for loop -> ${doctor.location.lng}`)
+    // console.log(` doctor inside for loop -> ${JSON.stringify(doctor)}`)
+    // console.log(` doctor location lat inside for loop -> ${doctor.location.lat}`)
+    // console.log(` doctor location lng inside for loop -> ${doctor.location.lng}`)
 
     const AdvancedMarkerElement = new google.maps.marker.AdvancedMarkerElement({
     map,
@@ -82,7 +103,7 @@ const Doctors = () => {
     
     function buildContent(doctor) {
       const content = document.createElement("div");
-      console.log(`tenant type -> ${doctor.tenanttype}`)
+      // console.log(`tenant type -> ${doctor.tenanttype}`)
       content.classList.add("property");
       content.innerHTML = `
         <div class="icon">
@@ -124,7 +145,7 @@ const Doctors = () => {
       <Typography variant="h3" component="h2" color="primary" align="center">
         Doctors Nearby
       </Typography>
-      <div id='map' className='m-5 p-5 w-3/4'></div>
+      <div id='map' className='m-5 p-5 w-96' style={{width:75+'%', height:60+'%'}}></div>
 
       <div>
         
