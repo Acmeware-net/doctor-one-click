@@ -30,6 +30,7 @@ const Settings = () => {
   const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
+  const [country, setCountry] = useState('');
   const [zipcode, setZipCode] = useState('');
   const [image, setImage] = useState('');
   const [license, setLicense] = useState('');
@@ -240,25 +241,28 @@ const Settings = () => {
               />
             </div>
 
-            <div>
-            <h6>State</h6>
-            <StateSelect
-                stateid={stateid}
-                onChange={(e) => {
-                    setStateId(e.id);
-                }}
-                placeHolder="Select State"
-            />
-            <h6>City</h6>
-            <CitySelect
-                cityid={cityid}
-                stateid={stateid}
-                onChange={(e) => {
-                    setCityId(e);
-                }}
-                placeHolder="Select City"
-            />
-        </div>
+            
+            <div className='my-1' id='state'>
+              <label className='block mb-2 text-gray-600 font-medium'>State</label>
+              <input
+                type='text'
+                placeholder='e.g. Punjab'
+                value={state}
+                onChange={(e) => setState(e.target.value)}
+                className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
+              />
+            </div>
+
+            <div className='my-1' id='country'>
+              <label className='block mb-2 text-gray-600 font-medium'>Country</label>
+              <input
+                type='text'
+                placeholder='e.g. Saudi Arabia'
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}
+                className=' p-2 rounded-md border border-gray-300 mb-5 transition-all focus:border-blue-400 focus:shadow-md focus:shadow-blue-200'
+              />
+            </div>
 
             <div className='my-1' id='zipcode'>
               <label className='block mb-2 text-gray-600 font-medium'>Zip Code</label>
